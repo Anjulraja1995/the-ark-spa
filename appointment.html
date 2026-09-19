@@ -93,16 +93,59 @@ function updateSubmitState(){
 guestCountEl.addEventListener('change',()=>{renderGuestSelections();updateSubmitState()});
 phoneEl.addEventListener('input',()=>{phoneEl.value=phoneEl.value.replace(/[^0-9+]/g,'').replace(/(?!^)\+/g,'').slice(0,13);updateSubmitState()});
 [dateEl,timeEl].forEach(el=>el.addEventListener('change',updateSubmitState));
-document.getElementById('bookingForm').addEventListener('submit',async e=>{e.preventDefault();const mode=arkData.bookingMode||'both';if(mode==='none'){msgEl.textContent='Booking is currently unavailable.';return}if(!validPhone()){msgEl.textContent='Please enter a valid mobile number first.';phoneEl.focus();return}const n=Math.max(1,Math.min(4,Number(guestCountEl.value)||1));
-let people=[];
-if(n===1){
-  const service=document.getElementById('service')?.value||'', offer=document.getElementById('offer')?.value||'', duration=document.getElementById('duration')?.value||'', s=itemByName(service), o=getActiveOffer(offer), regular=rateForDuration(s,duration);
-  let final=regular,offerRate='',offerPercent='';
-  if(o?.type==='special'){final=Number(o.rate)||0;offerRate=o.rate}else if(o?.type==='percentage'){final=discountedPrice(s,duration,o.percent);offerPercent=o.percent}
-  people=[{person:1,service,offer,duration,regularRate:regular===null?'':formatMoney(regular),finalPrice:final===null?'':formatMoney(final),offerType:o?.type||'',offerRate,offerPercent}];
-}else{
-  const cards=[...guestSelections.querySelectorAll('.guest-card')];
-  if(cards.length!==n||cards.some(c=>!c.querySelector('.guest-service').value||!c.querySelector('.guest-duration').value)){msgEl.textContent='Please select therapy and duration for every person.';return}
-  people=cards.map((card,i)=>{;const total=people.reduce((sum,p)=>sum+(parseFloat(String(p.finalPrice).replace(/[^0-9.]/g,''))||0),0);const d=Object.fromEntries(new FormData(e.target).entries());const data={name:d.name||'',phone:d.phone||'',guestCount:people.length,people,service:people.map(p=>'Person '+p.person+': '+p.service+' ('+p.duration+')').join(' | '),offer:people.map(p=>p.offer||'Regular').join(' | '),selectedDuration:people.map(p=>p.duration).join(' | '),regularRate:people.map(p=>p.regularRate).join(' | '),finalPrice:formatMoney(total),totalAmount:total,status:'Pending',date:d.date,time:d.time,createdAt:new Date().toISOString()};try{if(!window.firebaseReady||!window.db)throw new Error('Firebase unavailable');await db.ref('appointments').push(data);msgEl.textContent='✓ Appointment request received. We will confirm it with you.';e.target.reset();guestCountEl.value='1';selectedOfferName='';selectedServiceName='';renderGuestSelections();updateSubmitState()}catch(err){console.error(err);msgEl.textContent='Could not save online right now. Please use WhatsApp Booking.'}});
+document.getElementById('bookingForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const mode=arkData.bookingMode||'both';
+  if(mode==='none'){msgEl.textContent='Booking is currently unavailable.';return}
+  if(!validPhone()){msgEl.textContent='Please enter a valid mobile number first.';phoneEl.focus();return}
+  const n=Math.max(1,Math.min(4,Number(guestCountEl.value)||1));
+  let people=[];
+  if(n===1){
+    const service=document.getElementById('service')?.value||'';
+    const offer=document.getElementById('offer')?.value||'';
+    const duration=document.getElementById('duration')?.value||'';
+    if(!service||!duration){msgEl.textContent='Please select therapy and duration.';return}
+    const s=itemByName(service), o=getActiveOffer(offer), regular=rateForDuration(s,duration);
+    let final=regular,offerRate='',offerPercent='';
+    if(o?.type==='special'){final=Number(o.rate)||0;offerRate=o.rate}
+    else if(o?.type==='percentage'){final=discountedPrice(s,duration,o.percent);offerPercent=o.percent}
+    people=[{person:1,service,offer,duration,regularRate:regular===null?'':formatMoney(regular),finalPrice:final===null?'':formatMoney(final),offerType:o?.type||'',offerRate,offerPercent}];
+  }else{
+    const cards=[...guestSelections.querySelectorAll('.guest-card')];
+    if(cards.length!==n||cards.some(c=>!c.querySelector('.guest-service').value||!c.querySelector('.guest-duration').value)){
+      msgEl.textContent='Please select therapy and duration for every person.';return
+    }
+    people=cards.map((card,i)=>{
+      const service=card.querySelector('.guest-service').value;
+      const offer=card.querySelector('.guest-offer').value;
+      const duration=card.querySelector('.guest-duration').value;
+      const s=itemByName(service), o=getActiveOffer(offer), regular=rateForDuration(s,duration);
+      let final=regular,offerRate='',offerPercent='';
+      if(o?.type==='special'){final=Number(o.rate)||0;offerRate=o.rate}
+      else if(o?.type==='percentage'){final=discountedPrice(s,duration,o.percent);offerPercent=o.percent}
+      return {person:i+1,service,offer,duration,regularRate:regular===null?'':formatMoney(regular),finalPrice:final===null?'':formatMoney(final),offerType:o?.type||'',offerRate,offerPercent};
+    });
+  }
+  const total=people.reduce((sum,p)=>sum+(parseFloat(String(p.finalPrice).replace(/[^0-9.]/g,''))||0),0);
+  const d=Object.fromEntries(new FormData(e.target).entries());
+  const data={
+    name:d.name||'',phone:d.phone||'',guestCount:people.length,people,
+    service:people.map(p=>'Person '+p.person+': '+p.service+' ('+p.duration+')').join(' | '),
+    offer:people.map(p=>p.offer||'Regular').join(' | '),
+    selectedDuration:people.map(p=>p.duration).join(' | '),
+    regularRate:people.map(p=>p.regularRate).join(' | '),
+    finalPrice:formatMoney(total),totalAmount:total,status:'Pending',date:d.date,time:d.time,createdAt:new Date().toISOString()
+  };
+  try{
+    if(!window.firebaseReady||!window.db)throw new Error('Firebase unavailable');
+    await db.ref('appointments').push(data);
+    msgEl.textContent='✓ Appointment request received. We will confirm it with you.';
+    e.target.reset();guestCountEl.value='1';selectedOfferName='';selectedServiceName='';
+    renderGuestSelections();updateSubmitState();
+  }catch(err){
+    console.error(err);
+    msgEl.textContent='Could not save online right now. Please use WhatsApp Booking.'
+  }
+});
 async function init(){await initSite();const mode=arkData.bookingMode||'both';if(mode==='whatsapp'){document.getElementById('bookingForm').classList.add('hidden');waDirect.innerHTML='<button class="btn gold" onclick="wa(\'Hello The Ark Spa & Salon, I would like to book an appointment.\')">Open WhatsApp Booking</button>';intro.textContent='WhatsApp booking is enabled. You can open WhatsApp directly.'}else if(mode==='none'){document.getElementById('bookingForm').classList.add('hidden');intro.textContent='Online booking is currently unavailable. Please call or WhatsApp The Ark Spa & Salon.'}renderGuestSelections();updateSubmitState()}init();
 </script></body></html>
