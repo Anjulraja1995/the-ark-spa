@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Portal — The Ark Spa & Salon</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+    body { background:#faf6eb; color:#222; }
+
+    .login-wrapper {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #07412f;
+      padding: 20px;
+    }
+    .login-card {
+      background: #fffdf5;
+      border: 1px solid #e2d2a4;
+      border-radius: 12px;
+      padding: 35px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .login-card h2 { color: #07412f; font-family: Georgia, serif; margin-bottom: 20px; }
+    .login-card input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #e2d2a4;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .login-card button {
+      width: 100%;
+      background: #07412f;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .login-error { color: #ba2635; margin-top: 12px; font-size: 13px; }
+
+    .admin-header {
+      background: #07412f;
+      color: #fff;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #c99738;
+    }
+    .admin-title { font-family: Georgia, serif; font-size: 20px; color: #f4d068; }
+    .btn-logout {
+      background: #ba2635;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .admin-container { padding: 30px 5%; max-width: 1200px; margin: 0 auto; }
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .btn-export {
+      background: #07412f;
+      color: #fff;
+      border: 1px solid #c99738;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-export:hover { background: #04281c; }
+
+    .appointments-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fffdf5;
+      border: 1px solid #e2d2a4;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+    .appointments-table th, .appointments-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #e2d2a4;
+      font-size: 14px;
+    }
+    .appointments-table th { background: #f4efe2; color: #07412f; }
+    .badge-status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .status-Pending { background: #f2c738; color: #111; }
+    .status-Confirmed { background: #25d366; color: #fff; }
+    .status-Cancelled { background: #ba2635; color: #fff; }
+
+    .btn-action {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    .btn-confirm { background: #07412f; color: #fff; }
+    .btn-cancel { background: #ba2635; color: #fff; }
+
+    @media (max-width: 800px) {
+      .appointments-table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginView" class="login-wrapper">
+    <div class="login-card">
+      <h2>Admin Login</h2>
+      <p style="color:#666; font-size:13px; margin-bottom:15px;">The Ark Spa & Salon</p>
+      <input type="email" id="loginEmail" placeholder="Admin Email" required>
+      <input type="password" id="loginPass" placeholder="Password" required>
+      <button onclick="adminLogin()">Login to Dashboard</button>
+      <div id="loginError" class="login-error"></div>
+    </div>
+  </div>
+
+  <div id="dashboardView" style="display:none;">
+    <header class="admin-header">
+      <div class="admin-title">THE ARK SPA & SALON — ADMIN DASHBOARD</div>
+      <button class="btn-logout" onclick="auth.signOut()">Logout</button>
+    </header>
+
+    <main class="admin-container">
+      <div class="action-bar">
+        <h2>Customer Appointments</h2>
+        <button class="btn-export" onclick="exportToExcelCSV()">📥 Download Appointments (Excel/CSV)</button>
+      </div>
+
+      <table class="appointments-table">
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Customer Name</th>
+            <th>Mobile</th>
+            <th>Therapy / Service</th>
+            <th>Guests</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="appointmentListBody">
+          <tr><td colspan="7" style="text-align:center;">Loading appointments...</td></tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <script>
+    let appointmentsData = [];
+
+    function adminLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPass').value;
+      const errBox = document.getElementById('loginError');
+      errBox.textContent = '';
+
+      auth.signInWithEmailAndPassword(email, pass)
+        .catch(err => {
+          errBox.textContent = 'Invalid credentials: ' + err.message;
+        });
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('loginView').style.display = 'none';
+        document.getElementById('dashboardView').style.display = 'block';
+        listenToAppointments();
+      } else {
+        document.getElementById('loginView').style.display = 'grid';
+        document.getElementById('dashboardView').style.display = 'none';
+      }
+    });
+
+    function listenToAppointments() {
+      db.ref('appointments').on('value', snapshot => {
+        appointmentsData = [];
+        const tbody = document.getElementById('appointmentListBody');
+        tbody.innerHTML = '';
+
+        if (!snapshot.exists()) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No appointments found yet.</td></tr>';
+          return;
+        }
+
+        snapshot.forEach(child => {
+          const item = child.val();
+          item.id = child.key;
+          appointmentsData.push(item);
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><b>${item.date || '-'}</b><br><small>${item.time || ''}</small></td>
+            <td><b>${item.name || '-'}</b></td>
+            <td><a href="tel:${item.phone}" style="color:#07412f; font-weight:bold; text-decoration:none;">${item.phone || '-'}</a></td>
+            <td>${item.service || '-'}</td>
+            <td>${item.guests || 1}</td>
+            <td><span class="badge-status status-${item.status || 'Pending'}">${item.status || 'Pending'}</span></td>
+            <td>
+              <button class="btn-action btn-confirm" onclick="updateStatus('${item.id}', 'Confirmed')">Confirm</button>
+              <button class="btn-action btn-cancel" onclick="updateStatus('${item.id}', 'Cancelled')">Cancel</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+    }
+
+    function updateStatus(id, newStatus) {
+      db.ref('appointments/' + id).update({ status: newStatus });
+    }
+
+    function exportToExcelCSV() {
+      if (appointmentsData.length === 0) {
+        alert('No appointment records to export.');
+        return;
+      }
+
+      const headers = ['Booking ID', 'Customer Name', 'Mobile Number', 'Therapy Service', 'Date', 'Time', 'Guests', 'Special Request', 'Status', 'Submitted At'];
+      const rows = appointmentsData.map(a => [
+        a.id || '',
+        a.name || '',
+        a.phone || '',
+        a.service || '',
+        a.date || '',
+        a.time || '',
+        a.guests || 1,
+        (a.request || '').replace(/\n/g, ' '),
+        a.status || 'Pending',
+        a.createdAt || ''
+      ]);
+
+      let csvContent = 'data:text/csv;charset=utf-8,' 
+        + [headers.join(','), ...rows.map(e => e.map(val => `"${String(val).replace(/"/g, '""')}"`).join(','))].join('\n');
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'Ark_Spa_Appointments_' + new Date().toISOString().slice(0,10) + '.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>

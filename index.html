@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Ark Spa & Salon — Reducing Stress · Increasing Relaxation</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+</head>
+<body>
+
+  <header>
+    <a href="#home" class="brand-container">
+      <svg class="logo-icon-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" stroke="#07412f" stroke-width="3" fill="#faf6eb"/>
+        <circle cx="50" cy="50" r="41" stroke="#c99738" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <path d="M50 22 C53 22 55 24 55 27 C55 30 53 32 50 32 C47 32 45 30 45 27 C45 24 47 22 50 22 Z" fill="#07412f"/>
+        <path d="M43 33 C40 36 34 42 34 49 C34 56 38 60 41 62 C37 63 30 67 28 72 C27 75 30 78 35 78 C42 78 47 75 50 75 C53 75 58 78 65 78 C70 78 73 75 72 72 C70 67 63 63 59 62 C62 60 66 56 66 49 C66 42 60 36 57 33 Z" fill="#07412f"/>
+        <circle cx="50" cy="18" r="3" fill="#c99738"/>
+      </svg>
+      <div class="brand-text">
+        <span class="brand-title">THE ARK</span>
+        <span class="brand-subtitle">SPA & SALON</span>
+      </div>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#menu">Menu</a>
+      <a href="#offers">Offers</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact Us</a>
+      <a href="#booking" class="btn-book-header">Book Appointment</a>
+    </nav>
+
+    <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+  </header>
+
+  <div class="mobile-nav-drawer" id="mobileDrawer">
+    <a href="#home" onclick="toggleMobileNav()">Home</a>
+    <a href="#about" onclick="toggleMobileNav()">About Us</a>
+    <a href="#services" onclick="toggleMobileNav()">Services</a>
+    <a href="#menu" onclick="toggleMobileNav()">Menu</a>
+    <a href="#offers" onclick="toggleMobileNav()">Offers</a>
+    <a href="#gallery" onclick="toggleMobileNav()">Gallery</a>
+    <a href="#contact" onclick="toggleMobileNav()">Contact Us</a>
+    <a href="#booking" onclick="toggleMobileNav()">Book Appointment</a>
+  </div>
+
+  <section id="home" class="hero-section">
+    <div class="hero-content">
+      <div class="hero-welcome">✦ WELCOME TO</div>
+      <h1 class="hero-title">THE ARK<br><em>SPA & SALON</em></h1>
+      <div class="hero-tagline">Reducing Stress • Increasing Relaxation</div>
+      <p class="hero-desc">Escape from the everyday and experience a world of relaxation, rejuvenation and natural healing at The Ark Spa & Salon.</p>
+      <div class="hero-buttons">
+        <a href="tel:9584885121" class="btn-call">📞 Call Now</a>
+        <a href="https://wa.me/919584885121?text=Hello%20The%20Ark%20Spa,%20I%20would%20like%20to%20book%20an%20appointment" target="_blank" class="btn-whatsapp">💬 WhatsApp Now</a>
+      </div>
+    </div>
+    <div class="hero-visual-card">
+      <div class="hero-visual-text">RELAX<br>REJUVENATE<br>REBALANCE</div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Professional therapies for your mind, body and soul</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=500&q=80" alt="Body Massage">
+        <div class="service-body">
+          <h3>Body Massage</h3>
+          <p>Relax your body and release tension with therapeutic strokes.</p>
+          <div class="service-meta">
+            <span class="badge-duration">60 mins</span>
+            <span class="badge-price">₹1,499</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=500&q=80" alt="Facial Treatment">
+        <div class="service-body">
+          <h3>Facial Treatment</h3>
+          <p>Rejuvenate your skin naturally with deep herbal nourishment.</p>
+          <div class="service-meta">
+            <span class="badge-duration">45 mins</span>
+            <span class="badge-price">₹999</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=500&q=80" alt="Head Massage">
+        <div class="service-body">
+          <h3>Head Massage</h3>
+          <p>Relieve stress, headaches and improve calm mental focus.</p>
+          <div class="service-meta">
+            <span class="badge-duration">30 mins</span>
+            <span class="badge-price">₹699</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=500&q=80" alt="Beauty Treatment">
+        <div class="service-body">
+          <h3>Beauty Treatment</h3>
+          <p>Enhance your natural beauty with premium spa care.</p>
+          <div class="service-meta">
+            <span class="badge-duration">60 mins</span>
+            <span class="badge-price">₹1,299</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="section menu-section">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Therapy Menu Card</h2>
+      <p class="section-subtitle">The Origin of Ark Spa · Reducing Stress · Increasing Relaxation</p>
+    </div>
+
+    <div class="menu-category-tabs">
+      <button class="tab-btn active" onclick="filterMenu('all')">All Therapies</button>
+      <button class="tab-btn" onclick="filterMenu('massage')">Massage Therapy</button>
+      <button class="tab-btn" onclick="filterMenu('asian')">Asian Therapy</button>
+      <button class="tab-btn" onclick="filterMenu('foot')">Foot Therapy</button>
+      <button class="tab-btn" onclick="filterMenu('scrub')">Scrubbed Therapy</button>
+    </div>
+
+    <div class="menu-items-container" id="menuContainer">
+      <div class="menu-item-row" data-cat="massage">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Deep Tissue Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,499 / ₹4,499</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">A strong full body massage releasing deep, muscular soreness and tension.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="massage">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Swedish Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,499 / ₹4,499</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Traditional European full body massage techniques applied to relax aching muscles, stimulate circulation and eliminate toxins.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="massage">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Aromatic Relaxation Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,499 / ₹4,499</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Light-pressured massage using long, soothing strokes and pure essential aromatherapy oils to achieve total calm.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="massage">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Lomi Lomi Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,299 / ₹4,299</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Traditional Hawaiian loving hands massage with wave-like movements and aromatic jasmine oils.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="massage">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Jet Log Recovery</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,499 / ₹4,499</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Rebalancing body massage with aromatherapy oil to revive circulation, head massage and herbal tea.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="asian">
+        <div class="menu-item-header">
+          <span class="menu-item-name">The Ark Spa Signature Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,499 / ₹4,499</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Warm Asian bamboo technique relieving deep tension in back, neck and legs with optimal pressure.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="asian">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Thai Herbal Oil Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">90/120 mins</span>
+            <span class="badge-price">₹4,999 / ₹6,999</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Energising full body oil massage utilising heated herbal poultices (wild turmeric, lemongrass, cinnamon, tamarind).</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="asian">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Thai Traditional Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,899 / ₹4,899</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Gentle stretching and pressure points along body energy channels to re-awaken vital energy flow.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="asian">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Vietnamese Hot Stone Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">120/180 mins</span>
+            <span class="badge-price">₹7,999 / ₹9,999</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Traditional pressure point technique with heated smooth suction stones to deeply relax muscles.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="asian">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Couples Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">120 mins</span>
+            <span class="badge-price">₹9,999</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Side-by-side couples luxury aromatic relaxation or Swedish tonic massage.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="foot">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Detox Foot Therapy</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">30/60 mins</span>
+            <span class="badge-price">₹1,499 / ₹2,299</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Organic myrtle salt water soak, exfoliation, detoxifying myrtle clay mask leaving feet silky smooth.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="foot">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Detox Abdominal Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">45/60 mins</span>
+            <span class="badge-price">₹2,499 / ₹2,999</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Targeted abdominal techniques releasing tension over navel area and stimulating vital digestive organs.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="scrub">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Body Polishing & Therapy</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,599 / ₹5,099</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Complete skin exfoliation, hydration, refreshing shower and nourishing body lotion treatment.</p>
+      </div>
+
+      <div class="menu-item-row" data-cat="scrub">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Balinese Massage</span>
+          <div class="menu-item-pricing">
+            <span class="badge-duration">60/90 mins</span>
+            <span class="badge-price">₹3,299 / ₹4,299</span>
+          </div>
+        </div>
+        <p class="menu-item-desc">Aroma therapy using fresh cedar sprigs, weighted calming blanket and head relaxation massage.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="offers" class="special-offers-strip">
+    <div class="offer-label">
+      <span class="offer-icon">🏷️</span>
+      <div>
+        <h3 style="font-family: Georgia, serif; font-size: 22px;">Special Offers</h3>
+        <p style="color: #e0ece4; font-size: 13px;">Pamper Yourself for Less · Look Good, Feel Better</p>
+      </div>
+    </div>
+    <div class="offer-badge">Flat 20% OFF on All Services</div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>About Us</h3>
+        <p>The Ark Spa & Salon is a sanctuary of wellness, beauty and tranquility. We offer a wide range of spa and salon services crafted to relax your mind, rejuvenate your body and bring out your natural glow.</p>
+        <p style="margin-top: 12px; font-size: 13px; color: var(--text-muted);">Inspired by ancient Indian healing wisdom, we believe that wellness nurtures one's life force through genuine holistic care.</p>
+      </div>
+
+      <div class="about-card">
+        <h3>Why Choose Us</h3>
+        <ul class="why-list">
+          <li><span class="check">✔</span> Experienced & Certified Therapists</li>
+          <li><span class="check">✔</span> Premium Natural Herbal Products</li>
+          <li><span class="check">✔</span> Hygienic & Serene Environment</li>
+          <li><span class="check">✔</span> Personalized Care & Individual Attention</li>
+          <li><span class="check">✔</span> Complete Holistic Wellness Solutions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-strip">
+    <div class="stat-item">
+      <h4>500+</h4>
+      <p>Happy Clients</p>
+    </div>
+    <div class="stat-item">
+      <h4>4.8/5</h4>
+      <p>Client Ratings</p>
+    </div>
+    <div class="stat-item">
+      <h4>5+</h4>
+      <p>Years of Excellence</p>
+    </div>
+    <div class="stat-item">
+      <h4>100%</h4>
+      <p>Satisfaction Guaranteed</p>
+    </div>
+  </div>
+
+  <section id="gallery" class="section">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Our Gallery</h2>
+      <p class="section-subtitle">Moments of Relaxation, Beauty and Wellness</p>
+    </div>
+
+    <div class="gallery-grid">
+      <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=500&q=80" alt="Spa Ambience">
+      <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=500&q=80" alt="Massage Room">
+      <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=500&q=80" alt="Aromatherapy Oils">
+      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=500&q=80" alt="Facial Care">
+      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80" alt="Relaxation Lounge">
+    </div>
+  </section>
+
+  <section id="booking" class="section booking-section">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Book Your Appointment</h2>
+      <p class="section-subtitle">Select your therapy and preferred time slot</p>
+    </div>
+
+    <div class="booking-form-box">
+      <form id="appointmentForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" name="name" required placeholder="Enter full name">
+          </div>
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" name="phone" required placeholder="10-digit mobile number">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Select Therapy *</label>
+            <select name="service" required>
+              <option value="Body Massage (60 mins - ₹1,499)">Body Massage (60 mins - ₹1,499)</option>
+              <option value="Deep Tissue Massage (60/90 mins - ₹3,499/4,499)">Deep Tissue Massage (60/90 mins)</option>
+              <option value="Swedish Massage (60/90 mins - ₹3,499/4,499)">Swedish Massage (60/90 mins)</option>
+              <option value="Aromatic Relaxation (60/90 mins - ₹3,499/4,499)">Aromatic Relaxation (60/90 mins)</option>
+              <option value="The Ark Signature Bamboo (60/90 mins - ₹3,499/4,499)">The Ark Signature Bamboo</option>
+              <option value="Thai Herbal Oil Massage (90/120 mins - ₹4,999/6,999)">Thai Herbal Oil Massage</option>
+              <option value="Vietnamese Hot Stone (120/180 mins - ₹7,999/9,999)">Vietnamese Hot Stone</option>
+              <option value="Couples Massage (120 mins - ₹9,999)">Couples Massage (120 mins)</option>
+              <option value="Detox Foot Therapy (30/60 mins - ₹1,499/2,299)">Detox Foot Therapy</option>
+              <option value="Facial Treatment (45 mins - ₹999)">Facial Treatment (45 mins)</option>
+              <option value="Head Massage (30 mins - ₹699)">Head Massage (30 mins)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Guests / Persons</label>
+            <input type="number" name="guests" min="1" max="10" value="1">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preferred Date *</label>
+            <input type="date" name="date" required>
+          </div>
+          <div class="form-group">
+            <label>Preferred Time *</label>
+            <input type="time" name="time" required>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label>Special Requests or Instructions</label>
+          <textarea name="request" rows="3" placeholder="Any specific requirements..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit-booking" id="submitBtn">Confirm & Submit Booking</button>
+        <div id="bookingStatus" class="booking-msg"></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-subtitle">We're here to help you look and feel your best</p>
+    </div>
+
+    <div class="contact-boxes">
+      <div class="contact-card">
+        <div class="icon">📞</div>
+        <h4>Call Us</h4>
+        <p><a href="tel:9584885121">+91 95848 85121</a></p>
+      </div>
+
+      <div class="contact-card">
+        <div class="icon">💬</div>
+        <h4>WhatsApp</h4>
+        <p><a href="https://wa.me/919584885121" target="_blank">+91 95848 85121</a></p>
+      </div>
+
+      <div class="contact-card">
+        <div class="icon">📍</div>
+        <h4>Our Location</h4>
+        <p>Shop no. 30, 2nd Floor, Malhar Mall, Vijay Nagar, Indore</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand">The Ark Spa & Salon</div>
+    <p>Shop no. 30, 2nd Floor, Malhar Mall, Vijay Nagar, Indore · Mobile: 9584885121</p>
+    <p>© 2026 The Ark Spa & Salon. All rights reserved. · Beauty · Wellness · Rebalance</p>
+  </footer>
+
+  <div class="mobile-bottom-bar">
+    <a href="tel:9584885121" class="btn-mob-call">📞 Call Now</a>
+    <a href="https://wa.me/919584885121" target="_blank" class="btn-mob-wa">💬 WhatsApp</a>
+    <a href="#booking" class="btn-mob-book">📅 Book</a>
+  </div>
+
+  <script>
+    function toggleMobileNav() {
+      const drawer = document.getElementById('mobileDrawer');
+      drawer.classList.toggle('active');
+    }
+
+    function filterMenu(category) {
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const items = document.querySelectorAll('.menu-item-row');
+      items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-cat') === category) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    const bookingForm = document.getElementById('appointmentForm');
+    const statusMsg = document.getElementById('bookingStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    bookingForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Saving Booking...';
+
+      const formData = new FormData(bookingForm);
+      const appointmentData = {
+        name: formData.get('name'),
+        phone: formData.get('phone'),
+        service: formData.get('service'),
+        guests: formData.get('guests') || 1,
+        date: formData.get('date'),
+        time: formData.get('time'),
+        request: formData.get('request') || '',
+        status: 'Pending',
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const newRef = db.ref('appointments').push();
+        await newRef.set(appointmentData);
+        statusMsg.style.color = '#07412f';
+        statusMsg.textContent = '✓ Booking received successfully! We will call you shortly to confirm.';
+        bookingForm.reset();
+      } catch (err) {
+        console.error('Firebase save error:', err);
+        statusMsg.style.color = '#ba2635';
+        statusMsg.textContent = '⚠ Could not save automatically. Please WhatsApp us at 9584885121.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Confirm & Submit Booking';
+      }
+    });
+  </script>
+</body>
+</html>

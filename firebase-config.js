@@ -1,0 +1,14 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyDnTMXyLh8BnPVFYb_x2IY-4LaN22NCbt0",
+  authDomain: "the-ark-spa-salon.firebaseapp.com",
+  databaseURL: "https://the-ark-spa-salon-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "the-ark-spa-salon",
+  storageBucket: "the-ark-spa-salon.firebasestorage.app",
+  messagingSenderId: "10068639234",
+  appId: "1:10068639234:web:edc0078842272eec86311b",
+  measurementId: "G-3T92CW6QQD"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const auth = firebase.auth();
