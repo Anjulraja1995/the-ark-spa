@@ -17,3 +17,7 @@
 /* Offer card booking buttons: keep actions aligned at the bottom of every offer card */
 .service-detail{display:flex;flex-direction:column;}
 .service-detail .btn{margin-top:auto;align-self:flex-start;}
+
+
+/* Compact appointment admin table */
+.appointment-table th,.appointment-table td{padding:8px 9px;vertical-align:middle;white-space:nowrap}.appointment-table td:nth-child(2),.appointment-table td:nth-child(4),.appointment-table td:nth-child(5),.appointment-table td:nth-child(6){white-space:normal}.appointment-phone{display:flex;align-items:center;gap:6px}.appointment-phone .phone-link{font-weight:800;color:var(--green);white-space:nowrap}.copy-phone{padding:6px 9px;font-size:11px}
