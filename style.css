@@ -12,3 +12,8 @@
 
 @media (max-width:900px){.hero{min-height:590px;background-position:right center;background-size:auto 100%;}.hero:after{background:linear-gradient(90deg,rgba(2,28,19,.94) 0%,rgba(2,28,19,.72) 48%,rgba(2,28,19,.18) 100%);}}
 @media (max-width:560px){.hero{min-height:640px;background-position:78% center;background-size:auto 100%;padding:55px 6%;}.hero-content{max-width:100%;}.hero-title{font-size:clamp(44px,15vw,64px);}.hero-tagline{font-size:19px;}}
+
+
+/* Offer card booking buttons: keep actions aligned at the bottom of every offer card */
+.service-detail{display:flex;flex-direction:column;}
+.service-detail .btn{margin-top:auto;align-self:flex-start;}
