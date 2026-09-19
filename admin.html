@@ -12,7 +12,12 @@
 
 </div>
 <div id="appointmentsPanel" class="admin-panel hidden"><div class="admin-section-card"><button class="section-toggle"><span><h2>Booking Mode</h2><span class="sub">Controls how appointment booking works</span></span><span class="chev">⌄</span></button><div class="admin-section-content"><div class="form" style="max-width:650px"><label>Booking Mode</label><select id="bookingMode"><option value="both">Both — Website Booking + WhatsApp Booking</option><option value="whatsapp">WhatsApp Only</option><option value="website">Website Appointment Only</option><option value="none">Off</option></select><button class="btn primary" id="saveBooking">Save Booking Mode</button><div id="bookingMsg" class="status hidden"></div></div></div></div><div class="admin-section-card"><button class="section-toggle"><span><h2>Appointments</h2><span class="sub">View, confirm/cancel and export</span></span><span class="chev">⌄</span></button><div class="admin-section-content"><div class="admin-actions" style="justify-content:space-between;align-items:center"><div><strong id="appointmentCount" style="color:var(--green)">0 Appointments</strong><div class="admin-note">New bookings appear automatically.</div></div><div class="admin-actions"><button class="btn" id="refreshAppointments">Refresh</button><button class="btn" id="exportAppointments">Download CSV</button></div></div><div class="appointments-list" id="appointmentRows" style="margin-top:15px"></div></div></div></div>
-<div id="recoveryPanel" class="admin-panel hidden"><div class="admin-section-card"><button class="section-toggle"><span><h2>Recovery & Reset</h2><span class="sub">Approved Ark state, not blank factory defaults</span></span><span class="chev">⌄</span></button><div class="admin-section-content"><div class="backup-grid"><div class="backup-card"><h3>Backup</h3><p>Download current site data before a major change.</p><button class="btn" id="backupBtn">Download JSON Backup</button></div><div class="backup-card"><h3>Reset Rates</h3><p>Restore only the approved menu rates/categories.</p><button class="btn danger" id="resetRates">Reset Rates</button></div><div class="backup-card"><h3>Reset Offers</h3><p>Remove saved offers only.</p><button class="btn danger" id="resetOffers">Reset Offers</button></div><div class="backup-card"><h3>Reset Gallery</h3><p>Restore the approved starting gallery only.</p><button class="btn danger" id="resetGallery">Reset Gallery</button></div><div class="backup-card"><h3>Restore Approved Site</h3><p>Restore editable controls to the approved working Ark defaults.</p><button class="btn danger" id="restoreApproved">Restore Approved Defaults</button></div></div><div id="recoveryMsg" class="status hidden" style="margin-top:14px"></div></div></div></div>
+<div id="appointmentViewModal" class="appointment-view-modal hidden" role="dialog" aria-modal="true" aria-labelledby="appointmentViewTitle">
+  <div class="appointment-view-card">
+    <div class="appointment-view-head"><div><span class="appointment-label">APPOINTMENT DETAILS</span><h2 id="appointmentViewTitle">Booking Details</h2></div><button class="smallbtn" type="button" onclick="closeAppointmentView()">✕</button></div>
+    <div id="appointmentViewBody" class="appointment-view-body"></div>
+  </div>
+</div><div id="recoveryPanel" class="admin-panel hidden"><div class="admin-section-card"><button class="section-toggle"><span><h2>Recovery & Reset</h2><span class="sub">Approved Ark state, not blank factory defaults</span></span><span class="chev">⌄</span></button><div class="admin-section-content"><div class="backup-grid"><div class="backup-card"><h3>Backup</h3><p>Download current site data before a major change.</p><button class="btn" id="backupBtn">Download JSON Backup</button></div><div class="backup-card"><h3>Reset Rates</h3><p>Restore only the approved menu rates/categories.</p><button class="btn danger" id="resetRates">Reset Rates</button></div><div class="backup-card"><h3>Reset Offers</h3><p>Remove saved offers only.</p><button class="btn danger" id="resetOffers">Reset Offers</button></div><div class="backup-card"><h3>Reset Gallery</h3><p>Restore the approved starting gallery only.</p><button class="btn danger" id="resetGallery">Reset Gallery</button></div><div class="backup-card"><h3>Restore Approved Site</h3><p>Restore editable controls to the approved working Ark defaults.</p><button class="btn danger" id="restoreApproved">Restore Approved Defaults</button></div></div><div id="recoveryMsg" class="status hidden" style="margin-top:14px"></div></div></div></div>
 </div>
 <script>
 let currentRateCategory='Full Body Massage', currentRateName='';
@@ -52,6 +57,34 @@ function showOfferMsg(type,msg){const el=$(type==='percentage'?'pctMsg':'spMsg')
 async function toggleOffer(i,v){const offers=arkData.offers||[];if(offers[i]){await saveOfferRecord(offers[i].type,{...offers[i],active:!!v});renderOffers()}}
 async function deleteOffer(i){if(!confirm('Delete this offer?'))return;const offers=[...(arkData.offers||[])];const o=offers[i];if(!o)return;await db.ref('siteContent/offers/'+o.type).remove();arkData.offers=offers.filter((_,n)=>n!==i);renderOffers()}
 let appointmentsListener=null;
+function formatBookedOn(value){
+  if(!value)return '—';
+  const d=new Date(value);
+  if(Number.isNaN(d.getTime()))return escapeHtml(String(value));
+  return escapeHtml(d.toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}));
+}
+function appointmentDetailHtml(a){
+  const people=Array.isArray(a.people)?a.people:[];
+  const rows=people.length?people.map(p=>'<div class="appointment-detail-person"><strong>Person '+escapeHtml(String(p.person||''))+'</strong><span>Service: '+escapeHtml(p.service||'—')+'</span><span>Duration: '+escapeHtml(p.duration||'—')+'</span><span>Offer: '+escapeHtml(p.offer||'Regular')+'</span><span>Final Rate: '+escapeHtml(p.finalPrice||'—')+'</span></div>').join(''):'<div class="appointment-detail-person"><span>Service: '+escapeHtml(a.service||'—')+'</span><span>Duration: '+escapeHtml(a.selectedDuration||a.duration||'—')+'</span><span>Offer: '+escapeHtml(a.offer||'Regular')+'</span><span>Final Rate: '+escapeHtml(a.finalPrice||a.totalAmount||a.regularRate||'—')+'</span></div>';
+  return '<div class="appointment-detail-grid">'+
+    '<div><span class="appointment-label">BOOKED ON</span><strong>'+formatBookedOn(a.createdAt)+'</strong></div>'+
+    '<div><span class="appointment-label">APPOINTMENT DATE</span><strong>'+escapeHtml(a.date||'—')+'</strong></div>'+
+    '<div><span class="appointment-label">APPOINTMENT TIME</span><strong>'+escapeHtml(a.time||'—')+'</strong></div>'+
+    '<div><span class="appointment-label">CUSTOMER</span><strong>'+escapeHtml(a.name||'—')+'</strong></div>'+
+    '<div><span class="appointment-label">PEOPLE</span><strong>'+escapeHtml(String(a.guestCount||people.length||1))+' Person(s)</strong></div>'+
+    '<div><span class="appointment-label">PHONE</span><a class="phone-link" href="tel:'+escapeAttr(String(a.phone||''))+'">'+escapeHtml(a.phone||'—')+'</a></div>'+
+    '<div><span class="appointment-label">STATUS</span><strong>'+escapeHtml(a.status||'Pending')+'</strong></div>'+
+    '<div><span class="appointment-label">TOTAL</span><strong>'+escapeHtml(String(a.finalPrice||a.totalAmount||a.regularRate||'—'))+'</strong></div>'+
+  '</div><div class="appointment-detail-services"><span class="appointment-label">FULL SERVICE DETAILS</span>'+people+'</div>';
+}
+function viewAppointment(id){
+  const a=(window.appointmentsData||[]).find(x=>x.id===id);
+  if(!a)return;
+  appointmentViewTitle.textContent=(a.name?String(a.name):'Appointment')+' — Details';
+  appointmentViewBody.innerHTML=appointmentDetailHtml(a);
+  appointmentViewModal.classList.remove('hidden');
+}
+function closeAppointmentView(){appointmentViewModal.classList.add('hidden')}
 function renderAppointments(rows){
   rows=Array.isArray(rows)?rows:[];
   rows.sort((a,b)=>{const ac=String(a.createdAt||'');const bc=String(b.createdAt||'');if(ac&&bc){const d=ac.localeCompare(bc);if(d)return d}if(ac&&!bc)return -1;if(!ac&&bc)return 1;return String(a.id||'').localeCompare(String(b.id||''));});
@@ -60,22 +93,15 @@ function renderAppointments(rows){
   appointmentRows.innerHTML=rows.map((a,index)=>{
     const phone=String(a.phone||'');
     const people=Array.isArray(a.people)?a.people:[];
-    const serviceHtml=people.length?people.map(p=>'<div><b>Person '+escapeHtml(String(p.person))+':</b> '+escapeHtml(p.service||'')+'</div>').join(''):escapeHtml(a.service||'');
-    const durationHtml=people.length?people.map(p=>'<div>'+escapeHtml(p.duration||'')+'</div>').join(''):escapeHtml(a.selectedDuration||a.duration||'');
-    const offerHtml=people.length?people.map(p=>'<div>'+escapeHtml(p.offer||'Regular')+'</div>').join(''):escapeHtml(a.offer||'Regular');
-    const rateHtml=people.length?people.map(p=>'<div><b>Person '+escapeHtml(String(p.person))+': '+escapeHtml(p.finalPrice||'')+'</b></div>').join('')+'<div class="appointment-total">Total: '+escapeHtml(String(a.finalPrice||a.totalAmount||''))+'</div>':'<strong>'+escapeHtml(String(a.finalPrice||a.totalAmount||a.regularRate||''))+'</strong>';
     return '<div class="appointment-row">'+
       '<div class="appointment-no">'+(index+1)+'</div>'+
-      '<div><span class="appointment-label">DATE</span><strong>'+escapeHtml(a.date||'')+'</strong></div>'+
-      '<div><span class="appointment-label">TIME</span><strong>'+escapeHtml(a.time||'')+'</strong></div>'+
-      '<div><span class="appointment-label">CUSTOMER</span><strong>'+escapeHtml(a.name||'')+'</strong><small>'+escapeHtml(String(a.guestCount||people.length||1))+' Person(s)</small></div>'+
-      '<div><span class="appointment-label">PHONE</span><a class="phone-link" href="tel:'+escapeAttr(phone)+'">'+escapeHtml(phone)+'</a><button class="smallbtn copy-phone" type="button" onclick="copyAppointmentPhone(\''+escapeAttr(a.id)+'\',this)">Copy</button></div>'+
-      '<div><span class="appointment-label">SERVICE</span>'+serviceHtml+'</div>'+
-      '<div><span class="appointment-label">DURATION</span>'+durationHtml+'</div>'+
-      '<div><span class="appointment-label">OFFER</span>'+offerHtml+'</div>'+
-      '<div><span class="appointment-label">FINAL RATE</span>'+rateHtml+'</div>'+
+      '<div><span class="appointment-label">BOOKED ON</span><strong>'+formatBookedOn(a.createdAt)+'</strong></div>'+
+      '<div><span class="appointment-label">APPOINTMENT DATE</span><strong>'+escapeHtml(a.date||'—')+'</strong></div>'+
+      '<div><span class="appointment-label">TIME</span><strong>'+escapeHtml(a.time||'—')+'</strong></div>'+
+      '<div><span class="appointment-label">CUSTOMER</span><strong>'+escapeHtml(a.name||'—')+'</strong><small>'+escapeHtml(String(a.guestCount||people.length||1))+' Person(s)</small></div>'+
+      '<div><span class="appointment-label">PHONE</span><a class="phone-link" href="tel:'+escapeAttr(phone)+'">'+escapeHtml(phone||'—')+'</a><button class="smallbtn copy-phone" type="button" onclick="copyAppointmentPhone(\''+escapeAttr(a.id)+'\',this)">Copy</button></div>'+
       '<div><span class="appointment-label">STATUS</span><strong>'+escapeHtml(a.status||'Pending')+'</strong></div>'+
-      '<div class="appointment-actions"><button class="smallbtn" onclick="setAppointmentStatus(\''+escapeAttr(a.id)+'\',\'Confirmed\')">Confirm</button><button class="smallbtn danger" onclick="setAppointmentStatus(\''+escapeAttr(a.id)+'\',\'Cancelled\')">Cancel</button><button class="smallbtn danger" type="button" onclick="deleteAppointment(\''+escapeAttr(a.id)+'\')">🗑</button></div>'+
+      '<div class="appointment-actions"><button class="smallbtn primary" type="button" onclick="viewAppointment(\''+escapeAttr(a.id)+'\')">View</button><button class="smallbtn" onclick="setAppointmentStatus(\''+escapeAttr(a.id)+'\',\'Confirmed\')">Confirm</button><button class="smallbtn danger" onclick="setAppointmentStatus(\''+escapeAttr(a.id)+'\',\'Cancelled\')">Cancel</button><button class="smallbtn danger" type="button" onclick="deleteAppointment(\''+escapeAttr(a.id)+'\')">🗑</button></div>'+
     '</div>';
   }).join('')||'<div class="appointment-empty">No appointments yet.</div>';
 }
