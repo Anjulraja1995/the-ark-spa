@@ -62,7 +62,26 @@ function refreshSingleRate(){
   else if(o?.type==='percentage'){final=discountedPrice(s,duration.value,o.percent);txt=(regular===null||final===null)?'Rate not supplied':formatMoney(final)+' ('+o.percent+'% OFF)'}
   out.innerHTML='Final Rate: <b>'+escapeHtml(txt)+'</b>'+(o?'<br>Offer: <b>'+escapeHtml(o.title||'Offer')+'</b>':'');
 }
-(){guestSelections.querySelectorAll('.guest-service').forEach(el=>el.addEventListener('change',()=>{const card=el.closest('.guest-card');const offer=card.querySelector('.guest-offer');offer.innerHTML=offerOptions('',el.value);card.querySelector('.guest-duration').innerHTML=durationOptions(el.value,'');refreshAllGuestRates();updateSubmitState()}));guestSelections.querySelectorAll('.guest-offer').forEach(el=>el.addEventListener('change',()=>{const card=el.closest('.guest-card'),svc=card.querySelector('.guest-service').value;card.querySelector('.guest-duration').innerHTML=durationOptions(svc,el.value);refreshAllGuestRates();updateSubmitState()}));guestSelections.querySelectorAll('.guest-duration').forEach(el=>el.addEventListener('change',()=>{refreshAllGuestRates();updateSubmitState()}))}
+function bindGuestEvents(){
+  guestSelections.querySelectorAll('.guest-service').forEach(el=>el.addEventListener('change',()=>{
+    const card=el.closest('.guest-card');
+    const offer=card.querySelector('.guest-offer');
+    offer.innerHTML=offerOptions('',el.value);
+    card.querySelector('.guest-duration').innerHTML=durationOptions(el.value,'');
+    refreshAllGuestRates();
+    updateSubmitState();
+  }));
+  guestSelections.querySelectorAll('.guest-offer').forEach(el=>el.addEventListener('change',()=>{
+    const card=el.closest('.guest-card'),svc=card.querySelector('.guest-service').value;
+    card.querySelector('.guest-duration').innerHTML=durationOptions(svc,el.value);
+    refreshAllGuestRates();
+    updateSubmitState();
+  }));
+  guestSelections.querySelectorAll('.guest-duration').forEach(el=>el.addEventListener('change',()=>{
+    refreshAllGuestRates();
+    updateSubmitState();
+  }));
+}
 function refreshAllGuestRates(){
   let total=0;
   guestSelections.querySelectorAll('.guest-card').forEach(card=>{
@@ -89,7 +108,7 @@ function updateSubmitState(){
   dateEl.disabled=!ready;
   timeEl.disabled=!ready;
   submitEl.disabled=!(validPhone()&&ready&&dateEl.value&&timeEl.value);
-}(){const cards=[...guestSelections.querySelectorAll('.guest-card')],ready=cards.length&&cards.every(c=>c.querySelector('.guest-service')?.value&&c.querySelector('.guest-duration')?.value);dateEl.disabled=!ready;timeEl.disabled=!ready;submitEl.disabled=!(validPhone()&&ready&&dateEl.value&&timeEl.value)}
+
 guestCountEl.addEventListener('change',()=>{renderGuestSelections();updateSubmitState()});
 phoneEl.addEventListener('input',()=>{phoneEl.value=phoneEl.value.replace(/[^0-9+]/g,'').replace(/(?!^)\+/g,'').slice(0,13);updateSubmitState()});
 [dateEl,timeEl].forEach(el=>el.addEventListener('change',updateSubmitState));
