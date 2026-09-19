@@ -24,7 +24,7 @@ function eligibleServicesForOffer(offer){
   return menu;
 }
 function offersForService(name){return name?getApplicableOffers(name):getActiveOffers()}
-function offerLabel(o){if(o.type==='percentage')return String(o.percent)+'% OFF';if(o.type==='special')return formatMoney(o.rate)+' · '+String(o.duration||'');return ''}
+function offerLabel(o){if(o.type==='percentage')return String(o.percent)+'% OFF';if(o.type==='special')return formatMoney(o.rate);return ''}
 function serviceOptions(selected,offer){
   const o=getActiveOffer(offer);
   const items=o?eligibleServicesForOffer(o):(arkData.menu||[]);
