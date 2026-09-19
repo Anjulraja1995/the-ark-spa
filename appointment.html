@@ -6,10 +6,31 @@ function itemByName(n){return (arkData.menu||[]).find(x=>x.name===n)}
 function normalizedPhone(){const raw=String(phoneEl.value||'').trim(),digits=raw.replace(/\D/g,'');return digits.startsWith('91')&&digits.length===12?digits.slice(2):digits}
 function validPhone(){return /^[6-9][0-9]{9}$/.test(normalizedPhone())}
 function escapeValue(v){return escapeAttr(v)}
-function getActiveOffer(title){return (arkData.offers||[]).find(x=>x.active&&x.title===title)}
+function getActiveOffer(title){
+  const wanted=String(title||'').trim();
+  return (arkData.offers||[]).find(x=>x.active&&String(x.title||'').trim()===wanted) || null;
+}
+function eligibleServicesForOffer(offer){
+  const o=offer&&typeof offer==='object'?offer:getActiveOffer(offer);
+  const menu=arkData.menu||[];
+  if(!o)return menu;
+  const scope=o.scopeType||o.scope||'all';
+  if(scope==='all'||scope==='all-menu-rates')return menu;
+  if(scope==='category')return menu.filter(x=>x.category===o.category);
+  if(scope==='services'){
+    const names=new Set((o.serviceNames||[]).map(x=>String(x||'').trim()));
+    return menu.filter(x=>names.has(String(x.name||'').trim()));
+  }
+  return menu;
+}
 function offersForService(name){return name?getApplicableOffers(name):getActiveOffers()}
 function offerLabel(o){if(o.type==='percentage')return String(o.percent)+'% OFF';if(o.type==='special')return formatMoney(o.rate)+' · '+String(o.duration||'');return ''}
-function serviceOptions(selected,offer){const o=getActiveOffer(offer);const items=(arkData.menu||[]).filter(x=>!o||o.type!=='special'||offerApplies(o,x));return '<option value="">Select therapy / service</option>'+items.map(x=>`<option value="${escapeValue(x.name)}" ${x.name===selected?'selected':''}>${escapeHtml(x.name)} — ${escapeHtml(x.category)}</option>`).join('')}
+function serviceOptions(selected,offer){
+  const o=getActiveOffer(offer);
+  const items=o?eligibleServicesForOffer(o):(arkData.menu||[]);
+  const validSelected=items.some(x=>x.name===selected)?selected:'';
+  return '<option value="">Select therapy / service</option>'+items.map(x=>`<option value="${escapeValue(x.name)}" ${x.name===validSelected?'selected':''}>${escapeHtml(x.name)} — ${escapeHtml(x.category)}</option>`).join('');
+}
 function offerOptions(selected,service){let os=offersForService(service).filter(o=>(arkData.menu||[]).some(x=>offerApplies(o,x)));if(selected&&!os.some(o=>o.title===selected)){const forced=getActiveOffer(selected);if(forced)os=[forced,...os]}const seen=new Set();os=os.filter(o=>{const k=o.title||'';if(seen.has(k))return false;seen.add(k);return true});return '<option value="">Regular booking / No offer</option>'+os.map(o=>`<option value="${escapeValue(o.title||'')}" ${o.title===selected?'selected':''}>${escapeHtml(o.title||'Offer')} — ${escapeHtml(offerLabel(o))}</option>`).join('')}
 function durationOptions(service,offer){const s=itemByName(service);if(!s)return '<option value="">Select after choosing a service</option>';const o=getActiveOffer(offer);let vals=(o&&o.type==='special'&&o.duration)?[o.duration]:String(s.duration||'').split('/').map(x=>x.trim()).filter(Boolean);if(s.name==='Foot Acupressure'&&!o)vals=['30 Minutes','60 Minutes'];return vals.map((v,i)=>`<option value="${escapeValue(v)}" ${i===0?'selected':''}>${escapeHtml(v)}</option>`).join('')}
 function rateForDuration(item,duration){if(!item)return null;const rates=parseRateParts(item.rate||''),durations=String(item.duration||'').split('/').map(x=>x.trim()).filter(Boolean);if(!rates.length)return null;let i=durations.indexOf(String(duration||'').trim());if(i<0)i=0;const r=rates[Math.min(i,rates.length-1)];return r?.value??null}
@@ -39,9 +60,18 @@ function bindSingleEvents(){
   const service=document.getElementById('service'), offer=document.getElementById('offer'), duration=document.getElementById('duration');
   service?.addEventListener('change',()=>{
     const currentOffer=getActiveOffer(offer.value);
-    if(currentOffer?.type==='special'&&!offerApplies(currentOffer,itemByName(service.value))){
-      offer.value='';
-      duration.innerHTML=durationOptions(service.value,'');
+    if(currentOffer){
+      const eligible=eligibleServicesForOffer(currentOffer);
+      if(!eligible.some(x=>x.name===service.value)){
+        const first=eligible[0];
+        if(first){
+          service.innerHTML=serviceOptions(first.name,currentOffer.title);
+          service.value=first.name;
+        }
+      }else{
+        service.innerHTML=serviceOptions(service.value,currentOffer.title);
+      }
+      duration.innerHTML=durationOptions(service.value,currentOffer.title);
     }else{
       offer.innerHTML=offerOptions(offer.value,service.value);
       duration.innerHTML=durationOptions(service.value,offer.value);
@@ -51,13 +81,16 @@ function bindSingleEvents(){
   });
   offer?.addEventListener('change',()=>{
     const chosen=getActiveOffer(offer.value);
-    if(chosen?.type==='special'){
+    if(chosen){
+      const eligible=eligibleServicesForOffer(chosen);
       const current=itemByName(service.value);
-      if(!current||!offerApplies(chosen,current)){
-        const first=(arkData.menu||[]).find(x=>offerApplies(chosen,x));
-        if(first){service.innerHTML=serviceOptions(first.name,offer.value);service.value=first.name;}
-      }else{service.innerHTML=serviceOptions(service.value,offer.value);}
-    }else{service.innerHTML=serviceOptions(service.value,offer.value);}
+      const keep=current&&eligible.some(x=>x.name===current.name)?current:null;
+      const first=keep||eligible[0];
+      service.innerHTML=serviceOptions(first?.name||'',chosen.title);
+      if(first)service.value=first.name;
+    }else{
+      service.innerHTML=serviceOptions(service.value,offer.value);
+    }
     duration.innerHTML=durationOptions(service.value,offer.value);
     refreshSingleRate();
     updateSubmitState();
@@ -79,17 +112,32 @@ function refreshSingleRate(){
 function bindGuestEvents(){
   guestSelections.querySelectorAll('.guest-service').forEach(el=>el.addEventListener('change',()=>{
     const card=el.closest('.guest-card'),offer=card.querySelector('.guest-offer'),currentOffer=getActiveOffer(offer.value);
-    if(currentOffer?.type==='special'&&!offerApplies(currentOffer,itemByName(el.value))){offer.value='';}else{offer.innerHTML=offerOptions(offer.value,el.value);}
+    if(currentOffer){
+      const eligible=eligibleServicesForOffer(currentOffer);
+      if(!eligible.some(x=>x.name===el.value)){
+        const first=eligible[0];
+        if(first){el.innerHTML=serviceOptions(first.name,currentOffer.title);el.value=first.name;}
+      }else{
+        el.innerHTML=serviceOptions(el.value,currentOffer.title);
+      }
+    }else{
+      offer.innerHTML=offerOptions(offer.value,el.value);
+    }
     card.querySelector('.guest-duration').innerHTML=durationOptions(el.value,offer.value);
     refreshAllGuestRates();updateSubmitState();
   }));
   guestSelections.querySelectorAll('.guest-offer').forEach(el=>el.addEventListener('change',()=>{
     const card=el.closest('.guest-card'),serviceEl=card.querySelector('.guest-service'),chosen=getActiveOffer(el.value);
-    if(chosen?.type==='special'){
+    if(chosen){
+      const eligible=eligibleServicesForOffer(chosen);
       const current=itemByName(serviceEl.value);
-      if(!current||!offerApplies(chosen,current)){const first=(arkData.menu||[]).find(x=>offerApplies(chosen,x));if(first){serviceEl.innerHTML=serviceOptions(first.name,el.value);serviceEl.value=first.name;}}
-      else{serviceEl.innerHTML=serviceOptions(serviceEl.value,el.value);}
-    }else{serviceEl.innerHTML=serviceOptions(serviceEl.value,el.value);}
+      const keep=current&&eligible.some(x=>x.name===current.name)?current:null;
+      const first=keep||eligible[0];
+      serviceEl.innerHTML=serviceOptions(first?.name||'',chosen.title);
+      if(first)serviceEl.value=first.name;
+    }else{
+      serviceEl.innerHTML=serviceOptions(serviceEl.value,el.value);
+    }
     card.querySelector('.guest-duration').innerHTML=durationOptions(serviceEl.value,el.value);
     refreshAllGuestRates();updateSubmitState();
   }));
