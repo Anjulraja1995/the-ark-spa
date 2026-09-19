@@ -54,7 +54,7 @@ async function deleteOffer(i){if(!confirm('Delete this offer?'))return;const off
 let appointmentsListener=null;
 function renderAppointments(rows){
   rows=Array.isArray(rows)?rows:[];
-  rows.sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+  rows.sort((a,b)=>{const ac=String(a.createdAt||'');const bc=String(b.createdAt||'');if(ac&&bc){const d=ac.localeCompare(bc);if(d)return d}if(ac&&!bc)return -1;if(!ac&&bc)return 1;return String(a.id||'').localeCompare(String(b.id||''));});
   window.appointmentsData=rows;
   if(window.appointmentCount) appointmentCount.textContent=rows.length+' Appointment'+(rows.length===1?'':'s');
   appointmentRows.innerHTML=rows.map((a,index)=>{
@@ -65,7 +65,7 @@ function renderAppointments(rows){
     const offerHtml=people.length?people.map(p=>'<div>'+escapeHtml(p.offer||'Regular')+'</div>').join(''):escapeHtml(a.offer||'Regular');
     const rateHtml=people.length?people.map(p=>'<div><b>Person '+escapeHtml(String(p.person))+': '+escapeHtml(p.finalPrice||'')+'</b></div>').join('')+'<div class="appointment-total">Total: '+escapeHtml(String(a.finalPrice||a.totalAmount||''))+'</div>':'<strong>'+escapeHtml(String(a.finalPrice||a.totalAmount||a.regularRate||''))+'</strong>';
     return '<div class="appointment-row">'+
-      '<div class="appointment-no">'+(rows.length-index)+'</div>'+
+      '<div class="appointment-no">'+(index+1)+'</div>'+
       '<div><span class="appointment-label">DATE</span><strong>'+escapeHtml(a.date||'')+'</strong></div>'+
       '<div><span class="appointment-label">TIME</span><strong>'+escapeHtml(a.time||'')+'</strong></div>'+
       '<div><span class="appointment-label">CUSTOMER</span><strong>'+escapeHtml(a.name||'')+'</strong><small>'+escapeHtml(String(a.guestCount||people.length||1))+' Person(s)</small></div>'+
