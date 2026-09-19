@@ -61,7 +61,9 @@ function formatBookedOn(value){
   if(!value)return '—';
   const d=new Date(value);
   if(Number.isNaN(d.getTime()))return escapeHtml(String(value));
-  return escapeHtml(d.toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}));
+  const date=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  const time=d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+  return '<span class="appointment-booked-date">'+escapeHtml(date)+'</span><span class="appointment-booked-time">'+escapeHtml(time)+'</span>';
 }
 function appointmentDetailHtml(a){
   const people=Array.isArray(a.people)?a.people:[];
