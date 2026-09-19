@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Book Appointment — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script></head><body><header><a class="brand" href="index.html"><img class="brand-logo" data-brand-logo alt="The Ark Spa & Salon"><span><b data-brand-name>THE ARK</b><small data-brand-tagline>SPA & SALON</small></span></a><nav class="desktop-nav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></nav><button class="menu-btn" onclick="toggleMobileNav()">☰</button></header><div id="mobileDrawer" class="mobile-nav-drawer"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></div><section class="page-hero"><h1>Book Your Appointment</h1><p id="intro">Choose a therapy, an active offer if applicable, and your preferred date and time.</p></section><section class="section"><div class="modal-box booking-box"><form class="form" id="bookingForm"><div class="two"><div><label>Full Name <span style="font-weight:400;font-size:12px">(Optional)</span></label><input name="name"></div><div><label>Mobile Number * (+91)</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" minlength="10" maxlength="13" required placeholder="10-digit mobile number or +91XXXXXXXXXX"></div></div><div style="max-width:280px"><label>Number of People *</label><select id="guestCount" name="guestCount" required style="width:100%;max-width:280px"><option value="1">1 Person</option><option value="2">2 People</option><option value="3">3 People</option><option value="4">4 People</option></select></div><div id="guestSelections"></div><div id="totalRate" class="admin-note" style="margin-top:14px;font-size:16px"></div><div class="two"><div><label>Preferred Date *</label><input id="date" type="date" name="date" required disabled></div><div><label>Preferred Time *</label><input id="time" type="time" name="time" required disabled></div></div><button id="submitAppointment" class="btn primary" type="submit">Submit Appointment</button><div id="msg" class="status"></div></form><div id="waDirect" style="margin-top:15px;text-align:center"></div></div></section><footer><div class="footer-main"><div><h3>The Ark Spa & Salon</h3><p data-address></p><div style="margin-top:15px"><b style="color:var(--gold2);font-size:12px;letter-spacing:1px">FOLLOW US</b><div class="socials" style="margin-top:8px"><div data-socials></div></div></div></div><div><h3>Explore</h3><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a></div><div><h3>Information</h3><a href="contact.html">Contact</a><a href="admin.html">Admin Login</a></div></div><div class="footer-bottom"><span>© 2026 The Ark Spa & Salon. All Rights Reserved.</span></div></footer><script>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Book Appointment — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script></head><body><header><a class="brand" href="index.html"><img class="brand-logo" data-brand-logo alt="The Ark Spa & Salon"><span><b data-brand-name>THE ARK</b><small data-brand-tagline>SPA & SALON</small></span></a><nav class="desktop-nav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></nav><button class="menu-btn" onclick="toggleMobileNav()">☰</button></header><div id="mobileDrawer" class="mobile-nav-drawer"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></div><section class="page-hero"><h1>Book Your Appointment</h1><p id="intro">Choose a therapy, an active offer if applicable, and your preferred date and time.</p></section><section class="section"><div class="modal-box booking-box"><form class="form" id="bookingForm"><div class="two"><div><label>Full Name <span style="font-weight:400;font-size:12px">(Optional)</span></label><input name="name"></div><div><label>Mobile Number * (+91)</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" minlength="10" maxlength="13" required placeholder="10-digit mobile number or +91XXXXXXXXXX"></div></div><div style="width:220px;max-width:100%"><label>Number of People *</label><select id="guestCount" name="guestCount" required style="width:220px;max-width:100%"><option value="1">1 Person</option><option value="2">2 People</option><option value="3">3 People</option><option value="4">4 People</option></select></div><div id="guestSelections"></div><div id="totalRate" class="admin-note" style="margin-top:14px;font-size:16px"></div><div class="two"><div><label>Preferred Date *</label><input id="date" type="date" name="date" required disabled></div><div><label>Preferred Time *</label><input id="time" type="time" name="time" required disabled></div></div><button id="submitAppointment" class="btn primary" type="submit">Submit Appointment</button><div id="msg" class="status"></div></form><div id="waDirect" style="margin-top:15px;text-align:center"></div></div></section><footer><div class="footer-main"><div><h3>The Ark Spa & Salon</h3><p data-address></p><div style="margin-top:15px"><b style="color:var(--gold2);font-size:12px;letter-spacing:1px">FOLLOW US</b><div class="socials" style="margin-top:8px"><div data-socials></div></div></div></div><div><h3>Explore</h3><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a></div><div><h3>Information</h3><a href="contact.html">Contact</a><a href="admin.html">Admin Login</a></div></div><div class="footer-bottom"><span>© 2026 The Ark Spa & Salon. All Rights Reserved.</span></div></footer><script>
 const qs=new URLSearchParams(location.search);
 let selectedOfferName=qs.get('offer')||'', selectedServiceName=qs.get('service')||'';
 const phoneEl=document.getElementById('phone'), guestCountEl=document.getElementById('guestCount'), guestSelections=document.getElementById('guestSelections'), submitEl=document.getElementById('submitAppointment'), msgEl=document.getElementById('msg'), dateEl=document.getElementById('date'), timeEl=document.getElementById('time');
@@ -9,7 +9,7 @@ function escapeValue(v){return escapeAttr(v)}
 function getActiveOffer(title){return (arkData.offers||[]).find(x=>x.active&&x.title===title)}
 function offersForService(name){return name?getApplicableOffers(name):getActiveOffers()}
 function offerLabel(o){if(o.type==='percentage')return String(o.percent)+'% OFF';if(o.type==='special')return formatMoney(o.rate)+' · '+String(o.duration||'');return ''}
-function serviceOptions(selected){return '<option value="">Select therapy / service</option>'+(arkData.menu||[]).map(x=>`<option value="${escapeValue(x.name)}" ${x.name===selected?'selected':''}>${escapeHtml(x.name)} — ${escapeHtml(x.category)}</option>`).join('')}
+function serviceOptions(selected,offer){const o=getActiveOffer(offer);const items=(arkData.menu||[]).filter(x=>!o||o.type!=='special'||offerApplies(o,x));return '<option value="">Select therapy / service</option>'+items.map(x=>`<option value="${escapeValue(x.name)}" ${x.name===selected?'selected':''}>${escapeHtml(x.name)} — ${escapeHtml(x.category)}</option>`).join('')}
 function offerOptions(selected,service){let os=offersForService(service).filter(o=>(arkData.menu||[]).some(x=>offerApplies(o,x)));if(selected&&!os.some(o=>o.title===selected)){const forced=getActiveOffer(selected);if(forced)os=[forced,...os]}const seen=new Set();os=os.filter(o=>{const k=o.title||'';if(seen.has(k))return false;seen.add(k);return true});return '<option value="">Regular booking / No offer</option>'+os.map(o=>`<option value="${escapeValue(o.title||'')}" ${o.title===selected?'selected':''}>${escapeHtml(o.title||'Offer')} — ${escapeHtml(offerLabel(o))}</option>`).join('')}
 function durationOptions(service,offer){const s=itemByName(service);if(!s)return '<option value="">Select after choosing a service</option>';const o=getActiveOffer(offer);let vals=(o&&o.type==='special'&&o.duration)?[o.duration]:String(s.duration||'').split('/').map(x=>x.trim()).filter(Boolean);if(s.name==='Foot Acupressure'&&!o)vals=['30 Minutes','60 Minutes'];return vals.map((v,i)=>`<option value="${escapeValue(v)}" ${i===0?'selected':''}>${escapeHtml(v)}</option>`).join('')}
 function rateForDuration(item,duration){if(!item)return null;const rates=parseRateParts(item.rate||''),durations=String(item.duration||'').split('/').map(x=>x.trim()).filter(Boolean);if(!rates.length)return null;let i=durations.indexOf(String(duration||'').trim());if(i<0)i=0;const r=rates[Math.min(i,rates.length-1)];return r?.value??null}
@@ -17,7 +17,7 @@ function discountedPrice(item,duration,pct){const r=rateForDuration(item,duratio
 function renderGuestSelections(){
   const n=Math.max(1,Math.min(4,Number(guestCountEl.value)||1));
   if(n===1){
-    guestSelections.innerHTML='<div class="two"><div><label>Offer</label><select id="offer">'+offerOptions(selectedOfferName,selectedServiceName)+'</select></div><div><label>Therapy / Service *</label><select id="service" required>'+serviceOptions(selectedServiceName)+'</select></div></div><div style="margin-top:12px"><label>Duration *</label><select id="duration" required>'+durationOptions(selectedServiceName,selectedOfferName)+'</select></div><div id="singleRate" class="admin-note" style="margin-top:8px"></div>';
+    guestSelections.innerHTML='<div class="two"><div><label>Offer</label><select id="offer">'+offerOptions(selectedOfferName,selectedServiceName)+'</select></div><div><label>Therapy / Service *</label><select id="service" required>'+serviceOptions(selectedServiceName,selectedOfferName)+'</select></div></div><div style="margin-top:12px"><label>Duration *</label><select id="duration" required>'+durationOptions(selectedServiceName,selectedOfferName)+'</select></div><div id="singleRate" class="admin-note" style="margin-top:8px"></div>';
     bindSingleEvents();
     refreshSingleRate();
     return;
@@ -30,7 +30,7 @@ function renderGuestSelections(){
     const s=itemByName(svc);
     const vals=(getActiveOffer(off)?.type==='special'&&getActiveOffer(off)?.duration)?[getActiveOffer(off).duration]:(s?String(s.duration||'').split('/').map(x=>x.trim()).filter(Boolean):[]);
     const dur=prev.duration&&vals.includes(prev.duration)?prev.duration:(vals[0]||'');
-    return '<div class="guest-card" data-guest="'+(i+1)+'" style="margin-top:14px;padding:16px;border:1px solid rgba(180,145,65,.25);border-radius:18px;background:rgba(255,255,255,.35)"><h3 style="margin:0 0 12px;color:var(--green);font-family:Georgia,serif">Person '+(i+1)+'</h3><div class="two"><div><label>Therapy / Service *</label><select class="guest-service" required>'+serviceOptions(svc)+'</select></div><div><label>Timing / Duration *</label><select class="guest-duration" required>'+durationOptions(svc,off)+'</select></div></div><div style="margin-top:12px"><label>Offer</label><select class="guest-offer">'+offerOptions(off,svc)+'</select></div><div class="guest-rate admin-note" style="margin-top:8px"></div></div>';
+    return '<div class="guest-card" data-guest="'+(i+1)+'" style="margin-top:14px;padding:16px;border:1px solid rgba(180,145,65,.25);border-radius:18px;background:rgba(255,255,255,.35)"><h3 style="margin:0 0 12px;color:var(--green);font-family:Georgia,serif">Person '+(i+1)+'</h3><div class="two"><div><label>Therapy / Service *</label><select class="guest-service" required>'+serviceOptions(svc,off)+'</select></div><div><label>Timing / Duration *</label><select class="guest-duration" required>'+durationOptions(svc,off)+'</select></div></div><div style="margin-top:12px"><label>Offer</label><select class="guest-offer">'+offerOptions(off,svc)+'</select></div><div class="guest-rate admin-note" style="margin-top:8px"></div></div>';
   }).join('');
   bindGuestEvents();
   refreshAllGuestRates();
@@ -38,12 +38,26 @@ function renderGuestSelections(){
 function bindSingleEvents(){
   const service=document.getElementById('service'), offer=document.getElementById('offer'), duration=document.getElementById('duration');
   service?.addEventListener('change',()=>{
-    offer.innerHTML=offerOptions('',service.value);
-    duration.innerHTML=durationOptions(service.value,'');
+    const currentOffer=getActiveOffer(offer.value);
+    if(currentOffer?.type==='special'&&!offerApplies(currentOffer,itemByName(service.value))){
+      offer.value='';
+      duration.innerHTML=durationOptions(service.value,'');
+    }else{
+      offer.innerHTML=offerOptions(offer.value,service.value);
+      duration.innerHTML=durationOptions(service.value,offer.value);
+    }
     refreshSingleRate();
     updateSubmitState();
   });
   offer?.addEventListener('change',()=>{
+    const chosen=getActiveOffer(offer.value);
+    if(chosen?.type==='special'){
+      const current=itemByName(service.value);
+      if(!current||!offerApplies(chosen,current)){
+        const first=(arkData.menu||[]).find(x=>offerApplies(chosen,x));
+        if(first){service.innerHTML=serviceOptions(first.name,offer.value);service.value=first.name;}
+      }else{service.innerHTML=serviceOptions(service.value,offer.value);}
+    }else{service.innerHTML=serviceOptions(service.value,offer.value);}
     duration.innerHTML=durationOptions(service.value,offer.value);
     refreshSingleRate();
     updateSubmitState();
@@ -64,18 +78,20 @@ function refreshSingleRate(){
 }
 function bindGuestEvents(){
   guestSelections.querySelectorAll('.guest-service').forEach(el=>el.addEventListener('change',()=>{
-    const card=el.closest('.guest-card');
-    const offer=card.querySelector('.guest-offer');
-    offer.innerHTML=offerOptions('',el.value);
-    card.querySelector('.guest-duration').innerHTML=durationOptions(el.value,'');
-    refreshAllGuestRates();
-    updateSubmitState();
+    const card=el.closest('.guest-card'),offer=card.querySelector('.guest-offer'),currentOffer=getActiveOffer(offer.value);
+    if(currentOffer?.type==='special'&&!offerApplies(currentOffer,itemByName(el.value))){offer.value='';}else{offer.innerHTML=offerOptions(offer.value,el.value);}
+    card.querySelector('.guest-duration').innerHTML=durationOptions(el.value,offer.value);
+    refreshAllGuestRates();updateSubmitState();
   }));
   guestSelections.querySelectorAll('.guest-offer').forEach(el=>el.addEventListener('change',()=>{
-    const card=el.closest('.guest-card'),svc=card.querySelector('.guest-service').value;
-    card.querySelector('.guest-duration').innerHTML=durationOptions(svc,el.value);
-    refreshAllGuestRates();
-    updateSubmitState();
+    const card=el.closest('.guest-card'),serviceEl=card.querySelector('.guest-service'),chosen=getActiveOffer(el.value);
+    if(chosen?.type==='special'){
+      const current=itemByName(serviceEl.value);
+      if(!current||!offerApplies(chosen,current)){const first=(arkData.menu||[]).find(x=>offerApplies(chosen,x));if(first){serviceEl.innerHTML=serviceOptions(first.name,el.value);serviceEl.value=first.name;}}
+      else{serviceEl.innerHTML=serviceOptions(serviceEl.value,el.value);}
+    }else{serviceEl.innerHTML=serviceOptions(serviceEl.value,el.value);}
+    card.querySelector('.guest-duration').innerHTML=durationOptions(serviceEl.value,el.value);
+    refreshAllGuestRates();updateSubmitState();
   }));
   guestSelections.querySelectorAll('.guest-duration').forEach(el=>el.addEventListener('change',()=>{
     refreshAllGuestRates();
