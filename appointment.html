@@ -108,6 +108,7 @@ function updateSubmitState(){
   dateEl.disabled=!ready;
   timeEl.disabled=!ready;
   submitEl.disabled=!(validPhone()&&ready&&dateEl.value&&timeEl.value);
+}
 
 guestCountEl.addEventListener('change',()=>{renderGuestSelections();updateSubmitState()});
 phoneEl.addEventListener('input',()=>{phoneEl.value=phoneEl.value.replace(/[^0-9+]/g,'').replace(/(?!^)\+/g,'').slice(0,13);updateSubmitState()});
