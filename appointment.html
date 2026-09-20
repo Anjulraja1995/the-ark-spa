@@ -203,6 +203,7 @@ function refreshAllGuestRates(){
 function updateSubmitState(){
   const unlocked=validPhone();
   const n=Math.max(1,Math.min(4,Number(guestCountEl.value)||1));
+  document.getElementById('offerFieldWrap')?.classList.toggle('field-locked',!unlocked);
   guestSelections.querySelectorAll('select,button').forEach(el=>{
     if(el.classList.contains('offer-select-btn') || el.classList.contains('offer-choice')) el.disabled=!unlocked;
   });
