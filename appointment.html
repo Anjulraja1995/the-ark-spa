@@ -70,8 +70,8 @@ function therapyPickerHtml(selected,offer,id){
   const categories=[...new Set(items.map(x=>String(x.category||'Other').trim()||'Other'))];
   const groups=categories.map(cat=>{
     const services=items.filter(x=>(String(x.category||'Other').trim()||'Other')===cat);
-    const open=services.some(x=>x.name===validSelected);
-    return '<div class="therapy-group"><div role="button" tabindex="0" class="therapy-click therapy-category '+(open?'expanded':'')+'" onclick="toggleTherapyCategory(this)" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();toggleTherapyCategory(this)}"><span>'+escapeHtml(cat)+'</span><span class="arrow">›</span></div><div class="therapy-services '+(open?'open':'')+'">'+services.map(x=>'<div role="button" tabindex="0" class="therapy-click therapy-service '+(x.name===validSelected?'selected':'')+'" data-service="'+escapeAttr(x.name||'')+'" onclick="pickTherapy(this,\''+escapeAttr(id)+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();pickTherapy(this,\''+escapeAttr(id)+'\')}">'+escapeHtml(x.name||'')+'</div>').join('')+'</div></div>';
+    const open=false;
+    return '<div class="therapy-group"><div role="button" tabindex="0" class="therapy-click therapy-category '+(open?'expanded':'')+'" onclick="toggleTherapyCategory(this)" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();toggleTherapyCategory(this)}"><span>'+escapeHtml(cat)+'</span><span class="arrow" aria-hidden="true">›</span></div><div class="therapy-services '+(open?'open':'')+'">'+services.map(x=>'<div role="button" tabindex="0" class="therapy-click therapy-service '+(x.name===validSelected?'selected':'')+'" data-service="'+escapeAttr(x.name||'')+'" onclick="pickTherapy(this,\''+escapeAttr(id)+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();pickTherapy(this,\''+escapeAttr(id)+'\')}">'+escapeHtml(x.name||'')+'</div>').join('')+'</div></div>';
   }).join('');
   const display=validSelected||'Select therapy';
   return '<div class="therapy-picker" id="'+escapeAttr(id)+'"><div role="button" tabindex="0" class="therapy-click therapy-select-btn" onclick="toggleTherapyPicker(\''+escapeAttr(id)+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();toggleTherapyPicker(\''+escapeAttr(id)+'\')}"><span>'+escapeHtml(display)+'</span><span>▼</span></div><div class="therapy-menu">'+(groups||'<div style="padding:10px;color:#777">No therapies available</div>')+'</div></div>';
@@ -81,15 +81,17 @@ function toggleTherapyPicker(id){
   document.querySelector('#'+CSS.escape(id)+' .therapy-menu')?.classList.toggle('open');
 }
 function toggleTherapyCategory(btn){
-  const group=btn.closest('.therapy-group'), sub=group?.querySelector('.therapy-services');
-  if(!sub)return;
+  const group=btn.closest('.therapy-group');
+  const sub=group?.querySelector('.therapy-services');
+  if(!group||!sub)return;
   const menu=group.closest('.therapy-menu');
-  menu?.querySelectorAll('.therapy-group').forEach(other=>{
-    if(other===group)return;
-    other.querySelector('.therapy-category')?.classList.remove('expanded');
-    other.querySelector('.therapy-services')?.classList.remove('open');
-  });
   const willOpen=!sub.classList.contains('open');
+  menu?.querySelectorAll('.therapy-group').forEach(other=>{
+    const otherBtn=other.querySelector('.therapy-category');
+    const otherSub=other.querySelector('.therapy-services');
+    if(otherBtn)otherBtn.classList.remove('expanded');
+    if(otherSub)otherSub.classList.remove('open');
+  });
   btn.classList.toggle('expanded',willOpen);
   sub.classList.toggle('open',willOpen);
 }
