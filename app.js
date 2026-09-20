@@ -40,11 +40,16 @@
   window.ARK_DEFAULT=DEFAULT;
   window.arkData=JSON.parse(JSON.stringify(DEFAULT));
 
+  function normalizeRateString(rate){
+    return String(rate||'').split('/').map(x=>x.trim()).filter(Boolean).map(x=>{
+      const m=x.match(/₹?\s*(\d[\d,]*(?:\.\d+)?)/); return m?'₹'+m[1].replace(/,/g,''):x.replace(/,/g,'');
+    }).join('/');
+  }
   function mergeMenu(saved){
     if(!Array.isArray(saved)||!saved.length) return JSON.parse(JSON.stringify(DEFAULT.menu));
     const byName=new Map(saved.map(x=>[String(x.name||'').trim(),x]));
     return DEFAULT.menu.map(d=>{
-      const s=byName.get(d.name); return s?{...d,rate:(s.rate===undefined||s.rate===null||String(s.rate).trim()==='')?d.rate:s.rate,duration:s.duration??d.duration,description:d.description}:d;
+      const s=byName.get(d.name); return s?{...d,rate:(s.rate===undefined||s.rate===null||String(s.rate).trim()==='')?d.rate:normalizeRateString(s.rate),duration:s.duration??d.duration,description:d.description}:d;
     });
   }
   function merge(saved){
@@ -78,7 +83,7 @@
   };
   window.escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   window.escapeAttr=s=>escapeHtml(s).replace(/`/g,'&#96;');
-  window.formatMoney=n=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
+  window.formatMoney=n=>'₹'+Number(n||0).toLocaleString('en-IN',{useGrouping:false,maximumFractionDigits:2});
   window.parseRateParts=function(rate){
     if(!rate) return [];
     return String(rate).split('/').map(x=>x.trim()).filter(Boolean).map(x=>{
