@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Book Appointment — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script><style>
 .offer-picker{position:relative}.offer-select-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border:1px solid rgba(180,145,65,.35);border-radius:10px;background:#fff;color:#555;font:inherit;text-align:left;cursor:pointer}.offer-menu{display:none;position:absolute;z-index:50;left:0;right:0;top:calc(100% + 5px);padding:6px;background:#fff;border:1px solid rgba(180,145,65,.3);border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,.12)}.offer-menu.open{display:block}.offer-choice{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 10px;border:0;border-radius:7px;background:transparent;color:#333;font:inherit;text-align:left;cursor:pointer}.offer-choice:hover{background:rgba(180,145,65,.09)}.offer-radio{font-size:20px;line-height:1}.offer-default{color:#666}
-</style></head><body><header><a class="brand" href="index.html"><img class="brand-logo" data-brand-logo alt="The Ark Spa & Salon"><span><b data-brand-name>THE ARK</b><small data-brand-tagline>SPA & SALON</small></span></a><nav class="desktop-nav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></nav><button class="menu-btn" onclick="toggleMobileNav()">☰</button></header><div id="mobileDrawer" class="mobile-nav-drawer"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></div><section class="page-hero"><h1>Book Your Appointment</h1><p id="intro">Choose a therapy, an active offer if applicable, and your preferred date and time.</p></section><section class="section"><div class="modal-box booking-box"><form class="form" id="bookingForm"><div class="two"><div><label>Full Name <span style="font-weight:400;font-size:12px">(Optional)</span></label><input name="name"></div><div><label>Mobile Number * (+91)</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" minlength="10" maxlength="13" required placeholder="10-digit mobile number or +91XXXXXXXXXX"></div></div><div style="width:220px;max-width:100%"><label>Number of People *</label><select id="guestCount" name="guestCount" required style="width:220px;max-width:100%"><option value="1">1 Person</option><option value="2">2 People</option><option value="3">3 People</option><option value="4">4 People</option></select></div><div id="guestSelections"></div><div id="totalRate" class="admin-note" style="margin-top:14px;font-size:16px"></div><div class="two"><div><label>Preferred Date *</label><input id="date" type="date" name="date" required disabled></div><div><label>Preferred Time *</label><input id="time" type="time" name="time" required disabled></div></div><button id="submitAppointment" class="btn primary" type="submit">Submit Appointment</button><div id="msg" class="status"></div></form><div id="waDirect" style="margin-top:15px;text-align:center"></div></div></section><footer><div class="footer-main"><div><h3>The Ark Spa & Salon</h3><p data-address></p><div style="margin-top:15px"><b style="color:var(--gold2);font-size:12px;letter-spacing:1px">FOLLOW US</b><div class="socials" style="margin-top:8px"><div data-socials></div></div></div></div><div><h3>Explore</h3><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a></div><div><h3>Information</h3><a href="contact.html">Contact</a><a href="admin.html">Admin Login</a></div></div><div class="footer-bottom"><span>© 2026 The Ark Spa & Salon. All Rights Reserved.</span></div></footer><script>
+.form .field-locked{opacity:.55;pointer-events:none}.rate-hidden{display:none!important}</style></head><body><header><a class="brand" href="index.html"><img class="brand-logo" data-brand-logo alt="The Ark Spa & Salon"><span><b data-brand-name>THE ARK</b><small data-brand-tagline>SPA & SALON</small></span></a><nav class="desktop-nav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></nav><button class="menu-btn" onclick="toggleMobileNav()">☰</button></header><div id="mobileDrawer" class="mobile-nav-drawer"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></div><section class="page-hero"><h1>Book Your Appointment</h1><p id="intro">Choose a therapy, an active offer if applicable, and your preferred date and time.</p></section><section class="section"><div class="modal-box booking-box"><form class="form" id="bookingForm"><div><label>Mobile Number * (+91)</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" minlength="10" maxlength="13" required placeholder="10-digit mobile number or +91XXXXXXXXXX"></div><div style="margin-top:12px"><label>Full Name <span style="font-weight:400;font-size:12px">(Optional)</span></label><input name="name"></div><div style="width:220px;max-width:100%;margin-top:12px"><label>Number of People *</label><select id="guestCount" name="guestCount" required style="width:220px;max-width:100%"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div><div id="guestSelections"></div><div id="totalRate" class="admin-note" style="margin-top:14px;font-size:16px;display:none"></div><div class="two"><div><label>Preferred Date *</label><input id="date" type="date" name="date" required disabled></div><div><label>Preferred Time *</label><input id="time" type="time" name="time" required disabled></div></div><button id="submitAppointment" class="btn primary" type="submit">Submit Appointment</button><div id="msg" class="status"></div></form><div id="waDirect" style="margin-top:15px;text-align:center"></div></div></section><footer><div class="footer-main"><div><h3>The Ark Spa & Salon</h3><p data-address></p><div style="margin-top:15px"><b style="color:var(--gold2);font-size:12px;letter-spacing:1px">FOLLOW US</b><div class="socials" style="margin-top:8px"><div data-socials></div></div></div></div><div><h3>Explore</h3><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a></div><div><h3>Information</h3><a href="contact.html">Contact</a><a href="admin.html">Admin Login</a></div></div><div class="footer-bottom"><span>© 2026 The Ark Spa & Salon. All Rights Reserved.</span></div></footer><script>
 const qs=new URLSearchParams(location.search);
 let selectedOfferName=qs.get('offer')||'', selectedServiceName=qs.get('service')||'';
 if(selectedOfferName||selectedServiceName){history.replaceState({},document.title,location.pathname+location.hash);}
@@ -69,7 +69,7 @@ function discountedPrice(item,duration,pct){const r=rateForDuration(item,duratio
 function renderGuestSelections(){
   const n=Math.max(1,Math.min(4,Number(guestCountEl.value)||1));
   if(n===1){
-    guestSelections.innerHTML='<div class="two"><div id="offerFieldWrap">'+offerFieldHtml(selectedOfferName,selectedServiceName,'offer','offerField')+'</div><div><label>Therapy / Service *</label><select id="service" required>'+serviceOptions(selectedServiceName,selectedOfferName)+'</select></div></div><div style="margin-top:12px"><label>Duration *</label><select id="duration" required>'+durationOptions(selectedServiceName,selectedOfferName)+'</select></div><div id="singleRate" class="admin-note" style="margin-top:8px"></div>';
+    const unlocked=validPhone(); guestSelections.innerHTML='<div id="offerFieldWrap" class="'+(unlocked?'':'field-locked')+'">'+offerFieldHtml(selectedOfferName,selectedServiceName,'offer','offerField')+'</div><div style="margin-top:12px" class="'+(unlocked?'':'field-locked')+'"><label>Therapy / Service *</label><select id="service" required '+(unlocked?'':'disabled')+'>'+serviceOptions(selectedServiceName,selectedOfferName)+'</select></div><div style="margin-top:12px" class="'+(unlocked?'':'field-locked')+'"><label>Duration *</label><select id="duration" required '+(unlocked?'':'disabled')+'>'+durationOptions(selectedServiceName,selectedOfferName)+'</select></div><div id="singleRate" class="admin-note rate-hidden" style="margin-top:8px"></div>';
     bindSingleEvents();
     refreshSingleRate();
     return;
@@ -139,11 +139,14 @@ function bindSingleEvents(){
 function refreshSingleRate(){
   const service=document.getElementById('service'), offer=document.getElementById('offer'), duration=document.getElementById('duration'), out=document.getElementById('singleRate');
   if(!service||!offer||!duration||!out)return;
+  const complete=validPhone()&&!!service.value&&!!duration.value&&!!dateEl.value&&!!timeEl.value;
+  if(!complete){out.classList.add('rate-hidden');out.innerHTML='';return;}
   const s=itemByName(service.value), o=getActiveOffer(offer.value), regular=rateForDuration(s,duration.value);
   let final=regular, txt=regular===null?'Rate not supplied':formatMoney(regular);
   if(o?.type==='special'){final=Number(o.rate)||0;txt='Special: '+formatMoney(final)}
-  else if(o?.type==='percentage'){final=discountedPrice(s,duration.value,o.percent);txt=(regular===null||final===null)?'Rate not supplied':formatMoney(final)+' ('+o.percent+'% OFF)'}
-  out.innerHTML='Final Rate: <b>'+escapeHtml(txt)+'</b>'+(o?'<br>Offer: <b>'+escapeHtml(o.title||'Offer')+'</b>':'');
+  else if(o?.type==='percentage'){final=discountedPrice(s,duration.value,o.percent);txt=(regular===null||final===null)?'Rate not supplied':formatMoney(final)}
+  out.innerHTML='Final Rate: <b>'+escapeHtml(txt)+'</b>'+(o?'<br>Offer: <b>'+escapeHtml(o.type==='percentage'?'Discount '+o.percent+'% OFF':o.type==='special'?'Special Offer '+formatMoney(o.rate):(o.title||'Offer'))+'</b>':'');
+  out.classList.remove('rate-hidden');
 }
 function bindGuestEvents(){
   guestSelections.querySelectorAll('.guest-service').forEach(el=>el.addEventListener('change',()=>{
@@ -191,29 +194,40 @@ function refreshAllGuestRates(){
     if(o?.type==='special'){final=Number(o.rate)||0;txt='Special: '+formatMoney(final)}
     else if(o?.type==='percentage'){final=discountedPrice(s,dur,o.percent);txt=(regular===null||final===null)?'Rate not supplied':formatMoney(final)+' ('+o.percent+'% OFF)'}
     if(typeof final==='number'&&isFinite(final))total+=final;
-    card.querySelector('.guest-rate').innerHTML='Final Rate: <b>'+escapeHtml(txt)+'</b>'+(o?'<br>Offer: <b>'+escapeHtml(o.title||'Offer')+'</b>':'');
+    const complete=validPhone()&&!!svc&&!!dur&&!!dateEl.value&&!!timeEl.value; const rateEl=card.querySelector('.guest-rate'); if(complete){rateEl.innerHTML='Final Rate: <b>'+escapeHtml(txt)+'</b>'+(o?'<br>Offer: <b>'+escapeHtml(o.type==='percentage'?'Discount '+o.percent+'% OFF':o.type==='special'?'Special Offer '+formatMoney(o.rate):(o.title||'Offer'))+'</b>':'');rateEl.classList.remove('rate-hidden')}else{rateEl.innerHTML='';rateEl.classList.add('rate-hidden')};
   });
   const totalEl=document.getElementById('totalRate');
-  if(totalEl)totalEl.innerHTML='<b>Total: '+formatMoney(total)+'</b>';
+  const cards=[...guestSelections.querySelectorAll('.guest-card')]; const allComplete=validPhone()&&!!dateEl.value&&!!timeEl.value&&cards.length===Math.max(1,Math.min(4,Number(guestCountEl.value)||1))&&cards.every(c=>c.querySelector('.guest-service')?.value&&c.querySelector('.guest-duration')?.value); if(totalEl){if(allComplete){totalEl.innerHTML='<b>Total: '+formatMoney(total)+'</b>';totalEl.style.display='block'}else{totalEl.innerHTML='';totalEl.style.display='none'}}
   return total
 }
 function updateSubmitState(){
+  const unlocked=validPhone();
   const n=Math.max(1,Math.min(4,Number(guestCountEl.value)||1));
+  guestSelections.querySelectorAll('select,button').forEach(el=>{
+    if(el.id==='offerField' || el.classList.contains('offer-select-btn') || el.classList.contains('offer-choice')) el.disabled=!unlocked;
+  });
+  const service=document.getElementById('service'), duration=document.getElementById('duration');
+  if(service){service.disabled=!unlocked;service.closest('.field-locked')?.classList.toggle('field-locked',!unlocked)}
+  if(duration){duration.disabled=!unlocked;duration.closest('.field-locked')?.classList.toggle('field-locked',!unlocked)}
+  guestSelections.querySelectorAll('.guest-service,.guest-duration,.guest-offer').forEach(el=>el.disabled=!unlocked);
   let ready=false;
   if(n===1){
-    ready=!!document.getElementById('service')?.value&&!!document.getElementById('duration')?.value;
+    ready=unlocked&&!!service?.value&&!!duration?.value;
   }else{
     const cards=[...guestSelections.querySelectorAll('.guest-card')];
-    ready=cards.length===n&&cards.every(c=>c.querySelector('.guest-service')?.value&&c.querySelector('.guest-duration')?.value);
+    ready=unlocked&&cards.length===n&&cards.every(c=>c.querySelector('.guest-service')?.value&&c.querySelector('.guest-duration')?.value);
   }
   dateEl.disabled=!ready;
   timeEl.disabled=!ready;
-  submitEl.disabled=!(validPhone()&&ready&&dateEl.value&&timeEl.value);
+  const complete=ready&&!!dateEl.value&&!!timeEl.value;
+  submitEl.disabled=!complete;
+  refreshSingleRate();
+  if(n>1)refreshAllGuestRates();
 }
 
 guestCountEl.addEventListener('change',()=>{renderGuestSelections();updateSubmitState()});
-phoneEl.addEventListener('input',()=>{phoneEl.value=phoneEl.value.replace(/[^0-9+]/g,'').replace(/(?!^)\+/g,'').slice(0,13);updateSubmitState()});
-[dateEl,timeEl].forEach(el=>el.addEventListener('change',updateSubmitState));
+phoneEl.addEventListener('input',()=>{phoneEl.value=phoneEl.value.replace(/[^0-9+]/g,'').replace(/(?!^)\+/g,'').slice(0,13);updateSubmitState();});
+[dateEl,timeEl].forEach(el=>el.addEventListener('change',()=>{updateSubmitState();}));
 document.getElementById('bookingForm').addEventListener('submit',async e=>{
   e.preventDefault();
   const mode=arkData.bookingMode||'both';
