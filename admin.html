@@ -192,5 +192,23 @@ function hydrate(){contactPhone.value=arkData.phone;contactWhatsapp.value=arkDat
 async function startDashboard(){await arkLoad();hydrate();}
 function bind(){document.querySelectorAll('.section-toggle').forEach(b=>b.onclick=()=>b.parentElement.classList.toggle('open'));document.querySelectorAll('.admin-tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));['pctCategory','spCategory'].forEach(id=>$(id).addEventListener('change',()=>fillOfferItems($(id).value,id==='pctCategory'?'pctItems':'spItems')));loginForm.addEventListener('submit',async e=>{e.preventDefault();loginMsg.classList.add('hidden');try{await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);await auth.signInWithEmailAndPassword(email.value.trim(),password.value); }catch(err){loginMsg.classList.remove('hidden');loginMsg.textContent=err.message}});logoutBtn.onclick=()=>auth.signOut();uploadGallery.onclick=handleUploadGallery;uploadLogo.onclick=handleUploadLogo;removeLogo.onclick=handleRemoveLogo;saveContact.onclick=handleSaveContact;saveSocial.onclick=handleSaveSocial;saveBooking.onclick=handleSaveBooking;savePct.onclick=savePercentage;applyPct.onclick=()=>applyOfferType('percentage');deactivatePct.onclick=()=>deactivateOfferType('percentage');saveSp.onclick=saveSpecial;applySp.onclick=()=>applyOfferType('special');deactivateSp.onclick=()=>deactivateOfferType('special');refreshAppointments.onclick=loadAppointments;exportAppointments.onclick=()=>appointmentExportModal.classList.remove('hidden');closeAppointmentExport.onclick=()=>appointmentExportModal.classList.add('hidden');downloadAppointmentsExcelBtn.onclick=()=>{appointmentExportModal.classList.add('hidden');exportAppointmentsExcel()};downloadAppointmentsPdfBtn.onclick=()=>{appointmentExportModal.classList.add('hidden');exportAppointmentsPdf()};backupBtn.onclick=downloadSiteBackup;resetRates.onclick=handleResetRates;resetOffers.onclick=handleResetOffers;resetGallery.onclick=handleResetGallery;restoreApproved.onclick=handleRestoreApproved}
 function resetAdminView(){document.querySelectorAll('.admin-section-card.open').forEach(c=>c.classList.remove('open'));document.querySelectorAll('.admin-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab==='main'));mainPanel.classList.remove('hidden');appointmentsPanel.classList.add('hidden');recoveryPanel.classList.add('hidden');window.scrollTo(0,0)}
-bind();auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});auth.onAuthStateChanged(async user=>{if(user){loginScreen.classList.add('hidden');dashboard.classList.remove('hidden');resetAdminView();await startDashboard()}else{dashboard.classList.add('hidden');loginScreen.classList.remove('hidden');resetAdminView();loginScreen.scrollTop=0;try{const s=await db.ref('siteContent/brand/logoUrl').once('value');loginLogo.src=s.val()||ARK_DEFAULT.brand.logoUrl}catch(e){loginLogo.src=ARK_DEFAULT.brand.logoUrl}}});
+(async function initAdminAuth(){
+  if(!auth){loginMsg.classList.remove('hidden');loginMsg.textContent='Firebase authentication is unavailable. Please refresh the page.';return}
+  try{await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)}catch(e){console.error('Auth persistence setup failed:',e);loginMsg.classList.remove('hidden');loginMsg.textContent='Login session storage is unavailable in this browser. Please open the Admin page in Chrome and try again.'}
+  bind();
+  auth.onAuthStateChanged(async user=>{
+    if(user){
+      loginScreen.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      resetAdminView();
+      try{await startDashboard()}catch(e){console.error('Dashboard initialization failed:',e);dashboard.classList.add('hidden');loginScreen.classList.remove('hidden');loginMsg.classList.remove('hidden');loginMsg.textContent='Admin loaded, but the dashboard could not initialize. Please refresh and try again.'}
+    }else{
+      dashboard.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+      resetAdminView();
+      loginScreen.scrollTop=0;
+      try{const s=await db.ref('siteContent/brand/logoUrl').once('value');loginLogo.src=s.val()||ARK_DEFAULT.brand.logoUrl}catch(e){loginLogo.src=ARK_DEFAULT.brand.logoUrl}
+    }
+  });
+})();
 </script></body></html>
