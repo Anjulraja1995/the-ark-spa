@@ -24,21 +24,27 @@ function eligibleServicesForOffer(offer){
   return menu;
 }
 function offersForService(name){return name?getApplicableOffers(name):getActiveOffers()}
+function availableOffers(service){return offersForService(service).filter(o=>(arkData.menu||[]).some(x=>offerApplies(o,x)))}
 function offerLabel(o){if(o.type==='percentage')return String(o.percent)+'% OFF';if(o.type==='special')return formatMoney(o.rate);return ''}
+function offerFieldHtml(selected,service,cls='offer',id='offer'){
+  const os=availableOffers(service);
+  if(!os.length)return '';
+  return '<div class="offer-field" id="'+escapeAttr(id)+'"><label>Offer</label><select class="'+escapeAttr(cls)+'"'+(cls==='offer'?' id="offer"':'')+'>'+offerOptions(selected,service)+'</select></div>';
+}
 function serviceOptions(selected,offer){
   const o=getActiveOffer(offer);
   const items=o?eligibleServicesForOffer(o):(arkData.menu||[]);
   const validSelected=items.some(x=>x.name===selected)?selected:'';
   return '<option value="">Select therapy / service</option>'+items.map(x=>`<option value="${escapeValue(x.name)}" ${x.name===validSelected?'selected':''}>${escapeHtml(x.name)} — ${escapeHtml(x.category)}</option>`).join('');
 }
-function offerOptions(selected,service){let os=offersForService(service).filter(o=>(arkData.menu||[]).some(x=>offerApplies(o,x)));if(selected&&!os.some(o=>o.title===selected)){const forced=getActiveOffer(selected);if(forced)os=[forced,...os]}const seen=new Set();os=os.filter(o=>{const k=o.title||'';if(seen.has(k))return false;seen.add(k);return true});if(!os.length)return '<option value="" disabled selected>No active offer</option>';const selectedValid=os.some(o=>o.title===selected);return '<option value=""'+(selectedValid?'':' selected')+'>Select offer</option>'+os.map(o=>`<option value="${escapeValue(o.title||'')}" ${o.title===selected?'selected':''}>${escapeHtml(o.title||'Offer')} — ${escapeHtml(offerLabel(o))}</option>`).join('')}
+function offerOptions(selected,service){let os=availableOffers(service);if(selected&&!os.some(o=>o.title===selected)){const forced=getActiveOffer(selected);if(forced)os=[forced,...os]}const seen=new Set();os=os.filter(o=>{const k=o.title||'';if(seen.has(k))return false;seen.add(k);return true});if(!os.length)return '<option value="" disabled selected>No active offer</option>';const selectedValid=os.some(o=>o.title===selected);return '<option value=""'+(selectedValid?'':' selected')+'>Select offer</option>'+os.map(o=>`<option value="${escapeValue(o.title||'')}" ${o.title===selected?'selected':''}>${escapeHtml(o.title||'Offer')} — ${escapeHtml(offerLabel(o))}</option>`).join('')}
 function durationOptions(service,offer){const s=itemByName(service);if(!s)return '<option value="">Select after choosing a service</option>';const o=getActiveOffer(offer);let vals=(o&&o.type==='special'&&o.duration)?[o.duration]:String(s.duration||'').split('/').map(x=>x.trim()).filter(Boolean);if(s.name==='Foot Acupressure'&&!o)vals=['30 Minutes','60 Minutes'];return vals.map((v,i)=>`<option value="${escapeValue(v)}" ${i===0?'selected':''}>${escapeHtml(v)}</option>`).join('')}
 function rateForDuration(item,duration){if(!item)return null;const rates=parseRateParts(item.rate||''),durations=String(item.duration||'').split('/').map(x=>x.trim()).filter(Boolean);if(!rates.length)return null;let i=durations.indexOf(String(duration||'').trim());if(i<0)i=0;const r=rates[Math.min(i,rates.length-1)];return r?.value??null}
 function discountedPrice(item,duration,pct){const r=rateForDuration(item,duration);if(r===null)return null;const d=Math.max(0,Math.min(100,Number(pct)||0));return Math.round(r*(100-d))/100}
 function renderGuestSelections(){
   const n=Math.max(1,Math.min(4,Number(guestCountEl.value)||1));
   if(n===1){
-    guestSelections.innerHTML='<div class="two"><div><label>Offer</label><select id="offer">'+offerOptions(selectedOfferName,selectedServiceName)+'</select></div><div><label>Therapy / Service *</label><select id="service" required>'+serviceOptions(selectedServiceName,selectedOfferName)+'</select></div></div><div style="margin-top:12px"><label>Duration *</label><select id="duration" required>'+durationOptions(selectedServiceName,selectedOfferName)+'</select></div><div id="singleRate" class="admin-note" style="margin-top:8px"></div>';
+    guestSelections.innerHTML='<div class="two"><div id="offerFieldWrap">'+offerFieldHtml(selectedOfferName,selectedServiceName,'offer','offerField')+'</div><div><label>Therapy / Service *</label><select id="service" required>'+serviceOptions(selectedServiceName,selectedOfferName)+'</select></div></div><div style="margin-top:12px"><label>Duration *</label><select id="duration" required>'+durationOptions(selectedServiceName,selectedOfferName)+'</select></div><div id="singleRate" class="admin-note" style="margin-top:8px"></div>';
     bindSingleEvents();
     refreshSingleRate();
     return;
@@ -51,7 +57,7 @@ function renderGuestSelections(){
     const s=itemByName(svc);
     const vals=(getActiveOffer(off)?.type==='special'&&getActiveOffer(off)?.duration)?[getActiveOffer(off).duration]:(s?String(s.duration||'').split('/').map(x=>x.trim()).filter(Boolean):[]);
     const dur=prev.duration&&vals.includes(prev.duration)?prev.duration:(vals[0]||'');
-    return '<div class="guest-card" data-guest="'+(i+1)+'" style="margin-top:14px;padding:16px;border:1px solid rgba(180,145,65,.25);border-radius:18px;background:rgba(255,255,255,.35)"><h3 style="margin:0 0 12px;color:var(--green);font-family:Georgia,serif">Person '+(i+1)+'</h3><div class="two"><div><label>Therapy / Service *</label><select class="guest-service" required>'+serviceOptions(svc,off)+'</select></div><div><label>Timing / Duration *</label><select class="guest-duration" required>'+durationOptions(svc,off)+'</select></div></div><div style="margin-top:12px"><label>Offer</label><select class="guest-offer">'+offerOptions(off,svc)+'</select></div><div class="guest-rate admin-note" style="margin-top:8px"></div></div>';
+    return '<div class="guest-card" data-guest="'+(i+1)+'" style="margin-top:14px;padding:16px;border:1px solid rgba(180,145,65,.25);border-radius:18px;background:rgba(255,255,255,.35)"><h3 style="margin:0 0 12px;color:var(--green);font-family:Georgia,serif">Person '+(i+1)+'</h3><div class="two"><div><label>Therapy / Service *</label><select class="guest-service" required>'+serviceOptions(svc,off)+'</select></div><div><label>Timing / Duration *</label><select class="guest-duration" required>'+durationOptions(svc,off)+'</select></div></div><div class="guest-offer-wrap" style="margin-top:12px">'+offerFieldHtml(off,svc,'guest-offer','')+'</div><div class="guest-rate admin-note" style="margin-top:8px"></div></div>';
   }).join('');
   bindGuestEvents();
   refreshAllGuestRates();
@@ -59,7 +65,7 @@ function renderGuestSelections(){
 function bindSingleEvents(){
   const service=document.getElementById('service'), offer=document.getElementById('offer'), duration=document.getElementById('duration');
   service?.addEventListener('change',()=>{
-    const currentOffer=getActiveOffer(offer.value);
+    const offerEl=offer(), currentOffer=getActiveOffer(offerEl?.value);
     if(currentOffer){
       const eligible=eligibleServicesForOffer(currentOffer);
       if(!eligible.some(x=>x.name===service.value)){
@@ -71,15 +77,20 @@ function bindSingleEvents(){
       }else{
         service.innerHTML=serviceOptions(service.value,currentOffer.title);
       }
-      duration.innerHTML=durationOptions(service.value,currentOffer.title);
+      document.getElementById('offerFieldWrap').innerHTML=offerFieldHtml(currentOffer.title,service.value,'offer','offerField');
+      bindSingleEvents();
+      const refreshedOffer=document.getElementById('offer');
+      duration.innerHTML=durationOptions(service.value,refreshedOffer?.value||'');
     }else{
-      offer.innerHTML=offerOptions(offer.value,service.value);
-      duration.innerHTML=durationOptions(service.value,offer.value);
+      document.getElementById('offerFieldWrap').innerHTML=offerFieldHtml('',service.value,'offer','offerField');
+      const refreshedOffer=document.getElementById('offer');
+      duration.innerHTML=durationOptions(service.value,refreshedOffer?.value||'');
     }
     refreshSingleRate();
     updateSubmitState();
   });
-  offer?.addEventListener('change',()=>{
+  document.getElementById('offer')?.addEventListener('change',()=>{
+    const offer=document.getElementById('offer');
     const chosen=getActiveOffer(offer.value);
     if(chosen){
       const eligible=eligibleServicesForOffer(chosen);
@@ -111,7 +122,7 @@ function refreshSingleRate(){
 }
 function bindGuestEvents(){
   guestSelections.querySelectorAll('.guest-service').forEach(el=>el.addEventListener('change',()=>{
-    const card=el.closest('.guest-card'),offer=card.querySelector('.guest-offer'),currentOffer=getActiveOffer(offer.value);
+    const card=el.closest('.guest-card'),offer=card.querySelector('.guest-offer'),currentOffer=getActiveOffer(offer?.value);
     if(currentOffer){
       const eligible=eligibleServicesForOffer(currentOffer);
       if(!eligible.some(x=>x.name===el.value)){
@@ -123,7 +134,8 @@ function bindGuestEvents(){
     }else{
       offer.innerHTML=offerOptions(offer.value,el.value);
     }
-    card.querySelector('.guest-duration').innerHTML=durationOptions(el.value,offer.value);
+    card.querySelector('.guest-offer-wrap').innerHTML=offerFieldHtml(offer.value,el.value,'guest-offer','');
+    card.querySelector('.guest-duration').innerHTML=durationOptions(el.value,card.querySelector('.guest-offer')?.value||'');
     refreshAllGuestRates();updateSubmitState();
   }));
   guestSelections.querySelectorAll('.guest-offer').forEach(el=>el.addEventListener('change',()=>{
