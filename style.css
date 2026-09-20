@@ -55,7 +55,7 @@
 @media(max-width:560px){.appointment-row{grid-template-columns:42px 1fr;gap:9px}.appointment-row>div:nth-child(2),.appointment-row>div:nth-child(3),.appointment-row>div:nth-child(4),.appointment-row>div:nth-child(5),.appointment-row>div:nth-child(6),.appointment-row>div:nth-child(7),.appointment-row .appointment-actions{grid-column:1/-1}.appointment-detail-grid{grid-template-columns:1fr}.appointment-detail-person{grid-template-columns:1fr}.appointment-view-modal{padding:10px}.appointment-view-card{padding:15px}}
 
 /* Keep social icons visually identical whether a link is saved or not. */
-.socials .social-icon{flex:0 0 42px;width:42px;height:42px;box-sizing:border-box;color:var(--gold2);text-decoration:none}
+.socials .social-icon{flex:0 0 42px;width:42px;height:42px;box-sizing:border-box;color:var(--gold2);text-decoration:none;margin:0;vertical-align:middle}
 .socials .social-icon:link,.socials .social-icon:visited{color:var(--gold2);text-decoration:none}
 .socials .social-icon.social-inactive{color:var(--gold2);opacity:1}
 .socials .social-icon:hover{background:var(--gold2);color:var(--green)}
