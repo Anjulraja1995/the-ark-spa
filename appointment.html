@@ -213,14 +213,11 @@ function updateSubmitState(){
   let ready=false;
   if(n===1){
     const offer=document.getElementById('offer');
-    const offerRequired=!!offer && !!offer.closest('.offer-field');
-    ready=unlocked&&(!offerRequired||!!offer.value)&&!!service?.value&&!!duration?.value;
+    ready=unlocked&&!!service?.value&&!!duration?.value;
   }else{
     const cards=[...guestSelections.querySelectorAll('.guest-card')];
     ready=unlocked&&cards.length===n&&cards.every(c=>{
-      const offer=c.querySelector('.guest-offer');
-      const offerRequired=!!offer && !!offer.closest('.offer-field');
-      return (!offerRequired||!!offer.value)&&!!c.querySelector('.guest-service')?.value&&!!c.querySelector('.guest-duration')?.value;
+      return !!c.querySelector('.guest-service')?.value&&!!c.querySelector('.guest-duration')?.value;
     });
   }
   dateEl.disabled=!ready;
