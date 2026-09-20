@@ -137,7 +137,16 @@
     container.innerHTML=keys.map(k=>{const href=arkData.social&&arkData.social[k]?String(arkData.social[k]).trim():'';const valid=href&&validateSocialUrl(k,href);const icon=socialIcon(k);if(valid)return '<span class="social-icon social-'+k+'" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+'">'+icon+'<a class="social-link" href="'+escapeAttr(href)+'" target="_blank" rel="noopener" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+'"></a></span>';return '<span class="social-icon social-'+k+' social-inactive" aria-disabled="true" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+' — link not added yet">'+icon+'</span>'}).join('');
   };
   window.renderBrand=function(){
-    document.querySelectorAll('[data-brand-logo]').forEach(el=>{el.src=arkData.brand.logoUrl||DEFAULT.brand.logoUrl;el.onerror=()=>{el.src=DEFAULT.brand.logoUrl}});
+    const fallback=DEFAULT.brand.logoUrl;
+    const candidate=String((arkData.brand&&arkData.brand.logoUrl)||fallback).trim()||fallback;
+    document.querySelectorAll('[data-brand-logo]').forEach(el=>{
+      if(el.dataset.logoPending===candidate)return;
+      el.dataset.logoPending=candidate;
+      const test=new Image();
+      test.onload=()=>{if(el.dataset.logoPending===candidate){el.src=candidate;el.dataset.logoLoaded=candidate;el.onerror=null}};
+      test.onerror=()=>{if(el.dataset.logoPending===candidate&&el.dataset.logoLoaded!==fallback){el.src=fallback;el.dataset.logoLoaded=fallback;el.onerror=null}};
+      test.src=candidate;
+    });
     document.querySelectorAll('[data-brand-name]').forEach(el=>el.textContent=arkData.brand.name);
     document.querySelectorAll('[data-brand-tagline]').forEach(el=>el.textContent=arkData.brand.tagline);
   };
