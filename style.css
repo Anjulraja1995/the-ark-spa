@@ -59,3 +59,6 @@
 .socials .social-icon:link,.socials .social-icon:visited{color:var(--gold2);text-decoration:none}
 .socials .social-icon.social-inactive{color:var(--gold2);opacity:1}
 .socials .social-icon:hover{background:var(--gold2);color:var(--green)}
+
+/* Admin top bar exact logo background match */
+.admin-top{background:#f8f3e7!important;background-image:none!important;}
