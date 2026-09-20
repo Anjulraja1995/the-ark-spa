@@ -89,7 +89,7 @@ function appointmentDetailHtml(a){
     '<div><span class="appointment-label">PHONE</span><a class="phone-link" href="tel:'+escapeAttr(String(a.phone||''))+'">'+escapeHtml(a.phone||'—')+'</a></div>'+
     '<div><span class="appointment-label">STATUS</span><strong>'+escapeHtml(a.status||'Pending')+'</strong></div>'+
     '<div><span class="appointment-label">TOTAL</span><strong>'+escapeHtml(String(a.finalPrice||a.totalAmount||a.regularRate||'—'))+'</strong></div>'+
-  '</div><div class="appointment-detail-services">'+people+'</div>';
+  '</div><div class="appointment-detail-services">'+rows+'</div>';
 }
 function viewAppointment(id){
   const a=(window.appointmentsData||[]).find(x=>x.id===id);
