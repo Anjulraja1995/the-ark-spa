@@ -113,12 +113,9 @@
     return getActiveOffers().filter(o=>offerApplies(o,item));
   };
   window.rateHtml=function(item){
-    const rate=item.rate||''; if(!rate)return '<span class="rate-empty">Rate not supplied</span>';
-    const pct=getActiveOffers().find(o=>o.type==='percentage'&&offerApplies(o,item));
-    const special=getActiveOffers().find(o=>o.type==='special'&&offerApplies(o,item));
-    if(special)return `<span class="rate-pair"><del>${escapeHtml(rate)}</del><strong>${formatMoney(special.rate)}</strong></span>`;
-    if(pct){const parts=discountedRateParts(rate,pct.percent);return parts.map(p=>`<span class="rate-pair"><del>${escapeHtml(p.raw)}</del><strong>${formatMoney(p.discounted)}</strong></span>`).join(' / ')}
-    return `<span class="rate-normal">${escapeHtml(rate)}</span>`;
+    const rate=item&&item.rate?item.rate:'';
+    if(!rate)return '<span class="rate-empty">Rate not supplied</span>';
+    return '<span class="rate-normal">'+escapeHtml(rate)+'</span>';
   };
   window.wa=function(message){
     const n=(arkData.whatsapp||DEFAULT.whatsapp).replace(/\D/g,'');
