@@ -44,7 +44,7 @@
     if(!Array.isArray(saved)||!saved.length) return JSON.parse(JSON.stringify(DEFAULT.menu));
     const byName=new Map(saved.map(x=>[String(x.name||'').trim(),x]));
     return DEFAULT.menu.map(d=>{
-      const s=byName.get(d.name); return s?{...d,rate:s.rate??d.rate,duration:s.duration??d.duration,description:d.description}:d;
+      const s=byName.get(d.name); return s?{...d,rate:(s.rate===undefined||s.rate===null||String(s.rate).trim()==='')?d.rate:s.rate,duration:s.duration??d.duration,description:d.description}:d;
     });
   }
   function merge(saved){
