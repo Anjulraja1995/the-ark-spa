@@ -129,7 +129,7 @@
   window.renderSocials=function(container){
     if(!container)return;
     const keys=['instagram','facebook','youtube','x'];
-    container.innerHTML=keys.map(k=>{const href=arkData.social&&arkData.social[k]?String(arkData.social[k]).trim():'';const valid=href&&validateSocialUrl(k,href);const icon=socialIcon(k);if(valid)return `<a class="social-icon social-${k}" href="${escapeAttr(href)}" target="_blank" rel="noopener" aria-label="${socialLabel(k)}" title="${socialLabel(k)}">${icon}</a>`;return `<a class="social-icon social-${k} social-inactive" aria-disabled="true" aria-label="${socialLabel(k)}" title="${socialLabel(k)} — link not added yet">${icon}</a>`}).join('');
+    container.innerHTML=keys.map(k=>{const href=arkData.social&&arkData.social[k]?String(arkData.social[k]).trim():'';const valid=href&&validateSocialUrl(k,href);const icon=socialIcon(k);if(valid)return '<span class="social-icon social-'+k+'" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+'">'+icon+'<a class="social-link" href="'+escapeAttr(href)+'" target="_blank" rel="noopener" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+'"></a></span>';return '<span class="social-icon social-'+k+' social-inactive" aria-disabled="true" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+' — link not added yet">'+icon+'</span>'}).join('');
   };
   window.renderBrand=function(){
     document.querySelectorAll('[data-brand-logo]').forEach(el=>{el.src=arkData.brand.logoUrl||DEFAULT.brand.logoUrl;el.onerror=()=>{el.src=DEFAULT.brand.logoUrl}});
