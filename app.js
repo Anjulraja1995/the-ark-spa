@@ -149,6 +149,10 @@
     document.querySelectorAll('[data-map]').forEach(a=>a.onclick=e=>{e.preventDefault();mapArk()});
     document.querySelectorAll('[data-wa]').forEach(a=>{a.onclick=e=>{e.preventDefault();wa(a.dataset.wa||'Hello The Ark Spa & Salon, I would like to book an appointment.')}});
     document.querySelectorAll('[data-book]').forEach(a=>a.href='appointment.html');
+    try{if(typeof renderMenu==='function')renderMenu();}catch(e){console.warn('Menu refresh skipped:',e)}
+    try{if(typeof renderHomeGallery==='function')renderHomeGallery();}catch(e){console.warn('Home gallery refresh skipped:',e)}
+    try{if(typeof renderHomeOffers==='function')renderHomeOffers();}catch(e){console.warn('Home offers refresh skipped:',e)}
+    window.dispatchEvent(new CustomEvent('arkSiteDataUpdated',{detail:window.arkData}));
   };
   window.initSite=async function(){
     await arkLoad();
