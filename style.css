@@ -53,3 +53,9 @@
 @media(max-width:1100px){.appointment-row{grid-template-columns:42px minmax(110px,1.2fr) minmax(100px,1fr) minmax(70px,.8fr) minmax(105px,1fr) minmax(120px,1.2fr) minmax(80px,.8fr) minmax(205px,220px)}}
 @media(max-width:820px){.appointment-row{grid-template-columns:42px 1fr 1fr}.appointment-row .appointment-actions{grid-column:1/-1;border-top:1px solid var(--line);padding-top:9px;margin-top:2px}.appointment-row>div:nth-child(2){grid-column:2/4}.appointment-row>div:nth-child(3),.appointment-row>div:nth-child(4),.appointment-row>div:nth-child(5),.appointment-row>div:nth-child(6),.appointment-row>div:nth-child(7){grid-column:auto}}
 @media(max-width:560px){.appointment-row{grid-template-columns:42px 1fr;gap:9px}.appointment-row>div:nth-child(2),.appointment-row>div:nth-child(3),.appointment-row>div:nth-child(4),.appointment-row>div:nth-child(5),.appointment-row>div:nth-child(6),.appointment-row>div:nth-child(7),.appointment-row .appointment-actions{grid-column:1/-1}.appointment-detail-grid{grid-template-columns:1fr}.appointment-detail-person{grid-template-columns:1fr}.appointment-view-modal{padding:10px}.appointment-view-card{padding:15px}}
+
+/* Keep social icons visually identical whether a link is saved or not. */
+.socials .social-icon{flex:0 0 42px;width:42px;height:42px;box-sizing:border-box;color:var(--gold2);text-decoration:none}
+.socials .social-icon:link,.socials .social-icon:visited{color:var(--gold2);text-decoration:none}
+.socials .social-icon.social-inactive{color:var(--gold2);opacity:1}
+.socials .social-icon:hover{background:var(--gold2);color:var(--green)}
