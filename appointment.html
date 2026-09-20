@@ -117,17 +117,8 @@ function bindSingleEvents(){
   document.getElementById('offer')?.addEventListener('change',()=>{
     const offer=document.getElementById('offer');
     const chosen=getActiveOffer(offer.value);
-    if(chosen){
-      const eligible=eligibleServicesForOffer(chosen);
-      const current=itemByName(service.value);
-      const keep=current&&eligible.some(x=>x.name===current.name)?current:null;
-      const first=keep||eligible[0];
-      service.innerHTML=serviceOptions(first?.name||'',chosen.title);
-      if(first)service.value=first.name;
-    }else{
-      service.innerHTML=serviceOptions(service.value,offer.value);
-    }
-    duration.innerHTML=durationOptions(service.value,offer.value);
+    service.innerHTML=serviceOptions('',chosen?.title||'');
+    duration.innerHTML=durationOptions('',offer.value);
     refreshSingleRate();
     updateSubmitState();
   });
