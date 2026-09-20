@@ -59,7 +59,7 @@
       social:{...DEFAULT.social,...(saved.social||{})},
       footer:{...DEFAULT.footer,...(saved.footer||{})},
       menu:mergeMenu(saved.menu),
-      gallery:Array.isArray(saved.gallery)&&saved.gallery.length?saved.gallery:JSON.parse(JSON.stringify(DEFAULT.gallery)),
+      gallery:Array.isArray(saved.gallery)?saved.gallery:JSON.parse(JSON.stringify(DEFAULT.gallery)),
       offers:(Array.isArray(saved.offers)?saved.offers:(saved.offers&&typeof saved.offers==='object'?Object.values(saved.offers).filter(Boolean):[]))
     };
   }
