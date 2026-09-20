@@ -138,8 +138,8 @@
     document.querySelectorAll('[data-brand-name]').forEach(el=>el.textContent=arkData.brand.name);
     document.querySelectorAll('[data-brand-tagline]').forEach(el=>el.textContent=arkData.brand.tagline);
   };
-  window.initSite=async function(){
-    await arkLoad();
+  let siteContentListener=null;
+  window.applyArkSiteData=function(){
     renderBrand();
     document.querySelectorAll('[data-phone]').forEach(e=>e.textContent=arkData.phone);
     document.querySelectorAll('[data-address]').forEach(e=>e.textContent=arkData.address);
@@ -149,6 +149,20 @@
     document.querySelectorAll('[data-map]').forEach(a=>a.onclick=e=>{e.preventDefault();mapArk()});
     document.querySelectorAll('[data-wa]').forEach(a=>{a.onclick=e=>{e.preventDefault();wa(a.dataset.wa||'Hello The Ark Spa & Salon, I would like to book an appointment.')}});
     document.querySelectorAll('[data-book]').forEach(a=>a.href='appointment.html');
+  };
+  window.initSite=async function(){
+    await arkLoad();
+    applyArkSiteData();
+    if(window.firebaseReady&&window.db){
+      if(siteContentListener)db.ref('siteContent').off('value',siteContentListener);
+      siteContentListener=snap=>{
+        if(!snap.exists())return;
+        window.arkData=merge(snap.val());
+        applyArkSiteData();
+        window.dispatchEvent(new CustomEvent('arkSiteDataUpdated',{detail:window.arkData}));
+      };
+      db.ref('siteContent').on('value',siteContentListener,err=>console.warn('Live site settings sync unavailable:',err));
+    }
   };
   window.toggleMobileNav=function(){document.getElementById('mobileDrawer')?.classList.toggle('show')};
   window.closeMobileNav=function(){document.getElementById('mobileDrawer')?.classList.remove('show')};
