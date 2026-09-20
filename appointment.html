@@ -29,7 +29,8 @@ function offerLabel(o){if(o.type==='percentage')return String(o.percent)+'% OFF'
 function offerFieldHtml(selected,service,cls='offer',id='offer'){
   const os=availableOffers(service);
   if(!os.length)return '';
-  return '<div class="offer-field" id="'+escapeAttr(id)+'"><label>Offer</label><select class="'+escapeAttr(cls)+'"'+(cls==='offer'?' id="offer"':'')+'>'+offerOptions(selected,service)+'</select></div>';
+  const label=cls==='offer'?'Active Offer':'';
+  return '<div class="offer-field" id="'+escapeAttr(id)+'">'+(label?'<label>Active Offer</label>':'')+'<select class="'+escapeAttr(cls)+'"'+(cls==='offer'?' id="offer"':'')+'>'+offerOptions(selected,service)+'</select></div>';
 }
 function serviceOptions(selected,offer){
   const o=getActiveOffer(offer);
