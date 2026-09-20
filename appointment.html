@@ -83,8 +83,15 @@ function toggleTherapyPicker(id){
 function toggleTherapyCategory(btn){
   const group=btn.closest('.therapy-group'), sub=group?.querySelector('.therapy-services');
   if(!sub)return;
-  btn.classList.toggle('expanded');
-  sub.classList.toggle('open');
+  const menu=group.closest('.therapy-menu');
+  menu?.querySelectorAll('.therapy-group').forEach(other=>{
+    if(other===group)return;
+    other.querySelector('.therapy-category')?.classList.remove('expanded');
+    other.querySelector('.therapy-services')?.classList.remove('open');
+  });
+  const willOpen=!sub.classList.contains('open');
+  btn.classList.toggle('expanded',willOpen);
+  sub.classList.toggle('open',willOpen);
 }
 function pickTherapy(btn,id){
   const picker=document.getElementById(id), select=picker?.parentElement?.querySelector('select');
