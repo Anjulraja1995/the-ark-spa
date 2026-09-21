@@ -230,3 +230,40 @@
       linear-gradient(160deg,#d0d4c7 0%,#c0c6ba 52%,#cecbbf 100%) !important;
   }
 }
+
+
+/* THE ARK ADMIN NATURAL SPA — FINAL VISIBLE TRIAL */
+body.admin-body{
+  background-color:#aeb7a6 !important;
+  background:
+    radial-gradient(780px 560px at -5% -5%,rgba(214,192,145,.30),transparent 62%),
+    radial-gradient(760px 540px at 105% 12%,rgba(70,96,76,.28),transparent 64%),
+    radial-gradient(900px 620px at 50% 108%,rgba(145,116,88,.20),transparent 68%),
+    linear-gradient(135deg,#aeb8a9 0%,#9ea99d 45%,#b7b5a5 100%) !important;
+  background-attachment:fixed !important;
+}
+body.admin-body::before{
+  background:
+    radial-gradient(430px 320px at 12% 20%,rgba(238,226,197,.20),transparent 72%),
+    radial-gradient(500px 360px at 86% 68%,rgba(52,78,61,.12),transparent 74%),
+    radial-gradient(650px 430px at 50% 96%,rgba(171,137,105,.10),transparent 76%) !important;
+}
+body.admin-body::after{
+  opacity:.18 !important;
+  background:
+    radial-gradient(ellipse at 18% 22%,rgba(255,255,255,.14) 0 2px,transparent 3px),
+    radial-gradient(ellipse at 78% 72%,rgba(36,58,44,.10) 0 2px,transparent 3px) !important;
+  background-size:72px 58px,94px 76px !important;
+}
+.admin-login{
+  background:transparent !important;
+}
+@media(max-width:760px){
+  body.admin-body{
+    background:
+      radial-gradient(520px 400px at -8% 0%,rgba(214,192,145,.25),transparent 66%),
+      radial-gradient(560px 430px at 108% 36%,rgba(70,96,76,.24),transparent 70%),
+      radial-gradient(650px 520px at 50% 108%,rgba(145,116,88,.18),transparent 72%),
+      linear-gradient(155deg,#a9b3a4 0%,#98a498 52%,#b0afa1 100%) !important;
+  }
+}
