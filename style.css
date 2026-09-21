@@ -679,3 +679,19 @@ body:not(.admin-body) .offers-strip.discount-only .offer-mini{
     margin:0 auto;
   }
 }
+
+/* THE ARK BOOKING VISIBILITY — RESTORE ONLY */
+body:not(.admin-body) .desktop-nav a[onclick*="openBookingChooser"]{
+  display:inline-flex !important;
+}
+body:not(.admin-body) .mobile-nav-drawer a[onclick*="openBookingChooser"]{
+  display:block !important;
+}
+body:not(.admin-body) .mobile-bottom-bar{
+  display:none !important;
+}
+@media(max-width:760px){
+  body:not(.admin-body) .mobile-bottom-bar{
+    display:grid !important;
+  }
+}
