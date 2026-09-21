@@ -559,3 +559,76 @@ body:not(.admin-body) .page-hero{
     transform:translateY(-2px) !important;
   }
 }
+
+
+/* THE ARK — HIGH-QUALITY RENDERING LAYER — VISUAL ONLY */
+html{
+  text-rendering:optimizeLegibility;
+  font-kerning:normal;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+body{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+body:not(.admin-body) img,
+body:not(.admin-body) svg{
+  image-rendering:auto;
+  shape-rendering:auto;
+  text-rendering:geometricPrecision;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+body:not(.admin-body) .brand-logo,
+body:not(.admin-body) .login-logo,
+body:not(.admin-body) .service-img,
+body:not(.admin-body) .about-image,
+body:not(.admin-body) .gallery-grid img,
+body:not(.admin-body) .slides img,
+body:not(.admin-body) .choice-logo img{
+  image-rendering:auto;
+  transform:translateZ(0);
+  -webkit-transform:translateZ(0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+body:not(.admin-body) .brand-logo,
+body:not(.admin-body) .service-img,
+body:not(.admin-body) .about-image,
+body:not(.admin-body) .gallery-grid img,
+body:not(.admin-body) .slides img{
+  image-rendering:-webkit-optimize-contrast;
+}
+body:not(.admin-body) .hero,
+body:not(.admin-body) .page-hero,
+body:not(.admin-body) header,
+body:not(.admin-body) .service-card,
+body:not(.admin-body) .menu-cat,
+body:not(.admin-body) .service-detail,
+body:not(.admin-body) .info-band,
+body:not(.admin-body) .modal-box,
+body:not(.admin-body) .footer-info,
+body:not(.admin-body) footer{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+body:not(.admin-body) .btn,
+body:not(.admin-body) .smallbtn,
+body:not(.admin-body) .category-link,
+body:not(.admin-body) .offer-btn,
+body:not(.admin-body) nav a,
+body:not(.admin-body) .cat-btn,
+body:not(.admin-body) .menu-name,
+body:not(.admin-body) .pill{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+}
+@media(min-resolution:2dppx){
+  body:not(.admin-body) img,
+  body:not(.admin-body) svg{
+    image-rendering:auto;
+  }
+}
