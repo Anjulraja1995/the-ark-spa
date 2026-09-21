@@ -645,5 +645,6 @@ body:not(.admin-body) .pill{
 body:not(.admin-body) .offers-strip.discount-only{justify-content:center}
 body:not(.admin-body) .offers-strip.discount-only>div:first-child,
 body:not(.admin-body) .offers-strip.discount-only>.offer-btn{display:none}
-body:not(.admin-body) .offers-strip.discount-only .offer-cards{flex:0 1 520px;width:min(520px,100%);margin:0 auto}
-@media(max-width:760px){body:not(.admin-body) .offers-strip.discount-only .offer-cards{width:100%;margin:0}}
+body:not(.admin-body) .offers-strip.discount-only .offer-cards{flex:0 0 auto;width:auto;margin:0}
+body:not(.admin-body) .offers-strip.discount-only .offer-mini{padding:12px 24px;min-width:0}
+@media(max-width:760px){body:not(.admin-body) .offers-strip.discount-only .offer-cards{width:auto;margin:0}}
