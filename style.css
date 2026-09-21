@@ -267,3 +267,39 @@ body.admin-body::after{
       linear-gradient(155deg,#a9b3a4 0%,#98a498 52%,#b0afa1 100%) !important;
   }
 }
+
+
+/* THE ARK PUBLIC WEBSITE — NATURAL SPA BACKGROUND */
+body:not(.admin-body){
+  background-color:#aeb7a6 !important;
+  background:
+    radial-gradient(900px 560px at -4% -2%,rgba(214,192,145,.24),transparent 63%),
+    radial-gradient(820px 560px at 104% 18%,rgba(70,96,76,.22),transparent 66%),
+    radial-gradient(900px 620px at 50% 108%,rgba(145,116,88,.16),transparent 70%),
+    linear-gradient(135deg,#b1b9ab 0%,#a1ab9f 46%,#b9b7a8 100%) !important;
+  background-attachment:fixed !important;
+  position:relative;
+}
+body:not(.admin-body)::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.42;
+  background:
+    radial-gradient(ellipse at 16% 24%,rgba(246,237,211,.16) 0 2px,transparent 3px),
+    radial-gradient(ellipse at 78% 70%,rgba(47,72,55,.08) 0 2px,transparent 3px);
+  background-size:86px 68px,110px 84px;
+}
+.section{background:transparent !important;}
+@media(max-width:760px){
+  body:not(.admin-body){
+    background:
+      radial-gradient(520px 400px at -8% 0%,rgba(214,192,145,.22),transparent 66%),
+      radial-gradient(560px 430px at 108% 36%,rgba(70,96,76,.20),transparent 70%),
+      radial-gradient(650px 520px at 50% 108%,rgba(145,116,88,.15),transparent 72%),
+      linear-gradient(155deg,#acb5a7 0%,#9aa599 52%,#b2b0a1 100%) !important;
+    background-attachment:scroll !important;
+  }
+}
