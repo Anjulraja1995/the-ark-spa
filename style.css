@@ -198,3 +198,35 @@
       linear-gradient(160deg,#c5ccc5 0%,#b9c2ba 52%,#c4c9c2 100%) !important;
   }
 }
+
+
+/* THE ARK ADMIN NATURAL SPA THEME — VISUAL TRIAL ONLY */
+.admin-body{
+  background:
+    radial-gradient(900px 520px at 0% 0%,rgba(126,145,121,.24),transparent 64%),
+    radial-gradient(760px 520px at 100% 15%,rgba(181,151,104,.18),transparent 68%),
+    radial-gradient(900px 620px at 50% 100%,rgba(101,126,105,.16),transparent 72%),
+    linear-gradient(145deg,#d3d6c8 0%,#c4c8bb 46%,#d0cec0 100%) !important;
+}
+.admin-body::before{
+  background:
+    radial-gradient(420px 300px at 12% 24%,rgba(244,239,220,.20),transparent 74%),
+    radial-gradient(520px 360px at 88% 54%,rgba(75,101,80,.07),transparent 76%),
+    radial-gradient(620px 420px at 48% 94%,rgba(196,173,126,.08),transparent 78%) !important;
+}
+.admin-body::after{
+  opacity:.10 !important;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,.22) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 70% 65%,rgba(52,72,57,.10) 0 1px,transparent 1.5px) !important;
+  background-size:38px 38px,52px 52px !important;
+}
+@media(max-width:760px){
+  .admin-body{
+    background:
+      radial-gradient(500px 390px at 5% 5%,rgba(126,145,121,.22),transparent 68%),
+      radial-gradient(520px 430px at 96% 40%,rgba(181,151,104,.15),transparent 72%),
+      radial-gradient(620px 500px at 50% 100%,rgba(101,126,105,.14),transparent 74%),
+      linear-gradient(160deg,#d0d4c7 0%,#c0c6ba 52%,#cecbbf 100%) !important;
+  }
+}
