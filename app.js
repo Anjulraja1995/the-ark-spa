@@ -95,7 +95,7 @@
     const p=parseRateParts(rate); if(!p.length)return null; const d=Math.max(0,Math.min(100,Number(pct)||0));
     return p.map(x=>({...x,discounted:Math.round(x.value*(100-d))/100}));
   };
-  window.getActiveOffers=()=>Array.isArray(arkData.offers)?arkData.offers.filter(o=>o&&o.active===true):[];
+  window.getActiveOffers=()=>Array.isArray(arkData.offers)?arkData.offers.filter(o=>o&&(o.active===true||o.active==='true'||o.active===1)):[];
   window.offerApplies=function(o,item){
     if(!o||!item)return false;
     if(o.type==='percentage'){
