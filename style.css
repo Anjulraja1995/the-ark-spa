@@ -1205,34 +1205,77 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   }
 }
 
-/* THE ARK OFFERS — PHOTO REFERENCE FINAL */
+/* THE ARK OFFERS — FINAL PHOTO MATCH: CIRCULAR ICON + ADMIN OFFER NAME */
 body:not(.admin-body) .offers-strip .offer-mini{
   min-height:210px !important;
   height:210px !important;
   padding:14px 16px !important;
-  gap:3px !important;
+  gap:4px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  text-align:center !important;
 }
 body:not(.admin-body) .offers-strip .offer-icon{
-  width:auto !important;
-  height:25px !important;
-  min-height:25px !important;
-  border:0 !important;
-  border-radius:0 !important;
-  font-size:19px !important;
+  width:46px !important;
+  height:46px !important;
+  min-width:46px !important;
+  min-height:46px !important;
+  border:1.5px solid #e7c66b !important;
+  border-radius:50% !important;
+  display:grid !important;
+  place-items:center !important;
+  font-size:22px !important;
+  line-height:1 !important;
   color:#f3c95b !important;
-  margin:0 0 2px !important;
+  margin:0 0 3px !important;
+  flex:0 0 46px !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy{
+  width:100% !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  gap:2px !important;
 }
 body:not(.admin-body) .offers-strip .offer-copy b{
   font-size:12px !important;
+  line-height:1.15 !important;
 }
 body:not(.admin-body) .offers-strip .offer-copy strong{
   font-size:24px !important;
   line-height:1.1 !important;
+  margin:1px 0 !important;
+  overflow-wrap:anywhere !important;
 }
 body:not(.admin-body) .offers-strip .offer-copy small{
   min-height:38px !important;
+  font-size:12px !important;
+  line-height:1.25 !important;
   overflow:visible !important;
 }
 body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   margin-top:auto !important;
+  padding:10px 19px !important;
+  border-radius:22px !important;
+  font-size:13px !important;
+  line-height:1 !important;
+}
+@media(max-width:900px){
+  body:not(.admin-body) .offers-strip[data-offer-count="1"] .offer-cards{
+    grid-template-columns:minmax(260px,1fr) !important;
+  }
+}
+@media(max-width:600px){
+  body:not(.admin-body) .offers-strip .offer-icon{
+    width:44px !important;
+    height:44px !important;
+    min-width:44px !important;
+    min-height:44px !important;
+    flex-basis:44px !important;
+  }
+  body:not(.admin-body) .offers-strip .offer-mini{
+    height:210px !important;
+  }
 }
