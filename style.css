@@ -632,3 +632,11 @@ body:not(.admin-body) .pill{
     image-rendering:auto;
   }
 }
+
+
+/* THE ARK ADMIN — READABLE WARM GOLD TEXT */
+.admin-body .brand small,
+.admin-body .chev,
+.admin-body .appointment-no{
+  color:#8a641f !important;
+}
