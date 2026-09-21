@@ -678,70 +678,7 @@ body:not(.admin-body) .offers-strip.discount-only .offer-btn{
   flex:0 0 auto;
 }
 @media(max-width:760px){
-  body:not(.admin-body) .offers-strip.discount-only{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px 14px;
-    padding:14px 16px;
-  }
-  body:not(.admin-body) .offers-strip.discount-only .offer-cards{
-    display:flex;
-    flex:1 1 100%;
-    width:100%;
-    gap:8px;
-    flex-wrap:wrap;
-  }
-  body:not(.admin-body) .offers-strip.discount-only .offer-mini{
-    flex:1 1 160px;
-    min-width:0;
-    max-width:none;
-    padding:10px 12px;
-    border-left:0;
-    border-top:1px solid rgba(231,198,107,.35);
-  }
-  body:not(.admin-body) .offers-strip.discount-only .offer-btn{
-    margin:0 auto;
-  }
-}
-body:not(.admin-body) .offers-strip.discount-only{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:0;
-}
-body:not(.admin-body) .offers-strip.discount-only>div:first-child,
-body:not(.admin-body) .offers-strip.discount-only>.offer-btn{
-  display:none;
-}
-body:not(.admin-body) .offers-strip.discount-only .offer-cards{
-  display:block;
-  flex:0 0 auto;
-  width:auto;
-  margin:0 auto;
-}
-body:not(.admin-body) .offers-strip.discount-only .offer-mini{
-  display:inline-flex;
-  flex-direction:column;
-  width:auto;
-  min-width:0;
-  max-width:calc(100vw - 70px);
-  padding:12px 22px;
-  border-left:1px solid rgba(231,198,107,.45);
-  text-align:center;
-}
-@media(max-width:760px){
-  body:not(.admin-body) .offers-strip.discount-only{
-    display:flex;
-    justify-content:center;
-  }
-  body:not(.admin-body) .offers-strip.discount-only .offer-cards{
-    display:block;
-    width:auto;
-    margin:0 auto;
-  }
-}
-
-/* THE ARK BOOKING VISIBILITY — RESTORE ONLY */
+  /* THE ARK BOOKING VISIBILITY — RESTORE ONLY */
 body:not(.admin-body) .desktop-nav a[onclick*="openBookingChooser"]{
   display:inline-flex !important;
 }
