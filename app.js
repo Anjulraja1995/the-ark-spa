@@ -149,7 +149,7 @@
       test.onerror=()=>{if(el.dataset.logoPending===candidate&&el.dataset.logoLoaded!==fallback){el.src=fallback;el.dataset.logoLoaded=fallback;el.onerror=null}};
       test.src=candidate;
     });
-    document.querySelectorAll('[data-brand-name]').forEach(el=>el.textContent=arkData.brand.name);
+    document.querySelectorAll('[data-brand-name]').forEach(el=>el.textContent='THE ARK');
     document.querySelectorAll('[data-brand-tagline]').forEach(el=>el.textContent=arkData.brand.tagline);
   };
   let siteContentListener=null;
