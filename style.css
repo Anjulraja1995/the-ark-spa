@@ -335,3 +335,27 @@ body:not(.admin-body) .info-band{
       linear-gradient(155deg,#acb5a7 0%,#9aa599 52%,#b2b0a1 100%) !important;
   }
 }
+
+
+/* THE ARK PUBLIC — WARM CREAM SURFACE HARMONY */
+body:not(.admin-body) header,
+body:not(.admin-body) .footer-info{
+  background:#f8f3e7 !important;
+}
+body:not(.admin-body) .service-card,
+body:not(.admin-body) .service-detail,
+body:not(.admin-body) .menu-cat,
+body:not(.admin-body) .modal-box,
+body:not(.admin-body) .choice-card,
+body:not(.admin-body) .info-band{
+  background:#f8f3e7 !important;
+}
+body:not(.admin-body) .smallbtn,
+body:not(.admin-body) .form input,
+body:not(.admin-body) .form select,
+body:not(.admin-body) .form textarea{
+  background:#fbf6e9 !important;
+}
+body:not(.admin-body) .pill{
+  background:#eee5d2 !important;
+}
