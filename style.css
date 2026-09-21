@@ -303,3 +303,35 @@ body:not(.admin-body)::before{
     background-attachment:scroll !important;
   }
 }
+
+
+/* THE ARK PUBLIC NATURAL SPA — VISIBILITY FIX */
+html:has(body:not(.admin-body)){
+  background:#aeb7a6 !important;
+}
+body:not(.admin-body){
+  background-color:#aeb7a6 !important;
+  background-image:
+    radial-gradient(900px 560px at -4% -2%,rgba(214,192,145,.30),transparent 63%),
+    radial-gradient(820px 560px at 104% 18%,rgba(70,96,76,.25),transparent 66%),
+    radial-gradient(900px 620px at 50% 108%,rgba(145,116,88,.20),transparent 70%),
+    linear-gradient(135deg,#b1b9ab 0%,#a1ab9f 46%,#b9b7a8 100%) !important;
+}
+body:not(.admin-body) .section{
+  background:rgba(236,235,221,.12) !important;
+}
+body:not(.admin-body) .info-band{
+  background:rgba(255,253,247,.88) !important;
+}
+@media(max-width:760px){
+  html:has(body:not(.admin-body)){
+    background:#a9b3a4 !important;
+  }
+  body:not(.admin-body){
+    background-image:
+      radial-gradient(520px 400px at -8% 0%,rgba(214,192,145,.28),transparent 66%),
+      radial-gradient(560px 430px at 108% 36%,rgba(70,96,76,.24),transparent 70%),
+      radial-gradient(650px 520px at 50% 108%,rgba(145,116,88,.18),transparent 72%),
+      linear-gradient(155deg,#acb5a7 0%,#9aa599 52%,#b2b0a1 100%) !important;
+  }
+}
