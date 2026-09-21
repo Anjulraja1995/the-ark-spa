@@ -641,7 +641,68 @@ body:not(.admin-body) .pill{
   color:#8a641f !important;
 }
 
-/* THE ARK HOME OFFERS — EXACT DISCOUNT-ONLY FORM */
+/* THE ARK HOME OFFERS — BALANCED PREMIUM LAYOUT */
+body:not(.admin-body) .offers-strip.discount-only{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  padding:16px 20px;
+}
+body:not(.admin-body) .offers-strip.discount-only>div:first-child{
+  display:none;
+}
+body:not(.admin-body) .offers-strip.discount-only .offer-cards{
+  display:flex;
+  flex:0 1 auto;
+  width:auto;
+  margin:0;
+  gap:12px;
+  align-items:stretch;
+  justify-content:center;
+}
+body:not(.admin-body) .offers-strip.discount-only .offer-mini{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:auto;
+  min-width:180px;
+  max-width:260px;
+  padding:10px 20px;
+  border-left:1px solid rgba(231,198,107,.45);
+  text-align:center;
+}
+body:not(.admin-body) .offers-strip.discount-only .offer-btn{
+  display:inline-flex;
+  flex:0 0 auto;
+}
+@media(max-width:760px){
+  body:not(.admin-body) .offers-strip.discount-only{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 14px;
+    padding:14px 16px;
+  }
+  body:not(.admin-body) .offers-strip.discount-only .offer-cards{
+    display:flex;
+    flex:1 1 100%;
+    width:100%;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  body:not(.admin-body) .offers-strip.discount-only .offer-mini{
+    flex:1 1 160px;
+    min-width:0;
+    max-width:none;
+    padding:10px 12px;
+    border-left:0;
+    border-top:1px solid rgba(231,198,107,.35);
+  }
+  body:not(.admin-body) .offers-strip.discount-only .offer-btn{
+    margin:0 auto;
+  }
+}
 body:not(.admin-body) .offers-strip.discount-only{
   display:flex;
   justify-content:center;
