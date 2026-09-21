@@ -640,3 +640,10 @@ body:not(.admin-body) .pill{
 .admin-body .appointment-no{
   color:#8a641f !important;
 }
+
+/* THE ARK HOME OFFERS — DISCOUNT ONLY CENTERING */
+body:not(.admin-body) .offers-strip.discount-only{justify-content:center}
+body:not(.admin-body) .offers-strip.discount-only>div:first-child,
+body:not(.admin-body) .offers-strip.discount-only>.offer-btn{display:none}
+body:not(.admin-body) .offers-strip.discount-only .offer-cards{flex:0 1 520px;width:min(520px,100%);margin:0 auto}
+@media(max-width:760px){body:not(.admin-body) .offers-strip.discount-only .offer-cards{width:100%;margin:0}}
