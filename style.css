@@ -1094,3 +1094,113 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   }
 }
 
+
+/* THE ARK OFFERS — FINAL REFERENCE DIMENSIONS */
+body:not(.admin-body) .offers-strip{
+  width:88%;
+  margin:24px auto 10px !important;
+  padding:24px 28px !important;
+  display:grid !important;
+  grid-template-columns:minmax(300px,34%) minmax(0,66%) !important;
+  gap:24px !important;
+  align-items:center !important;
+}
+body:not(.admin-body) .offers-strip>div:first-child{
+  min-width:0 !important;
+  width:auto !important;
+  flex:none !important;
+}
+body:not(.admin-body) .offers-strip .offer-cards{
+  width:100% !important;
+  max-width:none !important;
+  min-width:0 !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:16px !important;
+  align-items:stretch !important;
+}
+body:not(.admin-body) .offers-strip[data-offer-count="1"] .offer-cards{
+  grid-template-columns:minmax(260px,1fr) !important;
+}
+body:not(.admin-body) .offers-strip[data-offer-count="3"] .offer-cards{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+}
+body:not(.admin-body) .offers-strip .offer-mini{
+  min-width:0 !important;
+  min-height:202px !important;
+  height:202px !important;
+  padding:14px 14px 13px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  text-align:center !important;
+  gap:4px !important;
+  overflow:hidden !important;
+}
+body:not(.admin-body) .offers-strip .offer-icon{
+  width:46px !important;
+  height:46px !important;
+  min-height:46px !important;
+  border:1.5px solid #e7c66b !important;
+  border-radius:50% !important;
+  display:grid !important;
+  place-items:center !important;
+  font-size:22px !important;
+  margin:0 0 3px !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy{
+  width:100% !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  gap:2px !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy b{
+  font-size:12px !important;
+  line-height:1.15 !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy strong{
+  font-size:24px !important;
+  line-height:1.15 !important;
+  margin:1px 0 !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy small{
+  min-height:32px !important;
+  font-size:12px !important;
+  line-height:1.25 !important;
+  overflow:hidden !important;
+}
+body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
+  margin-top:auto !important;
+  padding:10px 19px !important;
+  border-radius:22px !important;
+  font-size:13px !important;
+  line-height:1 !important;
+}
+@media(max-width:900px){
+  body:not(.admin-body) .offers-strip{
+    width:92% !important;
+    grid-template-columns:1fr !important;
+  }
+  body:not(.admin-body) .offers-strip .offer-cards,
+  body:not(.admin-body) .offers-strip[data-offer-count="2"] .offer-cards,
+  body:not(.admin-body) .offers-strip[data-offer-count="3"] .offer-cards{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+@media(max-width:600px){
+  body:not(.admin-body) .offers-strip{
+    width:92% !important;
+    display:block !important;
+  }
+  body:not(.admin-body) .offers-strip>div:first-child{
+    margin-bottom:16px !important;
+  }
+  body:not(.admin-body) .offers-strip .offer-cards,
+  body:not(.admin-body) .offers-strip[data-offer-count="1"] .offer-cards,
+  body:not(.admin-body) .offers-strip[data-offer-count="2"] .offer-cards,
+  body:not(.admin-body) .offers-strip[data-offer-count="3"] .offer-cards{
+    grid-template-columns:1fr !important;
+  }
+}
