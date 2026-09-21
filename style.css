@@ -359,3 +359,40 @@ body:not(.admin-body) .form textarea{
 body:not(.admin-body) .pill{
   background:#eee5d2 !important;
 }
+
+/* THE ARK PUBLIC — ALL VISIBLE WHITE SURFACES TO WARM CREAM */
+body:not(.admin-body) .service-card,
+body:not(.admin-body) .service-photo-card,
+body:not(.admin-body) .service-photo-card .service-body,
+body:not(.admin-body) .service-detail,
+body:not(.admin-body) .menu-cat,
+body:not(.admin-body) .cat-items,
+body:not(.admin-body) .info-band,
+body:not(.admin-body) .footer-info,
+body:not(.admin-body) .modal-box,
+body:not(.admin-body) .choice-card,
+body:not(.admin-body) .smallbtn,
+body:not(.admin-body) .form input,
+body:not(.admin-body) .form select,
+body:not(.admin-body) .form textarea,
+body:not(.admin-body) .mobile-bottom-bar,
+body:not(.admin-body) .mobile-nav-drawer{
+  background:#f8f3e7 !important;
+}
+body:not(.admin-body) .service-card,
+body:not(.admin-body) .service-detail,
+body:not(.admin-body) .menu-cat,
+body:not(.admin-body) .info-band,
+body:not(.admin-body) .modal-box,
+body:not(.admin-body) .choice-card{
+  border-color:#e5dcc8 !important;
+}
+body:not(.admin-body) .cat-items{
+  background:#f8f3e7 !important;
+}
+body:not(.admin-body) .pill{
+  background:#eee5d2 !important;
+}
+body:not(.admin-body) .service-photo-card .service-img{
+  background:#f8f3e7 !important;
+}
