@@ -172,3 +172,29 @@
       linear-gradient(160deg,#e5ded1 0%,#dcd8ce 52%,#e4dfd5 100%) !important;
   }
 }
+
+
+/* THE ARK ADMIN PREMIUM SOFT SAGE v3 — VISUAL ONLY */
+.admin-body{
+  background:
+    radial-gradient(760px 520px at 5% 0%,rgba(201,154,58,.10),transparent 66%),
+    radial-gradient(720px 540px at 96% 12%,rgba(7,63,45,.10),transparent 68%),
+    radial-gradient(900px 620px at 50% 100%,rgba(184,196,186,.22),transparent 72%),
+    linear-gradient(145deg,#c8cec7 0%,#bfc7bf 48%,#c7cbc3 100%) !important;
+}
+.admin-body::before{
+  background:
+    radial-gradient(430px 320px at 10% 25%,rgba(245,240,229,.16),transparent 74%),
+    radial-gradient(500px 350px at 90% 48%,rgba(201,154,58,.055),transparent 76%),
+    radial-gradient(620px 420px at 48% 92%,rgba(7,63,45,.055),transparent 78%) !important;
+}
+.admin-body::after{opacity:.16 !important;}
+@media(max-width:760px){
+  .admin-body{
+    background:
+      radial-gradient(480px 380px at 7% 7%,rgba(201,154,58,.09),transparent 70%),
+      radial-gradient(520px 430px at 94% 40%,rgba(7,63,45,.085),transparent 72%),
+      radial-gradient(620px 500px at 50% 100%,rgba(184,196,186,.20),transparent 74%),
+      linear-gradient(160deg,#c5ccc5 0%,#b9c2ba 52%,#c4c9c2 100%) !important;
+  }
+}
