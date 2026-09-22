@@ -80,6 +80,45 @@
   }
   .admin-shell .admin-section-card::after{opacity:.55}
 }
+
+/* FINAL ADMIN 3D SECTION SURFACE — visible depth on every section */
+.admin-shell .admin-section-card{
+  background:
+    radial-gradient(circle at 12% 12%,rgba(231,198,107,.22),transparent 22%),
+    radial-gradient(circle at 88% 88%,rgba(7,63,45,.16),transparent 28%),
+    linear-gradient(145deg,#fffdf7 0%,#f4ecda 48%,#e9eee9 100%) !important;
+  border:1px solid rgba(201,154,58,.42)!important;
+  box-shadow:0 16px 34px rgba(7,63,45,.13), inset 0 1px 0 rgba(255,255,255,.9)!important;
+}
+.admin-shell .admin-section-card::before{
+  opacity:.72!important;
+  background:
+    repeating-linear-gradient(72deg,transparent 0 27px,rgba(201,154,58,.22) 28px,transparent 29px 54px),
+    repeating-linear-gradient(108deg,transparent 0 35px,rgba(7,63,45,.13) 36px,transparent 37px 72px),
+    radial-gradient(ellipse 55% 38% at 18% 8%,rgba(231,198,107,.28),transparent 70%),
+    linear-gradient(135deg,transparent 0 42%,rgba(7,63,45,.06) 43% 46%,transparent 47%);
+  transform:perspective(850px) rotateX(58deg) scale(1.7) translateY(24%)!important;
+}
+.admin-shell .admin-section-card::after{
+  opacity:.72!important;
+  width:155%!important;
+  height:190%!important;
+  left:-28%!important;
+  top:-45%!important;
+  background:
+    radial-gradient(ellipse at center,transparent 0 24%,rgba(7,63,45,.12) 24.5% 25.2%,transparent 25.7% 33%,rgba(201,154,58,.34) 33.5% 34.3%,transparent 34.8% 43%,rgba(7,63,45,.16) 43.5% 44.3%,transparent 44.8% 54%,rgba(231,198,107,.40) 54.5% 55.2%,transparent 55.7% 65%,rgba(7,63,45,.11) 65.5% 66.2%,transparent 66.7%);
+}
+.admin-shell .admin-section-card>.section-toggle{
+  background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(255,253,247,.45))!important;
+  border-bottom:1px solid rgba(201,154,58,.18)!important;
+  backdrop-filter:blur(2px);
+}
+.admin-shell .admin-section-card.open>.section-toggle{
+  box-shadow:0 5px 18px rgba(7,63,45,.07);
+}
+.admin-shell .admin-section-content{
+  background:linear-gradient(180deg,rgba(255,253,247,.82),rgba(255,255,255,.60))!important;
+}
 </style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form></div></div>
 <div id="dashboard" class="admin-shell hidden"><div class="admin-top"><a class="brand" href="index.html"><img id="adminLogo" class="brand-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><span><b>THE ARK</b><small>ADMIN CENTER</small></span></a><button class="btn logout" id="logoutBtn">Logout</button></div>
