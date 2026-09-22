@@ -161,7 +161,7 @@ function updateHome(){const n=(arkData.gallery||[]).slice(0,3).length||1;homeInd
 function moveHome(n){homeIndex+=n;updateHome()}
 function offerHomeIconSvg(isDiscount){
   return isDiscount
-    ? '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M10 28 29 9h19l7 7v19L36 54 10 28Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><circle cx="42" cy="20" r="3" fill="currentColor"/><path d="m27 25 14 14M40 25c0 3-2 5-5 5s-5-2-5-5 2-5 5-5 5 2 5 5Zm-2 14c0 3-2 5-5 5s-5-2-5-5 2-5 5-5 5 2 5 5Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>'
+    ? '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M9 27 28 8h21l7 7v21L36 56 9 29Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><circle cx="43" cy="20" r="3.2" fill="none" stroke="currentColor" stroke-width="3"/></svg>'
     : '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M8 25h48v31H8zM5 18h54v10H5zM31 18v38M31 18c-7 0-16-2-16-8 0-4 3-7 7-7 7 0 9 10 9 15Zm2 0c0-5 2-15 9-15 4 0 7 3 7 7 0 6-9 8-16 8Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>';
 }
 function applyHomeOffer(o){
