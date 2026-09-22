@@ -99,7 +99,8 @@ window.handleArkAdminLogin=async function(event){
     if(!e||!p)throw new Error('Please enter your admin email and password.');
     await window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     await window.auth.signInWithEmailAndPassword(e,p);
-    if(msg){msg.classList.add('hidden');msg.textContent='';}
+    if(msg){msg.classList.remove('hidden');msg.textContent='Signed in. Opening Admin Center…';}
+    window.location.reload();
   }catch(err){
     console.error('Admin login failed:',err);
     if(msg){msg.classList.remove('hidden');msg.textContent=err&&err.code?('Login failed: '+err.code.replace('auth/','').replaceAll('-',' ')):(err&&err.message||'Login failed. Please try again.');}
