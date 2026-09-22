@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script><style>
-@media (max-width:760px){.admin-login{transition:padding-bottom .22s ease,transform .22s ease}.admin-login.keyboard-open{padding-bottom:clamp(150px,38vh,320px)}.admin-login .login-card{transition:transform .22s ease}.admin-login.keyboard-open .login-card{transform:translateY(clamp(-150px,-18vh,-70px))}}
+@media (max-width:760px){.admin-login{min-height:100svh;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}.admin-login.keyboard-open{align-items:flex-start;padding-top:20px;overflow:auto}.admin-login .login-card{width:min(430px,100%);margin:0;transform:translateY(0);transition:transform .18s ease}.admin-login.keyboard-open .login-card{transform:translateY(var(--keyboard-shift,0px))}}
 </style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form></div></div>
 <div id="dashboard" class="admin-shell hidden"><div class="admin-top"><a class="brand" href="index.html"><img id="adminLogo" class="brand-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><span><b>THE ARK</b><small>ADMIN CENTER</small></span></a><button class="btn logout" id="logoutBtn">Logout</button></div>
@@ -195,5 +195,31 @@ async function startDashboard(){await arkLoad();hydrate();}
 function bind(){const loginFormEl=document.getElementById('loginForm');const emailEl=document.getElementById('email');const passwordEl=document.getElementById('password');if(loginFormEl){loginFormEl.addEventListener('submit',async e=>{e.preventDefault();loginMsg.classList.add('hidden');try{await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);await auth.signInWithEmailAndPassword(emailEl.value.trim(),passwordEl.value)}catch(err){loginMsg.classList.remove('hidden');loginMsg.textContent=err.message}})}document.querySelectorAll('.section-toggle').forEach(b=>b.onclick=()=>b.parentElement.classList.toggle('open'));document.querySelectorAll('.admin-tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));['pctCategory','spCategory'].forEach(id=>$(id).addEventListener('change',()=>fillOfferItems($(id).value,id==='pctCategory'?'pctItems':'spItems')));logoutBtn.onclick=async()=>{try{await auth.signOut()}finally{window.location.href='index.html'}};uploadGallery.onclick=handleUploadGallery;uploadLogo.onclick=handleUploadLogo;removeLogo.onclick=handleRemoveLogo;saveContact.onclick=handleSaveContact;saveSocial.onclick=handleSaveSocial;saveBooking.onclick=handleSaveBooking;savePct.onclick=savePercentage;applyPct.onclick=()=>applyOfferType('percentage');deactivatePct.onclick=()=>deactivateOfferType('percentage');saveSp.onclick=saveSpecial;applySp.onclick=()=>applyOfferType('special');deactivateSp.onclick=()=>deactivateOfferType('special');refreshAppointments.onclick=loadAppointments;exportAppointments.onclick=()=>appointmentExportModal.classList.remove('hidden');closeAppointmentExport.onclick=()=>appointmentExportModal.classList.add('hidden');downloadAppointmentsExcelBtn.onclick=()=>{appointmentExportModal.classList.add('hidden');exportAppointmentsExcel()};downloadAppointmentsPdfBtn.onclick=()=>{appointmentExportModal.classList.add('hidden');exportAppointmentsPdf()};backupBtn.onclick=downloadSiteBackup;resetRates.onclick=handleResetRates;resetOffers.onclick=handleResetOffers;resetGallery.onclick=handleResetGallery;restoreApproved.onclick=handleRestoreApproved}
 function resetAdminView(){document.querySelectorAll('.admin-section-card.open').forEach(c=>c.classList.remove('open'));document.querySelectorAll('.admin-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab==='main'));mainPanel.classList.remove('hidden');appointmentsPanel.classList.add('hidden');recoveryPanel.classList.add('hidden');window.scrollTo(0,0)}
 bind();auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});auth.onAuthStateChanged(async user=>{if(user){loginScreen.classList.add('hidden');dashboard.classList.remove('hidden');resetAdminView();await startDashboard()}else{dashboard.classList.add('hidden');loginScreen.classList.remove('hidden');resetAdminView();loginScreen.scrollTop=0;try{const s=await db.ref('siteContent/brand/logoUrl').once('value');loginLogo.src=s.val()||ARK_DEFAULT.brand.logoUrl}catch(e){loginLogo.src=ARK_DEFAULT.brand.logoUrl}}});</script><script>
-(function(){const login=document.getElementById('loginScreen'),fields=[document.getElementById('email'),document.getElementById('password')];if(!login||fields.some(x=>!x))return;let base=window.visualViewport?.height||window.innerHeight;function sync(){const v=window.visualViewport;if(!v)return;login.classList.toggle('keyboard-open',base-v.height>120)}fields.forEach(x=>x.addEventListener('focus',()=>setTimeout(sync,80)));fields.forEach(x=>x.addEventListener('blur',()=>setTimeout(sync,120)));window.visualViewport?.addEventListener('resize',sync);window.visualViewport?.addEventListener('scroll',sync);window.addEventListener('resize',()=>{if(!login.classList.contains('keyboard-open'))base=window.visualViewport?.height||window.innerHeight;sync()});window.addEventListener('orientationchange',()=>setTimeout(()=>{base=window.visualViewport?.height||window.innerHeight;sync()},250))})();
+(function(){
+  const login=document.getElementById('loginScreen'),card=login&&login.querySelector('.login-card'),fields=[document.getElementById('email'),document.getElementById('password')];
+  if(!login||!card||fields.some(x=>!x))return;
+  const vv=window.visualViewport;
+  let keyboard=false;
+  function reset(){keyboard=false;login.classList.remove('keyboard-open');login.style.removeProperty('--keyboard-shift');}
+  function sync(){
+    if(!vv)return;
+    const viewportBottom=vv.height+vv.offsetTop;
+    const cardRect=card.getBoundingClientRect();
+    const active=document.activeElement;
+    const focused=fields.includes(active);
+    const keyboardLikely=window.innerHeight-vv.height>100;
+    if(!keyboardLikely){reset();return;}
+    keyboard=true;login.classList.add('keyboard-open');
+    const safeBottom=viewportBottom-16;
+    const overlap=cardRect.bottom-safeBottom;
+    const shift=Math.min(0,Math.max(-220,-overlap-8));
+    login.style.setProperty('--keyboard-shift',shift+'px');
+    if(focused&&active.scrollIntoView){setTimeout(()=>active.scrollIntoView({block:'center',inline:'nearest',behavior:'smooth'}),0)}
+  }
+  fields.forEach(el=>el.addEventListener('focus',()=>setTimeout(sync,120)));
+  fields.forEach(el=>el.addEventListener('blur',()=>setTimeout(()=>{if(!fields.includes(document.activeElement))reset()},180)));
+  vv&&vv.addEventListener('resize',sync);vv&&vv.addEventListener('scroll',sync);
+  window.addEventListener('resize',()=>setTimeout(sync,80));
+  window.addEventListener('orientationchange',()=>setTimeout(reset,300));
+})();
 </script></body></html>
