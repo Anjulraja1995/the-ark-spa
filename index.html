@@ -1,8 +1,155 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Ark Spa & Salon</title><link rel="stylesheet" href="style.css?v=natural-spa-3"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Ark Spa & Salon</title><link rel="stylesheet" href="style.css?v=offers-reference-2"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script><style id="ark-offers-final-visible">
+/* PUBLIC HOME OFFERS — compact, equal premium cards */
+body:not(.admin-body) .offers-strip.hidden{display:none !important;}
+body:not(.admin-body) .home-offer-modal-icon{
+  width:58px !important;
+  height:58px !important;
+  min-width:58px !important;
+  min-height:58px !important;
+  box-sizing:border-box !important;
+  border:1.5px solid #c7a94b !important;
+  color:#075b41 !important;
+  background:transparent !important;
+  overflow:hidden !important;
+}
+body:not(.admin-body) .home-offer-modal-icon svg{
+  width:34px !important;
+  height:34px !important;
+  max-width:34px !important;
+  max-height:34px !important;
+  display:block !important;
+  overflow:visible !important;
+}
+\nbody:not(.admin-body) .offers-strip{
+  display:block !important;
+  width:auto !important;
+  margin:28px 6% !important;
+  padding:24px !important;
+  box-sizing:border-box !important;
+}
+body:not(.admin-body) .offers-strip>div:first-child{
+  width:100% !important;
+  margin:0 0 16px !important;
+  text-align:center !important;
+}
+body:not(.admin-body) .offers-strip .offer-cards{
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:16px !important;
+  align-items:stretch !important;
+}
+body:not(.admin-body) .offers-strip[data-offer-count="1"] .offer-cards{
+  grid-template-columns:minmax(280px,560px) !important;
+  justify-content:center !important;
+}
+body:not(.admin-body) .offers-strip .offer-mini{
+  width:100% !important;
+  min-width:0 !important;
+  height:190px !important;
+  min-height:190px !important;
+  box-sizing:border-box !important;
+  padding:14px 18px !important;
+  margin:0 !important;
+  border:1px solid rgba(231,198,107,.42) !important;
+  border-radius:18px !important;
+  background:linear-gradient(145deg,rgba(7,91,65,.94),rgba(4,67,48,.94)) !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.16),inset 0 0 0 1px rgba(255,255,255,.025) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  text-align:center !important;
+  overflow:hidden !important;
+}
+body:not(.admin-body) .offers-strip .offer-icon{
+  width:46px !important;height:46px !important;
+  min-width:46px !important;min-height:46px !important;
+  flex:0 0 46px !important;
+  margin:0 0 5px !important;
+  border:1.5px solid #e7c66b !important;
+  border-radius:50% !important;
+  display:grid !important;
+  place-items:center !important;
+  color:#f3c95b !important;
+}
+body:not(.admin-body) .offers-strip .offer-icon svg{
+  width:29px !important;height:29px !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy{
+  width:100% !important;
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  gap:2px !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy b{
+  font-size:11px !important;
+  line-height:1.15 !important;
+  letter-spacing:.08em !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy strong{
+  max-width:100% !important;
+  font-size:22px !important;
+  line-height:1.1 !important;
+  margin:1px 0 3px !important;
+  color:#f3c95b !important;
+  overflow-wrap:anywhere !important;
+}
+body:not(.admin-body) .offers-strip .offer-copy small{
+  min-height:28px !important;
+  max-width:100% !important;
+  font-size:12px !important;
+  line-height:1.25 !important;
+  color:#e3ebe6 !important;
+  overflow-wrap:anywhere !important;
+}
+body:not(.admin-body) .offers-strip .offer-actions{
+  width:100% !important;
+  margin-top:auto !important;
+  display:flex !important;
+  justify-content:center !important;
+  gap:8px !important;
+}
+body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
+  margin:0 !important;
+  padding:9px 20px !important;
+  border:0 !important;
+  border-radius:22px !important;
+  font-size:12px !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+  background:#f3c95b !important;
+  color:#17382b !important;
+  white-space:nowrap !important;
+}
+@media(max-width:760px){
+  body:not(.admin-body) .offers-strip{
+    margin:22px 5% !important;
+    padding:18px !important;
+  }
+  body:not(.admin-body) .offers-strip .offer-cards,
+  body:not(.admin-body) .offers-strip[data-offer-count="1"] .offer-cards{
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+  body:not(.admin-body) .offers-strip .offer-mini{
+    height:190px !important;
+    min-height:190px !important;
+  }
+}
+</style>
+<style id="ark-offer-gift-icon">
+body:not(.admin-body) .offers-strip .offer-icon svg{width:27px !important;height:27px !important;display:block !important;color:#f3c95b !important}
+</style>
+</head><body>
 <header><a class="brand" href="index.html"><img class="brand-logo" src="assets/ark-logo-reference.png" data-brand-logo alt="The Ark Spa & Salon"><span><b>The Ark Spa & Salon</b><small>SPA & SALON</small></span></a><nav class="desktop-nav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></nav><button class="menu-btn" aria-label="Open menu" onclick="toggleMobileNav()">☰</button></header>
 <div id="mobileDrawer" class="mobile-nav-drawer"><a href="index.html" onclick="closeMobileNav()">Home</a><a href="services.html" onclick="closeMobileNav()">Services</a><a href="offers.html" onclick="closeMobileNav()">Offers</a><a href="gallery.html" onclick="closeMobileNav()">Gallery</a><a href="#" onclick="closeMobileNav();openBookingChooser();return false">Book Appointment</a></div>
 <section class="hero"><div class="hero-content"><div class="hero-welcome">✦ WELCOME TO</div><h1 class="hero-title">THE ARK<br><em>SPA & SALON</em></h1><div class="hero-tagline">Reducing Stress · Increasing Relaxation</div><p class="hero-desc">Step into a world of peace, relaxation and rejuvenation.<br>Let our therapies heal your body, calm your mind and refresh your soul.</p><div class="hero-buttons"><a class="btn-call" href="#" data-call>☎ Contact Now</a><a class="btn-whatsapp" href="#" data-wa="Hello The Ark Spa & Salon, I have an inquiry regarding your services.">◉ WhatsApp Now</a></div></div></section>
-<section id="homeOffers" class="offers-strip hidden"><div><h2>SPECIAL OFFERS</h2><p>Pamper Yourself for Less · Look Good, Feel Better</p></div><div class="offer-cards" id="homeOfferCards"></div><a class="offer-btn" href="offers.html">View All Offers</a></section>
+<section id="homeOffers" class="offers-strip hidden"><div><h2>SPECIAL OFFERS</h2><p>Pamper Yourself for Less · Look Good, Feel Better</p></div><div class="offer-cards" id="homeOfferCards"></div></section>
 <section class="section"><div class="section-title"><h2>OUR SERVICES</h2><p>Professional therapies for your mind, body and soul</p></div><div class="service-grid service-photo-grid"><article class="service-card service-photo-card"><img class="service-img" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=100" alt="Body Massage"><div class="service-body"><h3>BODY MASSAGE</h3><p>Relax your body and release tension with therapeutic massage care.</p><a class="category-link" href="services.html?category=Full%20Body%20Massage">View Services</a></div></article><article class="service-card service-photo-card"><img class="service-img" src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1600&q=100" alt="Beauty Treatment"><div class="service-body"><h3>BEAUTY &amp; SPA CARE</h3><p>Rejuvenate and refresh with premium spa and beauty care.</p><a class="category-link" href="services.html?category=Asian%20Therapy">View Services</a></div></article><article class="service-card service-photo-card"><img class="service-img" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=100" alt="Facial Treatment"><div class="service-body"><h3>FACIAL &amp; SKIN CARE</h3><p>Refresh your skin with relaxing, nourishing spa treatments.</p><a class="category-link" href="services.html?category=Scrubbed%20Therapy">View Services</a></div></article><article class="service-card service-photo-card"><img class="service-img" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=1600&q=100" alt="Head Massage"><div class="service-body"><h3>HEAD &amp; FOOT RELAXATION</h3><p>Ease daily tension with focused relaxation and wellness care.</p><a class="category-link" href="services.html?category=Foot%20Therapy">View Services</a></div></article></div></section>
 <section class="section"><div class="section-title"><h2>THERAPY MENU CARD</h2><p>Menu details, duration and current rates</p></div><div class="menu-grid" id="menuGrid"></div></section>
 <section class="section"><div class="about-grid"><div><img class="about-image" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1800&q=100" alt="The Ark Spa ambience"></div><div class="about-copy"><h3>ABOUT US</h3><h2>The Origin of Ark Spa</h2><p>Inspired by ancient healing traditions and the philosophy of holistic wellness, The Ark Spa & Salon offers a thoughtful blend of relaxation, rejuvenation and refreshment. Our expert therapists and serene ambience are designed around a calm, premium experience.</p><a class="btn primary" href="about.html">Know More</a></div><div class="why"><h3>WHY CHOOSE US</h3><ul><li>Experienced & Certified Therapists</li><li>Premium Quality Products</li><li>Hygienic & Clean Environment</li><li>Personalized Care for Every Guest</li><li>Relaxing Ambiance</li></ul></div></div></section>
@@ -19,6 +166,44 @@ let homeIndex=0,homeTimer;
 function renderHomeGallery(){const a=(arkData.gallery||[]).slice(0,3);homeSlides.innerHTML=a.map((u,i)=>`<img src="${escapeAttr(u)}" alt="The Ark spa gallery ${i+1}">`).join('');homeDots.innerHTML=a.map((_,i)=>`<span class="dot ${i===0?'active':''}" onclick="homeIndex=${i};updateHome()"></span>`).join('');updateHome();clearInterval(homeTimer);if(a.length>1)homeTimer=setInterval(()=>moveHome(1),6500)}
 function updateHome(){const n=(arkData.gallery||[]).slice(0,3).length||1;homeIndex=(homeIndex+n)%n;homeSlides.style.transform=`translateX(-${homeIndex*100}%)`;document.querySelectorAll('#homeDots .dot').forEach((d,i)=>d.classList.toggle('active',i===homeIndex))}
 function moveHome(n){homeIndex+=n;updateHome()}
-function renderHomeOffers(){const offers=getActiveOffers();const specials=offers.filter(o=>o.type==='special');const discounts=offers.filter(o=>o.type==='percentage');const discountOnly=discounts.length>0&&specials.length===0;homeOffers.classList.toggle('hidden',!offers.length);homeOffers.classList.toggle('discount-only',discountOnly);homeOffers.dataset.offerCount=String(offers.length);homeOffers.querySelector('h2').textContent=discountOnly?'':'SPECIAL OFFERS';homeOffers.querySelector('p').textContent=discountOnly?'':'Pamper Yourself for Less · Look Good, Feel Better';homeOfferCards.innerHTML=offers.slice(0,3).map(o=>{const isDiscount=o.type==='percentage';const label=isDiscount?'DISCOUNT':'SPECIAL OFFER';const name=isDiscount?(o.title||'Discount'):(o.title||'Special Offer');const detail=isDiscount?((Number(o.percent)||0)+'% OFF'):[formatMoney(o.rate),o.duration||''].filter(Boolean).join(' · ');const sub=isDiscount?'Selected menu rates':(o.description||'');const icon=isDiscount?'%':'♔';return '<div class="offer-mini"><div class="offer-icon" aria-hidden="true">'+icon+'</div><div class="offer-copy"><b>'+label+'</b><strong>'+escapeHtml(name)+'</strong><small>'+escapeHtml(detail)+(sub?' · '+escapeHtml(sub):'')+'</small></div><a class="offer-btn" href="offers.html">View All Offers</a></div>'}).join('')}
+function offerHomeIconSvg(isDiscount){
+  return isDiscount
+    ? '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M9 14h35l13 13v25H9Z" fill="var(--gold2)" stroke="none"/><circle cx="44" cy="25" r="3.2" fill="var(--green)"/><text x="28" y="43" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="var(--green)">%</text></svg>'
+    : '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M8 25h48v31H8zM5 18h54v10H5zM31 18v38M31 18c-7 0-16-2-16-8 0-4 3-7 7-7 7 0 9 10 9 15Zm2 0c0-5-2-15 9-15 4 0 7 3 7 7 0 6-9 8-16 8Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+}
+function applyHomeOffer(o){
+  if(!o)return;
+  const mode=arkData.bookingMode||'both';
+  const active=getActiveOffers();
+  const offerIndex=active.indexOf(o);
+  const offerLabel=o.type==='percentage'?((Number(o.percent)||0)+'% OFF'):[formatMoney(o.rate),o.duration||''].filter(Boolean).join(' · ');
+  const offerName=o.title|| (o.type==='percentage'?'Discount':'Special Offer');
+  const waMessage='Hello The Ark Spa & Salon, I would like to book an appointment for the '+offerName+' offer ('+offerLabel+').';
+  const appointmentUrl='appointment.html?offer='+encodeURIComponent('__offerindex__'+offerIndex);
+  if(mode==='whatsapp'){const n=(arkData.whatsapp||ARK_DEFAULT.whatsapp||'').replace(/\D/g,'');if(n)location.href='https://wa.me/91'+n+'?text='+encodeURIComponent(waMessage);return}
+  if(mode==='website'){location.href=appointmentUrl;return}
+  if(mode==='none'){alert('Online booking is currently unavailable. Please call or WhatsApp The Ark Spa & Salon.');return}
+  const m=document.createElement('div');
+  m.className='modal show';
+  m.innerHTML='<div class="modal-box booking-choice"><button class="close">×</button><div class="choice-logo"><img src="'+escapeAttr(arkData.brand.logoUrl||ARK_DEFAULT.brand.logoUrl)+'" alt="The Ark logo"></div><h3>Apply Offer</h3><p>'+escapeHtml(offerName)+' · '+escapeHtml(offerLabel)+'</p><div class="choice-grid"><button class="choice-card" data-choice="website"><span>📅</span><b>Website Appointment</b></button><button class="choice-card" data-choice="wa"><span>💬</span><b>WhatsApp Appointment</b></button></div></div>';
+  m.querySelector('.close').onclick=()=>m.remove();
+  m.addEventListener('click',e=>{if(e.target===m)m.remove();const b=e.target.closest('[data-choice]');if(!b)return;m.remove();b.dataset.choice==='wa'?wa(waMessage):location.href=appointmentUrl});
+  document.body.appendChild(m);
+}
+function showHomeOfferDetails(o){
+  const applicable=(arkData.menu||[]).filter(x=>offerApplies(o,x));
+  const isDiscount=o.type==='percentage';
+  const detail=isDiscount?((Number(o.percent)||0)+'% OFF'):[formatMoney(o.rate),o.duration||''].filter(Boolean).join(' · ');
+  const icon=offerHomeIconSvg(isDiscount);
+  const m=document.createElement('div');
+  m.className='modal show';
+  m.innerHTML='<div class="modal-box"><button class="close" aria-label="Close">×</button><div style="text-align:center"><div class="offer-icon home-offer-modal-icon" style="margin:0 auto 12px;width:58px;height:58px;border:1.5px solid var(--gold2);border-radius:50%;display:grid;place-items:center;color:var(--green)">'+icon+'</div><div class="pill">'+(isDiscount?'DISCOUNT':'SPECIAL OFFER')+'</div><h3 style="font:700 30px Georgia,serif;color:var(--green);margin:10px 0">'+escapeHtml(o.title|| (isDiscount?'Discount':'Special Offer'))+'</h3><p style="font-size:24px;font-weight:800;color:var(--gold);margin:8px 0">'+escapeHtml(detail)+'</p>'+(o.description?'<p style="color:var(--muted);line-height:1.7">'+escapeHtml(o.description)+'</p>':'')+(isDiscount?'<p style="color:var(--muted);line-height:1.6"><b>Applies to:</b> '+escapeHtml(applicable.map(x=>x.name).join(', ')||'Selected menu rates')+'</p>':'')+'<div style="margin-top:18px"><button class="btn primary" type="button" data-apply-offer>Apply</button></div></div></div>';
+  m.querySelector('.close').onclick=()=>m.remove();
+  m.querySelector('[data-apply-offer]').onclick=()=>{m.remove();applyHomeOffer(o)};
+  m.addEventListener('click',e=>{if(e.target===m)m.remove()});
+  document.body.appendChild(m)
+}
+function showHomeOfferDetailsByIndex(i){const offers=getActiveOffers();const o=offers[i];if(o)showHomeOfferDetails(o)}
+function renderHomeOffers(){const offers=getActiveOffers();const specials=offers.filter(o=>o.type==='special');const discounts=offers.filter(o=>o.type==='percentage');const discountOnly=discounts.length>0&&specials.length===0;homeOffers.classList.toggle('hidden',!offers.length);homeOffers.classList.toggle('discount-only',discountOnly);homeOffers.dataset.offerCount=String(offers.length);homeOffers.querySelector('h2').textContent=discountOnly?'':'SPECIAL OFFERS';homeOffers.querySelector('p').textContent=discountOnly?'':'Pamper Yourself for Less · Look Good, Feel Better';homeOfferCards.innerHTML=offers.slice(0,3).map((o,idx)=>{const isDiscount=o.type==='percentage';const label=isDiscount?'DISCOUNT':'SPECIAL OFFER';const name=isDiscount?'Discount':(o.title||'Special Offer');const detail=isDiscount?((Number(o.percent)||0)+'% OFF'):[formatMoney(o.rate),o.duration||''].filter(Boolean).join(' · ');const sub=isDiscount?'Selected menu rates':(o.description||'');const icon=offerHomeIconSvg(isDiscount);return '<div class="offer-mini"><div class="offer-icon" aria-hidden="true">'+icon+'</div><div class="offer-copy"><b>'+label+'</b><strong>'+escapeHtml(name)+'</strong><small>'+escapeHtml(detail)+(sub?' · '+escapeHtml(sub):'')+'</small></div><div class="offer-actions"><button class="offer-btn" type="button" onclick="showHomeOfferDetailsByIndex('+idx+')">View</button></div></div>'}).join('')}
 (async()=>{await initSite();renderMenu();renderHomeGallery();renderHomeOffers();})();
 </script></body></html>
