@@ -161,7 +161,7 @@ function updateHome(){const n=(arkData.gallery||[]).slice(0,3).length||1;homeInd
 function moveHome(n){homeIndex+=n;updateHome()}
 function offerHomeIconSvg(isDiscount){
   return isDiscount
-    ? '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M13 34 30 12h18l6 6v18L36 53 13 34Z" fill="currentColor"/><circle cx="44" cy="21" r="3.2" fill="var(--green)"/><path d="M27 27.5l11 11M38 27c0 2.8-2 4.8-4.8 4.8S28.5 29.8 28.5 27s2-4.8 4.7-4.8S38 24.2 38 27Zm-1.5 12.5c0 2.8-2 4.8-4.8 4.8s-4.7-2-4.7-4.8 2-4.8 4.7-4.8 4.8 2 4.8 4.8Z" fill="none" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round"/></svg>'
+    ? '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M12 38 29 15c1-1.4 2.6-2.2 4.3-2.2h14.5c1.4 0 2.8.6 3.8 1.6l4.2 4.2c1 1 1.6 2.4 1.6 3.8v13.8c0 1.7-.8 3.3-2.2 4.4L32.5 57 12 38Z" fill="currentColor"/><circle cx="45" cy="22" r="3.2" fill="var(--green)"/><path d="M28 29l11 11M38.5 28.5c0 2.5-1.8 4.3-4.2 4.3s-4.2-1.8-4.2-4.3 1.8-4.3 4.2-4.3 4.2 1.8 4.2 4.3Zm-1.2 12.7c0 2.5-1.8 4.3-4.2 4.3s-4.2-1.8-4.2-4.3 1.8-4.3 4.2-4.3 4.2 1.8 4.2 4.3Z" fill="none" stroke="var(--green)" stroke-width="3.4" stroke-linecap="round"/></svg>'
     : '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M8 25h48v31H8zM5 18h54v10H5zM31 18v38M31 18c-7 0-16-2-16-8 0-4 3-7 7-7 7 0 9 10 9 15Zm2 0c0-5 2-15 9-15 4 0 7 3 7 7 0 6-9 8-16 8Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>';
 }
 function applyHomeOffer(o){
