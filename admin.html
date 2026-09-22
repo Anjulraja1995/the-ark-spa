@@ -1,86 +1,123 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script><style>
 @media (max-width:760px){.admin-login{min-height:100svh;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}.admin-login.keyboard-open{align-items:flex-start;padding-top:20px;overflow:auto}.admin-login .login-card{width:min(430px,100%);margin:0;transform:translateY(0);transition:transform .18s ease}.admin-login.keyboard-open .login-card{transform:translateY(var(--keyboard-shift,0px))}}
 </style><style id="offer-animation-override">.discount-dashboard-art .art-orbit span{border-top-color:#b29248!important;animation:arkVisibleSpin 1.2s linear infinite!important}.discount-dashboard-art .art-orbit i{background:#b29248!important;animation:arkVisibleDot 1.2s linear infinite!important}.discount-dashboard-art .art-pulse{background:#2b543e!important;animation:arkVisiblePulse .9s ease-in-out infinite!important}.discount-dashboard-art .art-sweep{animation:arkVisibleSweep 2s linear infinite!important}@keyframes arkVisibleSpin{to{transform:rotate(360deg)}}@keyframes arkVisibleDot{to{transform:rotate(360deg)}}@keyframes arkVisiblePulse{0%,100%{transform:scale(.65);opacity:.45}50%{transform:scale(1.7);opacity:1;box-shadow:0 0 0 8px rgba(43,84,62,.14)}}@keyframes arkVisibleSweep{0%{left:-35%;opacity:0}20%{opacity:1}55%{opacity:1}100%{left:125%;opacity:0}}</style><style id="admin-sections-3d-wallpaper">
-#mainPanel.hidden,#appointmentsPanel.hidden,#recoveryPanel.hidden,
-#mainPanel[hidden],#appointmentsPanel[hidden],#recoveryPanel[hidden]{display:none!important}
-#mainPanel:not(.hidden),#appointmentsPanel:not(.hidden),#recoveryPanel:not(.hidden){display:block!important}
-#mainPanel.hidden>.admin-section-card,#appointmentsPanel.hidden>.admin-section-card,#recoveryPanel.hidden>.admin-section-card,
-#mainPanel[hidden]>.admin-section-card,#appointmentsPanel[hidden]>.admin-section-card,#recoveryPanel[hidden]>.admin-section-card{display:none!important}
-.admin-panel.hidden{visibility:hidden!important;pointer-events:none!important;height:0!important;overflow:hidden!important;margin:0!important;padding:0!important}
-.admin-panel.hidden>.admin-section-card{display:none!important}
-.admin-panel:not(.hidden){visibility:visible!important;pointer-events:auto!important;height:auto!important;overflow:visible!important}
+/* Keep the three Admin tabs isolated: only the selected panel may render. */
+#mainPanel.hidden,#appointmentsPanel.hidden,#recoveryPanel.hidden,#mainPanel[hidden],#appointmentsPanel[hidden],#recoveryPanel[hidden]{display:none!important;}
+#mainPanel:not(.hidden),#appointmentsPanel:not(.hidden),#recoveryPanel:not(.hidden){display:block!important;}
+#mainPanel.hidden > .admin-section-card,#appointmentsPanel.hidden > .admin-section-card,#recoveryPanel.hidden > .admin-section-card,#mainPanel[hidden] > .admin-section-card,#appointmentsPanel[hidden] > .admin-section-card,#recoveryPanel[hidden] > .admin-section-card{display:none!important;}
+/* Never let a section card escape its own Admin tab. */
+.admin-panel.hidden{visibility:hidden!important;pointer-events:none!important;height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;}
+.admin-panel.hidden > .admin-section-card{display:none!important;}
+.admin-panel:not(.hidden){visibility:visible!important;pointer-events:auto!important;height:auto!important;overflow:visible!important;}
 
-/* Robust visible premium surface: decorative layers stay inside the card and behind content. */
+/* Shared premium 3D wallpaper for every admin section — Main Controls, Appointments and Recovery. Decorative layer only. */
 .admin-shell .admin-section-card{
   position:relative!important;
   overflow:hidden!important;
+  background:var(--paper)!important;
   isolation:isolate!important;
-  background:
-    radial-gradient(ellipse at 12% 10%,rgba(231,198,107,.28),transparent 34%),
-    radial-gradient(ellipse at 88% 88%,rgba(7,63,45,.18),transparent 38%),
-    linear-gradient(145deg,#fffdf7 0%,#f5eddc 48%,#e9eee9 100%)!important;
-  border:1px solid rgba(201,154,58,.48)!important;
-  box-shadow:0 18px 38px rgba(7,63,45,.15),inset 0 1px 0 rgba(255,255,255,.95)!important;
 }
 .admin-shell .admin-section-card::before{
-  content:""!important;
-  position:absolute!important;
-  inset:0!important;
-  z-index:0!important;
-  pointer-events:none!important;
-  opacity:.72!important;
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.95;
   background:
-    repeating-linear-gradient(72deg,transparent 0 25px,rgba(201,154,58,.20) 26px,transparent 27px 52px),
-    repeating-linear-gradient(108deg,transparent 0 33px,rgba(7,63,45,.12) 34px,transparent 35px 68px),
-    radial-gradient(ellipse 58% 42% at 18% 6%,rgba(231,198,107,.34),transparent 72%)!important;
-  transform:none!important;
+    radial-gradient(ellipse 46% 28% at 12% 8%,rgba(231,198,107,.20),transparent 68%),
+    radial-gradient(ellipse 42% 30% at 92% 86%,rgba(7,63,45,.13),transparent 70%),
+    repeating-linear-gradient(76deg,transparent 0 23px,rgba(201,154,58,.18) 24px,transparent 25px 46px),
+    repeating-linear-gradient(104deg,transparent 0 31px,rgba(7,63,45,.10) 32px,transparent 33px 62px),
+    linear-gradient(135deg,#fbf6e9 0%,#f7f0df 52%,#eef2ed 100%);
+  transform:perspective(900px) rotateX(55deg) scale(1.55) translateY(18%);
+  transform-origin:center bottom;
 }
 .admin-shell .admin-section-card::after{
-  content:""!important;
-  position:absolute!important;
-  z-index:1!important;
-  pointer-events:none!important;
-  inset:-35% -20%!important;
-  width:auto!important;
-  height:auto!important;
-  border-radius:50%!important;
-  opacity:.68!important;
+  content:"";
+  position:absolute;
+  z-index:1;
+  pointer-events:none;
+  width:145%;
+  height:175%;
+  left:-22%;
+  top:-40%;
+  border-radius:50%;
   background:
     radial-gradient(ellipse at center,
-      transparent 0 27%,
-      rgba(7,63,45,.13) 27.5% 28.3%,
-      transparent 28.8% 39%,
-      rgba(201,154,58,.32) 39.5% 40.3%,
-      transparent 40.8% 51%,
-      rgba(7,63,45,.15) 51.5% 52.3%,
-      transparent 52.8% 64%,
-      rgba(231,198,107,.34) 64.5% 65.3%,
-      transparent 65.8%)!important;
-  transform:rotate(-14deg) skewX(-6deg)!important;
-  animation:arkAdmin3dWave 14s ease-in-out infinite alternate!important;
+      transparent 0 25%,
+      rgba(7,63,45,.10) 25.4% 25.9%,
+      transparent 26.3% 33%,
+      rgba(201,154,58,.28) 33.4% 34.1%,
+      transparent 34.5% 42%,
+      rgba(7,63,45,.14) 42.4% 43.1%,
+      transparent 43.5% 52%,
+      rgba(231,198,107,.34) 52.4% 53%,
+      transparent 53.4% 62%,
+      rgba(7,63,45,.10) 62.4% 63.1%,
+      transparent 63.5%);
+  box-shadow:0 35px 55px rgba(7,63,45,.12),inset 0 0 45px rgba(201,154,58,.08);
+  transform:rotate(-18deg) skewX(-8deg);
+  animation:arkAdmin3dWave 12s ease-in-out infinite alternate;
 }
 .admin-shell .admin-section-card>button.section-toggle,
 .admin-shell .admin-section-card>.admin-section-content{
-  position:relative!important;
-  z-index:3!important;
-}
-.admin-shell .admin-section-card>button.section-toggle{
-  background:linear-gradient(180deg,rgba(255,255,255,.90),rgba(255,253,247,.62))!important;
-  border-bottom:1px solid rgba(201,154,58,.20)!important;
-  backdrop-filter:blur(3px);
+  position:relative;
+  z-index:3;
 }
 .admin-shell .admin-section-card>.admin-section-content{
-  background:linear-gradient(180deg,rgba(255,253,247,.88),rgba(255,255,255,.72))!important;
+  background:transparent!important;
 }
-.admin-shell .admin-section-card.open>button.section-toggle{box-shadow:0 6px 20px rgba(7,63,45,.08)}
 @keyframes arkAdmin3dWave{
-  0%{transform:rotate(-14deg) skewX(-6deg) translate3d(-14px,7px,0) scale(.96)}
-  50%{transform:rotate(-9deg) skewX(-2deg) translate3d(6px,-3px,0) scale(1.02)}
-  100%{transform:rotate(-5deg) skewX(4deg) translate3d(18px,9px,0) scale(1.06)}
+  0%{transform:rotate(-18deg) skewX(-8deg) translate3d(-18px,8px,0) scale(.96)}
+  50%{transform:rotate(-13deg) skewX(-4deg) translate3d(8px,-4px,0) scale(1.02)}
+  100%{transform:rotate(-8deg) skewX(3deg) translate3d(24px,12px,0) scale(1.06)}
 }
 @media(max-width:760px){
-  .admin-shell .admin-section-card::before{opacity:.58!important}
-  .admin-shell .admin-section-card::after{opacity:.48!important}
+  .admin-shell .admin-section-card::before{
+    transform:perspective(700px) rotateX(52deg) scale(1.8) translateY(22%);
+    opacity:.65;
+  }
+  .admin-shell .admin-section-card::after{opacity:.55}
+}
+
+/* FINAL ADMIN 3D SECTION SURFACE — visible depth on every section */
+.admin-shell .admin-section-card{
+  background:
+    radial-gradient(circle at 12% 12%,rgba(231,198,107,.22),transparent 22%),
+    radial-gradient(circle at 88% 88%,rgba(7,63,45,.16),transparent 28%),
+    linear-gradient(145deg,#fffdf7 0%,#f4ecda 48%,#e9eee9 100%) !important;
+  border:1px solid rgba(201,154,58,.42)!important;
+  box-shadow:0 16px 34px rgba(7,63,45,.13), inset 0 1px 0 rgba(255,255,255,.9)!important;
+}
+.admin-shell .admin-section-card::before{
+  opacity:.72!important;
+  background:
+    repeating-linear-gradient(72deg,transparent 0 27px,rgba(201,154,58,.22) 28px,transparent 29px 54px),
+    repeating-linear-gradient(108deg,transparent 0 35px,rgba(7,63,45,.13) 36px,transparent 37px 72px),
+    radial-gradient(ellipse 55% 38% at 18% 8%,rgba(231,198,107,.28),transparent 70%),
+    linear-gradient(135deg,transparent 0 42%,rgba(7,63,45,.06) 43% 46%,transparent 47%);
+  transform:perspective(850px) rotateX(58deg) scale(1.7) translateY(24%)!important;
+}
+.admin-shell .admin-section-card::after{
+  opacity:.72!important;
+  width:155%!important;
+  height:190%!important;
+  left:-28%!important;
+  top:-45%!important;
+  background:
+    radial-gradient(ellipse at center,transparent 0 24%,rgba(7,63,45,.12) 24.5% 25.2%,transparent 25.7% 33%,rgba(201,154,58,.34) 33.5% 34.3%,transparent 34.8% 43%,rgba(7,63,45,.16) 43.5% 44.3%,transparent 44.8% 54%,rgba(231,198,107,.40) 54.5% 55.2%,transparent 55.7% 65%,rgba(7,63,45,.11) 65.5% 66.2%,transparent 66.7%);
+}
+.admin-shell .admin-section-card>.section-toggle{
+  background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(255,253,247,.45))!important;
+  border-bottom:1px solid rgba(201,154,58,.18)!important;
+  backdrop-filter:blur(2px);
+}
+.admin-shell .admin-section-card.open>.section-toggle{
+  box-shadow:0 5px 18px rgba(7,63,45,.07);
+}
+.admin-shell .admin-section-content{
+  background:linear-gradient(180deg,rgba(255,253,247,.82),rgba(255,255,255,.60))!important;
 }
 </style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form></div></div>
