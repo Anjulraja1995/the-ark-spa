@@ -107,9 +107,16 @@ body:not(.admin-body) .offers-strip .offer-copy small{
   color:#e3ebe6 !important;
   overflow-wrap:anywhere !important;
 }
-body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
+body:not(.admin-body) .offers-strip .offer-actions{
+  width:100% !important;
   margin-top:auto !important;
-  padding:9px 22px !important;
+  display:flex !important;
+  justify-content:center !important;
+  gap:8px !important;
+}
+body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
+  margin:0 !important;
+  padding:9px 20px !important;
   border:0 !important;
   border-radius:22px !important;
   font-size:12px !important;
@@ -118,6 +125,11 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   background:#f3c95b !important;
   color:#17382b !important;
   white-space:nowrap !important;
+}
+body:not(.admin-body) .offers-strip .offer-mini .offer-apply-btn{
+  background:transparent !important;
+  color:#f3c95b !important;
+  border:1px solid rgba(243,201,91,.75) !important;
 }
 @media(max-width:760px){
   body:not(.admin-body) .offers-strip{
@@ -196,6 +208,6 @@ function showHomeOfferDetails(o){
   document.body.appendChild(m)
 }
 function showHomeOfferDetailsByIndex(i){const offers=getActiveOffers();const o=offers[i];if(o)showHomeOfferDetails(o)}
-function renderHomeOffers(){const offers=getActiveOffers();const specials=offers.filter(o=>o.type==='special');const discounts=offers.filter(o=>o.type==='percentage');const discountOnly=discounts.length>0&&specials.length===0;homeOffers.classList.toggle('hidden',!offers.length);homeOffers.classList.toggle('discount-only',discountOnly);homeOffers.dataset.offerCount=String(offers.length);homeOffers.querySelector('h2').textContent=discountOnly?'':'SPECIAL OFFERS';homeOffers.querySelector('p').textContent=discountOnly?'':'Pamper Yourself for Less · Look Good, Feel Better';homeOfferCards.innerHTML=offers.slice(0,3).map((o,idx)=>{const isDiscount=o.type==='percentage';const label=isDiscount?'DISCOUNT':'SPECIAL OFFER';const name=isDiscount?(o.title||'Discount'):(o.title||'Special Offer');const detail=isDiscount?((Number(o.percent)||0)+'% OFF'):[formatMoney(o.rate),o.duration||''].filter(Boolean).join(' · ');const sub=isDiscount?'Selected menu rates':(o.description||'');const icon=offerHomeIconSvg(isDiscount);return '<div class="offer-mini"><div class="offer-icon" aria-hidden="true">'+icon+'</div><div class="offer-copy"><b>'+label+'</b><strong>'+escapeHtml(name)+'</strong><small>'+escapeHtml(detail)+(sub?' · '+escapeHtml(sub):'')+'</small></div><button class="offer-btn" type="button" onclick="showHomeOfferDetailsByIndex('+idx+')">View</button></div>'}).join('')}
+function renderHomeOffers(){const offers=getActiveOffers();const specials=offers.filter(o=>o.type==='special');const discounts=offers.filter(o=>o.type==='percentage');const discountOnly=discounts.length>0&&specials.length===0;homeOffers.classList.toggle('hidden',!offers.length);homeOffers.classList.toggle('discount-only',discountOnly);homeOffers.dataset.offerCount=String(offers.length);homeOffers.querySelector('h2').textContent=discountOnly?'':'SPECIAL OFFERS';homeOffers.querySelector('p').textContent=discountOnly?'':'Pamper Yourself for Less · Look Good, Feel Better';homeOfferCards.innerHTML=offers.slice(0,3).map((o,idx)=>{const isDiscount=o.type==='percentage';const label=isDiscount?'DISCOUNT':'SPECIAL OFFER';const name=isDiscount?(o.title||'Discount'):(o.title||'Special Offer');const detail=isDiscount?((Number(o.percent)||0)+'% OFF'):[formatMoney(o.rate),o.duration||''].filter(Boolean).join(' · ');const sub=isDiscount?'Selected menu rates':(o.description||'');const icon=offerHomeIconSvg(isDiscount);return '<div class="offer-mini"><div class="offer-icon" aria-hidden="true">'+icon+'</div><div class="offer-copy"><b>'+label+'</b><strong>'+escapeHtml(name)+'</strong><small>'+escapeHtml(detail)+(sub?' · '+escapeHtml(sub):'')+'</small></div><div class="offer-actions"><button class="offer-btn" type="button" onclick="showHomeOfferDetailsByIndex('+idx+')">View</button><button class="offer-btn offer-apply-btn" type="button" onclick="applyHomeOffer(getActiveOffers()['+idx+'])">Apply</button></div></div>'}).join('')}
 (async()=>{await initSite();renderMenu();renderHomeGallery();renderHomeOffers();})();
 </script></body></html>
