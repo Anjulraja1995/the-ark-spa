@@ -189,7 +189,7 @@
     if(mode==='whatsapp'){wa(window.WA_BOOKING_MESSAGE);return;}
     if(mode==='website'){location.href='appointment.html';return;}
     if(mode==='none'){alert('Online booking is currently unavailable. Please call or WhatsApp The Ark Spa & Salon.');return;}
-    const m=document.createElement('div');m.className='modal show';m.innerHTML=`<div class="modal-box booking-choice"><button class="close">×</button><div class="choice-logo"><img src="${escapeAttr(arkData.brand.logoUrl||DEFAULT.brand.logoUrl)}" alt="The Ark logo"></div><h3>Book Your Appointment</h3><p>Choose how you would like to book.</p><div class="choice-grid"><button class="choice-card" data-choice="website"><span>📅</span><b>Website Appointment</b></button><button class="choice-card" data-choice="wa"><span>💬</span><b>WhatsApp Appointment</b></button></div></div>`;
+    const m=document.createElement('div');m.className='modal show';m.innerHTML=`<div class="modal-box booking-choice"><button class="close">×</button><div class="choice-logo"><img src="${escapeAttr(arkData.brand.logoUrl||DEFAULT.brand.logoUrl)}" alt="The Ark logo"></div><h3>Book Your Appointment</h3><p>Choose how you would like to book.</p><div class="choice-grid"><button class="choice-card" data-choice="website"><span>📅</span><b>Website Booking</b><small>Fill the appointment form</small></button><button class="choice-card" data-choice="wa"><span>💬</span><b>WhatsApp Booking</b><small>Open WhatsApp directly</small></button></div></div>`;
     m.querySelector('.close').onclick=()=>m.remove();m.addEventListener('click',e=>{const c=e.target.closest('[data-choice]');if(!c)return;m.remove();c.dataset.choice==='wa'?wa(window.WA_BOOKING_MESSAGE):location.href='appointment.html'});document.body.appendChild(m);
   };
 })();
