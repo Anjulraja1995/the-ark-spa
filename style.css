@@ -1279,3 +1279,10 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     height:210px !important;
   }
 }
+
+/* Desktop-only visual filler for the shorter Discount card; hidden on mobile. */
+.discount-dashboard-art{display:flex;align-items:center;gap:16px;margin-top:18px;padding:14px 16px;border:1px solid rgba(178,145,72,.28);border-radius:14px;background:linear-gradient(135deg,rgba(248,244,232,.95),rgba(255,255,255,.98));min-height:92px;overflow:hidden;position:relative}
+.art-orbit{width:58px;height:58px;flex:0 0 58px;border:1px solid rgba(178,145,72,.55);border-radius:50%;display:grid;place-items:center;position:relative;color:var(--green);background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.art-orbit b{font:700 11px Georgia,serif;letter-spacing:1.5px}.art-orbit span,.art-orbit i{position:absolute;border-radius:50%;border:1px solid rgba(178,145,72,.5);inset:7px;animation:arkOrbit 4s linear infinite}.art-orbit i{inset:14px;border-style:dashed;animation-direction:reverse;animation-duration:3s}.art-copy{display:flex;flex-direction:column;gap:4px}.art-copy strong{font:700 12px Georgia,serif;letter-spacing:1.2px;color:var(--green)}.art-copy small{font-size:11px;color:#777}.art-pulse{margin-left:auto;width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(43,84,62,.35);animation:arkPulse 2s ease-out infinite}
+@keyframes arkOrbit{to{transform:rotate(360deg)}}@keyframes arkPulse{70%{box-shadow:0 0 0 10px rgba(43,84,62,0)}}
+@media(max-width:760px){.discount-dashboard-art{display:none}}
