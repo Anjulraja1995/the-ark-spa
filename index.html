@@ -180,12 +180,12 @@ function applyHomeOffer(o){
   const offerName=o.title|| (o.type==='percentage'?'Discount':'Special Offer');
   const waMessage='Hello The Ark Spa & Salon, I would like to book an appointment for the '+offerName+' offer ('+offerLabel+').';
   const appointmentUrl='appointment.html?offer='+encodeURIComponent('__offerindex__'+offerIndex);
-  if(mode==='whatsapp'){wa(waMessage);return}
+  if(mode==='whatsapp'){const n=(arkData.whatsapp||ARK_DEFAULT.whatsapp||'').replace(/\D/g,'');if(n)location.href='https://wa.me/91'+n+'?text='+encodeURIComponent(waMessage);return}
   if(mode==='website'){location.href=appointmentUrl;return}
   if(mode==='none'){alert('Online booking is currently unavailable. Please call or WhatsApp The Ark Spa & Salon.');return}
   const m=document.createElement('div');
   m.className='modal show';
-  m.innerHTML='<div class="modal-box booking-choice"><button class="close">×</button><div class="choice-logo"><img src="'+escapeAttr(arkData.brand.logoUrl||ARK_DEFAULT.brand.logoUrl)+'" alt="The Ark logo"></div><h3>Apply Offer</h3><p>'+escapeHtml(offerName)+' · '+escapeHtml(offerLabel)+'</p><div class="choice-grid"><button class="choice-card" data-choice="website"><span>📅</span><b>Website Appointment</b><small>Fill the appointment form</small></button><button class="choice-card" data-choice="wa"><span>💬</span><b>WhatsApp</b><small>Apply this offer on WhatsApp</small></button></div></div>';
+  m.innerHTML='<div class="modal-box booking-choice"><button class="close">×</button><div class="choice-logo"><img src="'+escapeAttr(arkData.brand.logoUrl||ARK_DEFAULT.brand.logoUrl)+'" alt="The Ark logo"></div><h3>Apply Offer</h3><p>'+escapeHtml(offerName)+' · '+escapeHtml(offerLabel)+'</p><div class="choice-grid"><button class="choice-card" data-choice="website"><span>📅</span><b>Website Appointment</b></button><button class="choice-card" data-choice="wa"><span>💬</span><b>WhatsApp Appointment</b></button></div></div>';
   m.querySelector('.close').onclick=()=>m.remove();
   m.addEventListener('click',e=>{if(e.target===m)m.remove();const b=e.target.closest('[data-choice]');if(!b)return;m.remove();b.dataset.choice==='wa'?wa(waMessage):location.href=appointmentUrl});
   document.body.appendChild(m);
