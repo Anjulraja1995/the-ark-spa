@@ -1,1 +1,35 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Therapies — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css?v=natural-spa-3"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script></head><body><header><a class="brand" href="index.html"><img class="brand-logo" src="assets/ark-logo-reference.png" data-brand-logo alt="The Ark Spa & Salon"><span><b>The Ark Spa & Salon</b><small>SPA & SALON</small></span></a><nav class="desktop-nav"><a href="index.html">Home</a><a href="services.html">Therapies</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></nav><button class="menu-btn" onclick="toggleMobileNav()">☰</button></header><div id="mobileDrawer" class="mobile-nav-drawer"><a href="index.html">Home</a><a href="services.html">Therapies</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></div><section class="page-hero"><h1>Our Therapies</h1><p>Explore the therapies offered at The Ark Spa & Salon. This page is information-only; rates and durations remain in the Menu Card.</p></section><section class="section"><div class="service-list" id="serviceList"></div></section><div class="footer-info"><div class="info-item"><div class="icon">⌖</div><div><b>Location</b><span data-address></span></div></div><div class="info-item"><div class="icon">☎</div><div><b>Call / WhatsApp</b><span data-phone></span></div></div><div class="info-item"><div class="icon">◷</div><div><b>Open Daily</b><span>11:00 AM – 9:00 PM</span></div></div><button class="btn primary" onclick="openBookingChooser()">▣ Book Appointment</button></div><footer><div class="footer-main"><div><h3>The Ark Spa & Salon</h3><p data-footer-about></p></div><div><h3>Explore</h3><a href="index.html">Home</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a></div><div><h3>Information</h3><a href="contact.html">Contact</a><a href="admin.html">Admin Login</a></div></div><div class="footer-bottom"><span>© 2026 The Ark Spa & Salon. All Rights Reserved.</span></div></footer><script>const q=new URLSearchParams(location.search);async function init(){await initSite();const cat=q.get('category');const items=arkData.menu||[];const filtered=cat?items.filter(x=>x.category===cat):items;serviceList.innerHTML=filtered.map(x=>`<article class="service-detail"><h3>${escapeHtml(x.name)}</h3><p>${escapeHtml(x.description)}</p></article>`).join('');if(cat)document.querySelector('.page-hero h1').textContent=cat}init();</script></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Therapies — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css?v=natural-spa-3"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script></head><body><header><a class="brand" href="index.html"><img class="brand-logo" src="assets/ark-logo-reference.png" data-brand-logo alt="The Ark Spa & Salon"><span><b>The Ark Spa & Salon</b><small>SPA & SALON</small></span></a><nav class="desktop-nav"><a href="index.html">Home</a><a href="services.html">Therapies</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></nav><button class="menu-btn" onclick="toggleMobileNav()">☰</button></header><div id="mobileDrawer" class="mobile-nav-drawer"><a href="index.html">Home</a><a href="services.html">Therapies</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a><a href="#" onclick="openBookingChooser();return false">Book Appointment</a></div><section class="page-hero"><h1>Our Therapies</h1><p>Explore the therapies offered at The Ark Spa & Salon. This page is information-only; rates and durations remain in the Menu Card.</p></section><section class="section"><div class="service-list" id="serviceList"></div></section><div class="footer-info"><div class="info-item"><div class="icon">⌖</div><div><b>Location</b><span data-address></span></div></div><div class="info-item"><div class="icon">☎</div><div><b>Call / WhatsApp</b><span data-phone></span></div></div><div class="info-item"><div class="icon">◷</div><div><b>Open Daily</b><span>11:00 AM – 9:00 PM</span></div></div><button class="btn primary" onclick="openBookingChooser()">▣ Book Appointment</button></div><footer><div class="footer-main"><div><h3>The Ark Spa & Salon</h3><p data-footer-about></p></div><div><h3>Explore</h3><a href="index.html">Home</a><a href="offers.html">Offers</a><a href="gallery.html">Gallery</a></div><div><h3>Information</h3><a href="contact.html">Contact</a><a href="admin.html">Admin Login</a></div></div><div class="footer-bottom"><span>© 2026 The Ark Spa & Salon. All Rights Reserved.</span></div></footer><script>
+const q=new URLSearchParams(location.search);
+async function init(){
+  await initSite();
+  const items=arkData.menu||[];
+  const requested=q.get('category');
+  const cats=[...new Set(items.map(x=>x.category).filter(Boolean))];
+  serviceList.innerHTML=cats.map((cat,i)=>{
+    const list=items.filter(x=>x.category===cat);
+    const open=requested===cat;
+    return `<div class="menu-cat therapy-category">
+      <button class="cat-btn" onclick="toggleTherapyCat(${i})"><span>${escapeHtml(cat)}</span><span class="therapy-chevron">${open?'⌃':'⌄'}</span></button>
+      <div class="cat-items" id="therapy_cat_${i}" style="display:${open?'block':'none'}">
+        ${list.map(x=>`<article class="service-detail" style="border:0;border-radius:0;box-shadow:none;border-top:1px solid var(--line);padding:20px 4px">
+          <h3>${escapeHtml(x.name)}</h3>
+          <p>${escapeHtml(x.description||'')}</p>
+        </article>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+  if(requested&&!cats.includes(requested)) document.querySelector('.page-hero p').textContent='Explore the therapy categories available at The Ark Spa & Salon.';
+  if(requested) document.querySelector('.page-hero h1').textContent=requested;
+}
+function toggleTherapyCat(i){
+  const panels=[...document.querySelectorAll('#serviceList .cat-items')];
+  const target=document.getElementById('therapy_cat_'+i);
+  if(!target)return;
+  const willOpen=target.style.display!=='block';
+  panels.forEach((el,idx)=>el.style.display=(willOpen&&idx===i)?'block':'none');
+  document.querySelectorAll('#serviceList .cat-btn').forEach((btn,idx)=>{
+    const icon=btn.querySelector('.therapy-chevron');if(icon)icon.textContent=(willOpen&&idx===i)?'⌃':'⌄';
+  });
+}
+init();
+</script></body></html>
