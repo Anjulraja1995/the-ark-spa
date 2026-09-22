@@ -2,12 +2,12 @@
 @media (max-width:760px){.admin-login{min-height:100svh;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}.admin-login.keyboard-open{align-items:flex-start;padding-top:20px;overflow:auto}.admin-login .login-card{width:min(430px,100%);margin:0;transform:translateY(0);transition:transform .18s ease}.admin-login.keyboard-open .login-card{transform:translateY(var(--keyboard-shift,0px))}}
 </style><style id="offer-animation-override">.discount-dashboard-art .art-orbit span{border-top-color:#b29248!important;animation:arkVisibleSpin 1.2s linear infinite!important}.discount-dashboard-art .art-orbit i{background:#b29248!important;animation:arkVisibleDot 1.2s linear infinite!important}.discount-dashboard-art .art-pulse{background:#2b543e!important;animation:arkVisiblePulse .9s ease-in-out infinite!important}.discount-dashboard-art .art-sweep{animation:arkVisibleSweep 2s linear infinite!important}@keyframes arkVisibleSpin{to{transform:rotate(360deg)}}@keyframes arkVisibleDot{to{transform:rotate(360deg)}}@keyframes arkVisiblePulse{0%,100%{transform:scale(.65);opacity:.45}50%{transform:scale(1.7);opacity:1;box-shadow:0 0 0 8px rgba(43,84,62,.14)}}@keyframes arkVisibleSweep{0%{left:-35%;opacity:0}20%{opacity:1}55%{opacity:1}100%{left:125%;opacity:0}}</style><style id="admin-sections-3d-wallpaper">
 /* Shared premium 3D wallpaper for every admin section — Main Controls, Appointments and Recovery. Decorative layer only. */
-.admin-shell .admin-section-card{
+.admin-shell .admin-panel .admin-section-card{
   position:relative!important;
   overflow:hidden!important;
   background:var(--paper)!important;
 }
-.admin-shell .admin-section-card::before{
+.admin-shell .admin-panel .admin-section-card::before{
   content:"";
   position:absolute;
   inset:0;
@@ -23,7 +23,7 @@
   transform:perspective(900px) rotateX(55deg) scale(1.55) translateY(18%);
   transform-origin:center bottom;
 }
-.admin-shell .admin-section-card::after{
+.admin-shell .admin-panel .admin-section-card::after{
   content:"";
   position:absolute;
   z-index:1;
@@ -50,12 +50,12 @@
   transform:rotate(-18deg) skewX(-8deg);
   animation:arkAdmin3dWave 12s ease-in-out infinite alternate;
 }
-.admin-shell .admin-section-card>button.section-toggle,
-.admin-shell .admin-section-card>.admin-section-content{
+.admin-shell .admin-panel .admin-section-card>button.section-toggle,
+.admin-shell .admin-panel .admin-section-card>.admin-section-content{
   position:relative;
   z-index:3;
 }
-.admin-shell .admin-section-card>.admin-section-content{
+.admin-shell .admin-panel .admin-section-card>.admin-section-content{
   background:transparent!important;
 }
 @keyframes arkAdmin3dWave{
@@ -64,11 +64,11 @@
   100%{transform:rotate(-8deg) skewX(3deg) translate3d(24px,12px,0) scale(1.06)}
 }
 @media(max-width:760px){
-  .admin-shell .admin-section-card::before{
+  .admin-shell .admin-panel .admin-section-card::before{
     transform:perspective(700px) rotateX(52deg) scale(1.8) translateY(22%);
     opacity:.65;
   }
-  .admin-shell .admin-section-card::after{opacity:.55}
+  .admin-shell .admin-panel .admin-section-card::after{opacity:.55}
 }
 </style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form></div></div>
