@@ -228,4 +228,32 @@ try{bind()}catch(error){console.error("Admin binding error:",error)}auth.setPers
   window.addEventListener('resize',()=>setTimeout(sync,80));
   window.addEventListener('orientationchange',()=>setTimeout(reset,300));
 })();
+</script><script id="panel-isolation-final">
+(function(){
+  const ids=['mainPanel','appointmentsPanel','recoveryPanel'];
+  const tabs=()=>Array.from(document.querySelectorAll('.admin-tab'));
+  function apply(tab){
+    if(!ids.includes(tab)) tab='main';
+    ids.forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el)return;
+      const active=id===tab+'Panel';
+      el.hidden=!active;
+      el.classList.toggle('hidden',!active);
+      el.classList.toggle('active',active);
+      el.setAttribute('aria-hidden',String(!active));
+      el.style.setProperty('display',active?'block':'none','important');
+      el.style.setProperty('visibility',active?'visible':'hidden','important');
+      el.style.setProperty('pointer-events',active?'auto':'none','important');
+      if(!active)el.querySelectorAll('.admin-section-card').forEach(card=>card.classList.remove('open'));
+    });
+    tabs().forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  }
+  tabs().forEach(b=>b.addEventListener('click',function(){apply(this.dataset.tab)},true));
+  window.addEventListener('load',function(){
+    const active=tabs().find(b=>b.classList.contains('active'));
+    apply(active?active.dataset.tab:'main');
+  });
+  apply('main');
+})();
 </script></body></html>
