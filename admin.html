@@ -5,6 +5,76 @@
 #mainPanel.admin-panel.hidden,#appointmentsPanel.admin-panel.hidden,#recoveryPanel.admin-panel.hidden{display:none!important;visibility:hidden!important;pointer-events:none!important;height:0!important;overflow:hidden!important;margin:0!important;padding:0!important}
 #mainPanel.admin-panel:not(.hidden),#appointmentsPanel.admin-panel:not(.hidden),#recoveryPanel.admin-panel:not(.hidden){display:block!important;visibility:visible!important;pointer-events:auto!important;height:auto!important;overflow:visible!important}
 #mainPanel.admin-panel.hidden > .admin-section-card,#appointmentsPanel.admin-panel.hidden > .admin-section-card,#recoveryPanel.admin-panel.hidden > .admin-section-card{display:none!important}
+</style><style id="admin-sections-3d-wallpaper">
+/* Shared premium 3D wallpaper for every admin section — Main Controls, Appointments and Recovery. Decorative layer only. */
+.admin-shell .admin-section-card{
+  position:relative!important;
+  overflow:hidden!important;
+  background:var(--paper)!important;
+}
+.admin-shell .admin-section-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.95;
+  background:
+    radial-gradient(ellipse 46% 28% at 12% 8%,rgba(231,198,107,.20),transparent 68%),
+    radial-gradient(ellipse 42% 30% at 92% 86%,rgba(7,63,45,.13),transparent 70%),
+    repeating-linear-gradient(76deg,transparent 0 23px,rgba(201,154,58,.18) 24px,transparent 25px 46px),
+    repeating-linear-gradient(104deg,transparent 0 31px,rgba(7,63,45,.10) 32px,transparent 33px 62px),
+    linear-gradient(135deg,#fbf6e9 0%,#f7f0df 52%,#eef2ed 100%);
+  transform:perspective(900px) rotateX(55deg) scale(1.55) translateY(18%);
+  transform-origin:center bottom;
+}
+.admin-shell .admin-section-card::after{
+  content:"";
+  position:absolute;
+  z-index:1;
+  pointer-events:none;
+  width:145%;
+  height:175%;
+  left:-22%;
+  top:-40%;
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse at center,
+      transparent 0 25%,
+      rgba(7,63,45,.10) 25.4% 25.9%,
+      transparent 26.3% 33%,
+      rgba(201,154,58,.28) 33.4% 34.1%,
+      transparent 34.5% 42%,
+      rgba(7,63,45,.14) 42.4% 43.1%,
+      transparent 43.5% 52%,
+      rgba(231,198,107,.34) 52.4% 53%,
+      transparent 53.4% 62%,
+      rgba(7,63,45,.10) 62.4% 63.1%,
+      transparent 63.5%);
+  box-shadow:0 35px 55px rgba(7,63,45,.12),inset 0 0 45px rgba(201,154,58,.08);
+  transform:rotate(-18deg) skewX(-8deg);
+  animation:arkAdmin3dWave 12s ease-in-out infinite alternate;
+}
+.admin-shell .admin-section-card>button.section-toggle,
+.admin-shell .admin-section-card>.admin-section-content{
+  position:relative;
+  z-index:3;
+}
+.admin-shell .admin-section-card>.admin-section-content{
+  background:transparent!important;
+}
+@keyframes arkAdmin3dWave{
+  0%{transform:rotate(-18deg) skewX(-8deg) translate3d(-18px,8px,0) scale(.96)}
+  50%{transform:rotate(-13deg) skewX(-4deg) translate3d(8px,-4px,0) scale(1.02)}
+  100%{transform:rotate(-8deg) skewX(3deg) translate3d(24px,12px,0) scale(1.06)}
+}
+@media(max-width:760px){
+  .admin-shell .admin-section-card::before{
+    transform:perspective(700px) rotateX(52deg) scale(1.8) translateY(22%);
+    opacity:.65;
+  }
+  .admin-shell .admin-section-card::after{opacity:.55}
+}
 </style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form></div></div>
 <div id="dashboard" class="admin-shell hidden"><div class="admin-top"><a class="brand" href="index.html"><img id="adminLogo" class="brand-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><span><b>THE ARK</b><small>ADMIN CENTER</small></span></a><button class="btn logout" id="logoutBtn">Logout</button></div>
