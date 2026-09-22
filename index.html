@@ -178,7 +178,7 @@ function applyHomeOffer(o){
   const offerIndex=active.indexOf(o);
   const offerLabel=o.type==='percentage'?((Number(o.percent)||0)+'% OFF'):[formatMoney(o.rate),o.duration||''].filter(Boolean).join(' · ');
   const offerName=o.title|| (o.type==='percentage'?'Discount':'Special Offer');
-  const waMessage='Hello The Ark Spa & Salon, I would like to apply for the '+offerName+' offer ('+offerLabel+').';
+  const waMessage='Hello The Ark Spa & Salon, I would like to book an appointment for the '+offerName+' offer ('+offerLabel+').';
   const appointmentUrl='appointment.html?offer='+encodeURIComponent('__offerindex__'+offerIndex);
   if(mode==='whatsapp'){wa(waMessage);return}
   if(mode==='website'){location.href=appointmentUrl;return}
