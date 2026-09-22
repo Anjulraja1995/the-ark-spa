@@ -12,6 +12,11 @@ function validPhone(){return /^[6-9][0-9]{9}$/.test(normalizedPhone())}
 function escapeValue(v){return escapeAttr(v)}
 function getActiveOffer(title){
   const wanted=String(title||'').trim();
+  if(wanted.startsWith('__offerindex__')){
+    const i=Number(wanted.slice('__offerindex__'.length));
+    const active=getActiveOffers();
+    return Number.isInteger(i)&&i>=0?active[i]||null:null;
+  }
   return (arkData.offers||[]).find(x=>x.active&&String(x.title||'').trim()===wanted) || null;
 }
 function eligibleServicesForOffer(offer){
