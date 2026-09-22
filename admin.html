@@ -161,7 +161,32 @@ function renderGalleryAdmin(){galleryAdmin.innerHTML=(arkData.gallery||[]).map((
 async function removeGallery(i){if(!confirm('Remove this gallery image?'))return;const a=[...(arkData.gallery||[])];a.splice(i,1);try{await arkSave({gallery:a});renderGalleryAdmin();galleryMsg.classList.remove('hidden');galleryMsg.textContent='✓ Image removed from Gallery and Home preview.'}catch(e){galleryMsg.classList.remove('hidden');galleryMsg.textContent='Remove failed: '+e.message}}
 async function handleUploadGallery(){const fs=[...($('galleryFiles').files||[])];if(!fs.length)return;if(!window.storage){galleryMsg.classList.remove('hidden');galleryMsg.textContent='Upload failed: Firebase Storage is unavailable.';return}galleryMsg.classList.remove('hidden');galleryMsg.textContent='Uploading…';try{const urls=[];for(let i=0;i<fs.length;i++){const f=fs[i];const ref=storage.ref().child('site-media/gallery/'+Date.now()+'-'+i+'-'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_'));await ref.put(f);urls.push(await ref.getDownloadURL())}await arkSave({gallery:[...(arkData.gallery||[]),...urls]});renderGalleryAdmin();$('galleryFiles').value='';galleryMsg.textContent=`✓ ${urls.length} image(s) added.`}catch(e){galleryMsg.textContent='Upload failed: '+e.message}}
 function renderLogo(){const u=arkData.brand.logoUrl||ARK_DEFAULT.brand.logoUrl;['logoPreview','loginLogo','adminLogo'].forEach(id=>{if($(id))$(id).src=u});}
-async function handleUploadLogo(){const f=$('logoFile').files?.[0];if(!f)return;try{const ref=storage.ref().child('site-media/brand/logo-'+Date.now()+'-'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_'));await ref.put(f);const u=await ref.getDownloadURL();await arkSave({brand:{...arkData.brand,logoUrl:u}});renderLogo();alert('✓ New logo saved everywhere.')}catch(e){alert('Logo upload failed: '+e.message)}}
+async function handleUploadLogo(){
+  const f=$('logoFile').files?.[0];
+  if(!f)return;
+  const maxBytes=2*1024*1024;
+  if(!/^image\\/(png|jpeg|webp)$/.test(f.type)){alert('Please upload a PNG, JPG/JPEG or WebP logo.');return}
+  if(f.size>maxBytes){alert('Logo file is too large. Please use a file up to 2 MB.');return}
+  try{
+    const dims=await new Promise((resolve,reject)=>{
+      const img=new Image();
+      img.onload=()=>resolve({w:img.naturalWidth,h:img.naturalHeight});
+      img.onerror=()=>reject(new Error('The selected image could not be read.'));
+      img.src=URL.createObjectURL(f);
+    });
+    if(dims.w<300||dims.h<150){alert('Logo quality is too low. Please use at least 300 × 150 px.');return}
+    const ratio=dims.w/dims.h;
+    if(ratio<1.25||ratio>4.5){alert('Please use a clean horizontal logo with an aspect ratio between 1.25:1 and 4.5:1.');return}
+    if(!window.storage)throw new Error('Firebase Storage is unavailable.');
+    const ref=storage.ref().child('site-media/brand/logo-'+Date.now()+'-'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_'));
+    await ref.put(f);
+    const u=await ref.getDownloadURL();
+    await arkSave({brand:{...arkData.brand,logoUrl:u}});
+    renderLogo();
+    $('logoFile').value='';
+    alert('✓ New validated logo saved everywhere.');
+  }catch(e){alert('Logo upload failed: '+e.message)}
+}
 async function handleRemoveLogo(){if(!confirm('Remove the custom logo and return to the permanent default Ark logo?'))return;try{await arkSave({brand:{...arkData.brand,logoUrl:''}});renderLogo();alert('✓ Default Ark logo restored everywhere.')}catch(e){alert('Could not restore default logo: '+e.message)}}
 function renderSocialAdmin(){const keys=['instagram','facebook','youtube','x'];socialAdmin.innerHTML=keys.map(k=>`<div class="social-row"><b>${socialLabel(k)}</b><input id="social_${k}" placeholder="Paste ${socialLabel(k)} link" value="${escapeAttr(arkData.social?.[k]||'')}"><span class="switch-status">${arkData.social?.[k]?'Active':'Not active — icon stays visible'}</span></div>`).join('')}
 async function handleSaveSocial(){const s={...(arkData.social||{})};const keys=['instagram','facebook','youtube','x'];for(const k of keys){const value=$("social_"+k).value.trim();if(value&&!validateSocialUrl(k,value)){socialMsg.classList.remove('hidden');socialMsg.textContent='Please enter a valid '+socialLabel(k)+' URL in the '+socialLabel(k)+' field.';$("social_"+k).focus();return}s[k]=value}delete s.whatsapp;try{await arkSave({social:s});renderSocialAdmin();document.querySelectorAll('[data-socials]').forEach(renderSocials);socialMsg.classList.remove('hidden');socialMsg.textContent='✓ Social links saved. Icons stay fixed; only their links change.'}catch(e){socialMsg.classList.remove('hidden');socialMsg.textContent='Save failed: '+e.message}}
