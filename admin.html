@@ -1,32 +1,35 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script><style>
 @media (max-width:760px){.admin-login{min-height:100svh;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}.admin-login.keyboard-open{align-items:flex-start;padding-top:20px;overflow:auto}.admin-login .login-card{width:min(430px,100%);margin:0;transform:translateY(0);transition:transform .18s ease}.admin-login.keyboard-open .login-card{transform:translateY(var(--keyboard-shift,0px))}}
-</style><style id="offer-animation-override">.discount-dashboard-art .art-orbit span{border-top-color:#b29248!important;animation:arkVisibleSpin 1.2s linear infinite!important}.discount-dashboard-art .art-orbit i{background:#b29248!important;animation:arkVisibleDot 1.2s linear infinite!important}.discount-dashboard-art .art-pulse{background:#2b543e!important;animation:arkVisiblePulse .9s ease-in-out infinite!important}.discount-dashboard-art .art-sweep{animation:arkVisibleSweep 2s linear infinite!important}@keyframes arkVisibleSpin{to{transform:rotate(360deg)}}@keyframes arkVisibleDot{to{transform:rotate(360deg)}}@keyframes arkVisiblePulse{0%,100%{transform:scale(.65);opacity:.45}50%{transform:scale(1.7);opacity:1;box-shadow:0 0 0 8px rgba(43,84,62,.14)}}@keyframes arkVisibleSweep{0%{left:-35%;opacity:0}20%{opacity:1}55%{opacity:1}100%{left:125%;opacity:0}}</style><style id="discount-box-3d-wallpaper">
+</style><style id="offer-animation-override">.discount-dashboard-art .art-orbit span{border-top-color:#b29248!important;animation:arkVisibleSpin 1.2s linear infinite!important}.discount-dashboard-art .art-orbit i{background:#b29248!important;animation:arkVisibleDot 1.2s linear infinite!important}.discount-dashboard-art .art-pulse{background:#2b543e!important;animation:arkVisiblePulse .9s ease-in-out infinite!important}.discount-dashboard-art .art-sweep{animation:arkVisibleSweep 2s linear infinite!important}@keyframes arkVisibleSpin{to{transform:rotate(360deg)}}@keyframes arkVisibleDot{to{transform:rotate(360deg)}}@keyframes arkVisiblePulse{0%,100%{transform:scale(.65);opacity:.45}50%{transform:scale(1.7);opacity:1;box-shadow:0 0 0 8px rgba(43,84,62,.14)}}@keyframes arkVisibleSweep{0%{left:-35%;opacity:0}20%{opacity:1}55%{opacity:1}100%{left:125%;opacity:0}}</style><style id="offers-section-3d-wallpaper">
 @media(min-width:761px){
-#mainPanel .offer-builder>.offer-column{position:relative!important;z-index:2!important}
-#mainPanel .offer-builder>.offer-column>.offer-type-card{position:relative!important;overflow:hidden!important;background:#063d2d!important;border:1px solid rgba(178,145,72,.55)!important;box-shadow:inset 0 0 45px rgba(0,0,0,.22),0 10px 28px rgba(0,0,0,.08)!important}
-#mainPanel .offer-builder>.offer-column>.offer-type-card:before{
+#mainPanel .admin-section-card:has(.offer-builder) .admin-section-content{
+position:relative!important;overflow:hidden!important;
+background:#063d2d!important;
+border-radius:0 0 18px 18px!important;
+}
+#mainPanel .admin-section-card:has(.offer-builder) .admin-section-content:before{
 content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
 background:
-radial-gradient(circle at 78% 22%,rgba(231,198,107,.28) 0 2px,transparent 3px),
-radial-gradient(circle at 88% 70%,rgba(231,198,107,.18) 0 1.5px,transparent 3px),
-linear-gradient(145deg,transparent 0 32%,rgba(231,198,107,.12) 32.5%,transparent 34% 58%,rgba(231,198,107,.10) 58.5%,transparent 60%),
-radial-gradient(ellipse at 72% 82%,rgba(231,198,107,.20),transparent 38%),
-linear-gradient(135deg,#032f23 0%,#07503a 42%,#063d2d 68%,#02291f 100%);
+radial-gradient(circle at 12% 18%,rgba(231,198,107,.16) 0 2px,transparent 3px),
+radial-gradient(circle at 88% 30%,rgba(231,198,107,.14) 0 2px,transparent 4px),
+radial-gradient(ellipse at 78% 78%,rgba(231,198,107,.16),transparent 34%),
+linear-gradient(135deg,rgba(2,35,27,.98),rgba(7,80,58,.96) 42%,rgba(4,55,41,.98) 68%,rgba(1,29,22,.99));
 }
-#mainPanel .offer-builder>.offer-column>.offer-type-card:after{
-content:"";position:absolute;inset:-35%;z-index:0;pointer-events:none;
-border:1px solid rgba(231,198,107,.18);border-radius:42%;
-transform:rotate(-18deg);box-shadow:0 0 0 28px rgba(231,198,107,.035),0 0 0 58px rgba(231,198,107,.025),0 0 0 92px rgba(231,198,107,.018);
-animation:arkOfferWallpaperDrift 9s ease-in-out infinite alternate;
+#mainPanel .admin-section-card:has(.offer-builder) .admin-section-content:after{
+content:"";position:absolute;inset:-45%;z-index:0;pointer-events:none;
+border:1px solid rgba(231,198,107,.15);border-radius:46%;
+box-shadow:0 0 0 32px rgba(231,198,107,.035),0 0 0 68px rgba(231,198,107,.025),0 0 0 108px rgba(231,198,107,.018);
+transform:rotate(-16deg);
+animation:arkOffersWallpaper 11s ease-in-out infinite alternate;
 }
-#mainPanel .offer-builder>.offer-column>.offer-type-card>*{position:relative;z-index:2}
-#mainPanel .discount-dashboard-art{display:none!important}
+#mainPanel .admin-section-card:has(.offer-builder) .admin-section-content>*{position:relative;z-index:2}
+#mainPanel .admin-section-card:has(.offer-builder) .discount-dashboard-art{display:none!important}
 }
-@keyframes arkOfferWallpaperDrift{from{transform:rotate(-18deg) translate3d(-10px,0,0) scale(.98)}to{transform:rotate(-12deg) translate3d(14px,8px,0) scale(1.04)}}
+@keyframes arkOffersWallpaper{from{transform:rotate(-16deg) translate3d(-12px,-4px,0) scale(.98)}to{transform:rotate(-10deg) translate3d(15px,10px,0) scale(1.04)}}
 @media(max-width:760px){
-#mainPanel .offer-builder>.offer-column>.offer-type-card{overflow:hidden!important;background:#063d2d!important}
-#mainPanel .offer-builder>.offer-column>.offer-type-card:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 80% 20%,rgba(231,198,107,.22),transparent 30%),linear-gradient(135deg,#032f23,#07503a,#063d2d)}
-#mainPanel .offer-builder>.offer-column>.offer-type-card>*{position:relative;z-index:2}
+#mainPanel .admin-section-card:has(.offer-builder) .admin-section-content{position:relative!important;overflow:hidden!important;background:#063d2d!important}
+#mainPanel .admin-section-card:has(.offer-builder) .admin-section-content:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 82% 18%,rgba(231,198,107,.16),transparent 30%),linear-gradient(135deg,#032f23,#07503a,#063d2d)}
+#mainPanel .admin-section-card:has(.offer-builder) .admin-section-content>*{position:relative;z-index:2}
 #mainPanel .discount-dashboard-art{display:none!important}
 }
 </style></head><body class="admin-body">
