@@ -98,9 +98,23 @@ window.handleArkAdminLogin=async function(event){
     const e=String(email&&email.value||'').trim(),p=String(password&&password.value||'');
     if(!e||!p)throw new Error('Please enter your admin email and password.');
     await window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    await window.auth.signInWithEmailAndPassword(e,p);
+    const credential=await window.auth.signInWithEmailAndPassword(e,p);
+    if(!credential||!credential.user)throw new Error('Sign-in completed but no authenticated user was returned.');
     if(msg){msg.classList.remove('hidden');msg.textContent='Signed in. Opening Admin Center…';}
-    window.location.reload();
+    const loginScreen=document.getElementById('loginScreen');
+    const dashboard=document.getElementById('dashboard');
+    if(loginScreen)loginScreen.classList.add('hidden');
+    if(dashboard)dashboard.classList.remove('hidden');
+    if(typeof resetAdminView==='function')resetAdminView();
+    try{
+      if(typeof startDashboard==='function')await startDashboard();
+    }catch(dashboardError){
+      console.error('Admin dashboard load failed:',dashboardError);
+      if(msg){
+        msg.classList.remove('hidden');
+        msg.textContent='Login succeeded, but Admin Center could not load: '+(dashboardError&&dashboardError.message||'Unknown error');
+      }
+    }
   }catch(err){
     console.error('Admin login failed:',err);
     if(msg){msg.classList.remove('hidden');msg.textContent=err&&err.code?('Login failed: '+err.code.replace('auth/','').replaceAll('-',' ')):(err&&err.message||'Login failed. Please try again.');}
