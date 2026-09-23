@@ -38,69 +38,23 @@
   font-size:16px !important;
 }
 </style><style id="admin-section-card-size-fix">
-/* SIZE ONLY: closed admin section cards must visually match the compact top-tab controls. */
+/* SIZE ONLY: change only the three top-level admin section cards; leave their contents untouched. */
 #mainPanel > .admin-section-card,
 #appointmentsPanel > .admin-section-card,
 #recoveryPanel > .admin-section-card{
-  display:table !important;
-  width:auto !important;
+  width:100% !important;
   max-width:100% !important;
-  margin:0 0 8px 0 !important;
-  border-radius:20px !important;
-  box-sizing:border-box !important;
+  display:block !important;
 }
 #mainPanel > .admin-section-card > button.section-toggle,
 #appointmentsPanel > .admin-section-card > button.section-toggle,
 #recoveryPanel > .admin-section-card > button.section-toggle{
-  display:flex !important;
-  width:auto !important;
-  max-width:100% !important;
-  min-width:0 !important;
+  width:100% !important;
   height:40px !important;
   min-height:40px !important;
   max-height:40px !important;
-  padding:7px 12px !important;
-  gap:14px !important;
+  padding:7px 14px !important;
   box-sizing:border-box !important;
-}
-#mainPanel > .admin-section-card > button.section-toggle > span:first-child,
-#appointmentsPanel > .admin-section-card > button.section-toggle > span:first-child,
-#recoveryPanel > .admin-section-card > button.section-toggle > span:first-child{
-  min-width:0 !important;
-}
-#mainPanel > .admin-section-card > button.section-toggle h2,
-#appointmentsPanel > .admin-section-card > button.section-toggle h2,
-#recoveryPanel > .admin-section-card > button.section-toggle h2{
-  font-size:14px !important;
-  line-height:13px !important;
-  margin:0 !important;
-}
-#mainPanel > .admin-section-card > button.section-toggle .sub,
-#appointmentsPanel > .admin-section-card > button.section-toggle .sub,
-#recoveryPanel > .admin-section-card > button.section-toggle .sub{
-  font-size:9px !important;
-  line-height:9px !important;
-  margin-top:1px !important;
-  white-space:nowrap !important;
-}
-#mainPanel > .admin-section-card > button.section-toggle .chev,
-#appointmentsPanel > .admin-section-card > button.section-toggle .chev,
-#recoveryPanel > .admin-section-card > button.section-toggle .chev{
-  flex:0 0 auto !important;
-  font-size:15px !important;
-  line-height:15px !important;
-}
-#mainPanel > .admin-section-card.open,
-#appointmentsPanel > .admin-section-card.open,
-#recoveryPanel > .admin-section-card.open{
-  display:block !important;
-  width:100% !important;
-}
-#mainPanel > .admin-section-card.open > button.section-toggle,
-#appointmentsPanel > .admin-section-card.open > button.section-toggle,
-#recoveryPanel > .admin-section-card.open > button.section-toggle{
-  width:100% !important;
-  height:40px !important;
 }
 </style><style id="admin-sections-3d-wallpaper">
 /* Shared premium 3D wallpaper for every admin section — Main Controls, Appointments and Recovery. Decorative layer only. */
