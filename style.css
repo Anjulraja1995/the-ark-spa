@@ -1309,11 +1309,17 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 
 
 /* APPOINTMENT + RECOVERY: exact outer card geometry of Main Controls reference. */
+#appointmentsPanel,
+#recoveryPanel{
+  width:calc(100% - 48px) !important;
+  margin-left:24px !important;
+  margin-right:24px !important;
+}
 #appointmentsPanel > .admin-section-card,
 #recoveryPanel > .admin-section-card{
   display:block !important;
   width:100% !important;
-  max-width:1202px !important;
+  max-width:none !important;
   min-width:0 !important;
   margin:0 !important;
   padding:0 !important;
@@ -1331,4 +1337,12 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 }
 #appointmentsPanel > .admin-section-card + .admin-section-card{
   margin-top:0 !important;
+}
+@media(max-width:760px){
+  #appointmentsPanel,
+  #recoveryPanel{
+    width:calc(100% - 24px) !important;
+    margin-left:12px !important;
+    margin-right:12px !important;
+  }
 }
