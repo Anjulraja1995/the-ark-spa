@@ -37,6 +37,32 @@
 #recoveryPanel > .admin-section-card > button.section-toggle .chev{
   font-size:16px !important;
 }
+</style><style id="admin-section-card-size-fix">
+/* SIZE ONLY: the closed section cards themselves must be compact, not full-width bars. */
+#mainPanel > .admin-section-card,
+#appointmentsPanel > .admin-section-card,
+#recoveryPanel > .admin-section-card{
+  width:max-content !important;
+  max-width:100% !important;
+  display:block !important;
+}
+#mainPanel > .admin-section-card > button.section-toggle,
+#appointmentsPanel > .admin-section-card > button.section-toggle,
+#recoveryPanel > .admin-section-card > button.section-toggle{
+  width:max-content !important;
+  min-width:0 !important;
+  max-width:100% !important;
+}
+#mainPanel > .admin-section-card.open,
+#appointmentsPanel > .admin-section-card.open,
+#recoveryPanel > .admin-section-card.open{
+  width:100% !important;
+}
+#mainPanel > .admin-section-card.open > button.section-toggle,
+#appointmentsPanel > .admin-section-card.open > button.section-toggle,
+#recoveryPanel > .admin-section-card.open > button.section-toggle{
+  width:100% !important;
+}
 </style><style id="admin-sections-3d-wallpaper">
 /* Shared premium 3D wallpaper for every admin section — Main Controls, Appointments and Recovery. Decorative layer only. */
 .admin-shell .admin-section-card{
