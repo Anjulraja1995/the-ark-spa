@@ -1311,9 +1311,11 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 /* APPOINTMENT + RECOVERY: exact outer card geometry of Main Controls reference. */
 #appointmentsPanel,
 #recoveryPanel{
-  width:calc(100% - 48px) !important;
-  margin-left:24px !important;
-  margin-right:24px !important;
+  width:100% !important;
+  max-width:1250px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  box-sizing:border-box !important;
 }
 #appointmentsPanel > .admin-section-card,
 #recoveryPanel > .admin-section-card{
