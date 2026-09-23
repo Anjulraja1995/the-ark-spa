@@ -8,17 +8,34 @@
 </style><style id="admin-section-width-fix">
 /* WIDTH ONLY: keep the existing height/spacing; prevent horizontal overflow in the Appointment and Recovery sections. */
 #appointmentsPanel > .admin-section-card,
-#recoveryPanel > .admin-section-card,
-#appointmentsPanel > .admin-section-card > .admin-section-content,
-#recoveryPanel > .admin-section-card > .admin-section-content{
+#recoveryPanel > .admin-section-card{
+  display:block !important;
+  width:calc(100% - 48px) !important;
+  max-width:none !important;
   min-width:0 !important;
-  max-width:100% !important;
+  margin-left:24px !important;
+  margin-right:24px !important;
+  margin-top:0 !important;
+  box-sizing:border-box !important;
 }
+#appointmentsPanel > .admin-section-card + .admin-section-card{
+  margin-top:0 !important;
+}
+#appointmentsPanel > .admin-section-card > .admin-section-content,
+#recoveryPanel > .admin-section-card > .admin-section-content,
 #appointmentsPanel .appointment-row,
 #recoveryPanel .backup-grid,
 #recoveryPanel .backup-card{
   min-width:0 !important;
   max-width:100% !important;
+}
+@media(max-width:760px){
+  #appointmentsPanel > .admin-section-card,
+  #recoveryPanel > .admin-section-card{
+    width:calc(100% - 24px) !important;
+    margin-left:12px !important;
+    margin-right:12px !important;
+  }
 }
 </style><style id="admin-sections-3d-wallpaper">
 /* Shared premium 3D wallpaper for every admin section — Main Controls, Appointments and Recovery. Decorative layer only. */
