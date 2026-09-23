@@ -6,33 +6,36 @@
 #mainPanel.admin-panel:not(.hidden),#appointmentsPanel.admin-panel:not(.hidden),#recoveryPanel.admin-panel:not(.hidden){display:block!important;visibility:visible!important;pointer-events:auto!important;height:auto!important;overflow:visible!important}
 #mainPanel.admin-panel.hidden > .admin-section-card,#appointmentsPanel.admin-panel.hidden > .admin-section-card,#recoveryPanel.admin-panel.hidden > .admin-section-card{display:none!important}
 </style><style id="admin-section-size-only">
-/* SIZE ONLY: keep admin section headers compact and consistent with the top tab scale. */
+/* SIZE ONLY: make the accordion headers use the same compact scale as the top admin tabs. */
 #mainPanel > .admin-section-card > button.section-toggle,
 #appointmentsPanel > .admin-section-card > button.section-toggle,
 #recoveryPanel > .admin-section-card > button.section-toggle{
-  height:56px !important;
-  min-height:56px !important;
-  max-height:56px !important;
-  padding:8px 20px !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  padding:10px 14px !important;
+  border-radius:20px !important;
   box-sizing:border-box !important;
 }
 #mainPanel > .admin-section-card > button.section-toggle h2,
 #appointmentsPanel > .admin-section-card > button.section-toggle h2,
 #recoveryPanel > .admin-section-card > button.section-toggle h2{
-  font-size:18px !important;
-  line-height:1.05 !important;
+  font-size:14px !important;
+  line-height:1 !important;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important;
+  font-weight:800 !important;
 }
 #mainPanel > .admin-section-card > button.section-toggle .sub,
 #appointmentsPanel > .admin-section-card > button.section-toggle .sub,
 #recoveryPanel > .admin-section-card > button.section-toggle .sub{
-  font-size:11px !important;
+  font-size:10px !important;
   margin-top:2px !important;
-  line-height:1.05 !important;
+  line-height:1 !important;
 }
 #mainPanel > .admin-section-card > button.section-toggle .chev,
 #appointmentsPanel > .admin-section-card > button.section-toggle .chev,
 #recoveryPanel > .admin-section-card > button.section-toggle .chev{
-  font-size:18px !important;
+  font-size:16px !important;
 }
 </style><style id="admin-sections-3d-wallpaper">
 /* Shared premium 3D wallpaper for every admin section — Main Controls, Appointments and Recovery. Decorative layer only. */
