@@ -1320,11 +1320,11 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 #appointmentsPanel > .admin-section-card,
 #recoveryPanel > .admin-section-card{
   display:block !important;
-  width:calc(100% - 48px) !important;
+  width:100% !important;
   max-width:none !important;
   min-width:0 !important;
-  margin-left:24px !important;
-  margin-right:24px !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
   padding:0 !important;
   box-sizing:border-box !important;
 }
