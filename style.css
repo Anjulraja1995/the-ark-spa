@@ -1313,7 +1313,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 #recoveryPanel > .admin-section-card{
   display:block !important;
   width:100% !important;
-  max-width:100% !important;
+  max-width:1202px !important;
   min-width:0 !important;
   margin:0 !important;
   padding:0 !important;
@@ -1323,11 +1323,11 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 #recoveryPanel > .admin-section-card > button.section-toggle{
   display:flex !important;
   width:100% !important;
-  height:56px !important;
-  min-height:56px !important;
+  height:65px !important;
+  min-height:65px !important;
   margin:0 !important;
   box-sizing:border-box !important;
-  padding:8px 20px !important;
+  padding:14px 20px !important;
 }
 #appointmentsPanel > .admin-section-card + .admin-section-card{
   margin-top:0 !important;
