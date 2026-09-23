@@ -1330,7 +1330,8 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 
 
 
-/* MOBILE HERO — SLIGHT RIGHT SHIFT ONLY */
+
+/* MOBILE HERO — MOVE THE WHOLE IMAGE SLIGHTLY RIGHT */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
     background-position:calc(50% + 18px) center !important;
