@@ -1308,13 +1308,13 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 .discount-dashboard-art{display:flex!important;align-items:center;justify-content:center;width:100%;flex:1 1 auto;min-height:150px;margin-top:18px;position:relative;overflow:hidden;border:1px solid rgba(178,145,72,.38);border-radius:16px;background:linear-gradient(135deg,#063d2d,#0b5a42);box-shadow:inset 0 0 35px rgba(0,0,0,.12)}.art-scene{width:190px;height:125px;position:relative;display:grid;place-items:center}.art-ring{position:absolute;border-radius:50%;border:2px solid rgba(231,198,107,.5)}.ring-a{width:92px;height:92px;animation:arkSceneSpin 8s linear infinite}.ring-b{width:150px;height:62px;transform:rotate(-24deg);border-color:rgba(231,198,107,.28);animation:arkSceneTilt 5s ease-in-out infinite}.art-glow{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle,rgba(231,198,107,.9) 0,rgba(231,198,107,.35) 34%,transparent 72%);animation:arkSceneGlow 2s ease-in-out infinite}.art-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:#e7c66b;box-shadow:0 0 14px rgba(231,198,107,.8)}.dot-a{top:7px;left:88px;animation:arkDotA 3.5s linear infinite}.dot-b{right:20px;bottom:22px;animation:arkDotB 4s linear infinite}.dot-c{left:22px;bottom:25px;animation:arkDotC 4.5s linear infinite}.art-sweep{position:absolute;left:-45%;top:0;width:32%;height:100%;background:linear-gradient(90deg,transparent,rgba(231,198,107,.08),rgba(231,198,107,.4),rgba(231,198,107,.08),transparent);transform:skewX(-18deg);animation:arkSceneSweep 2.8s linear infinite}@keyframes arkSceneSpin{to{transform:rotate(360deg)}}@keyframes arkSceneTilt{50%{transform:rotate(12deg) scale(1.06)}100%{transform:rotate(-24deg)}}@keyframes arkSceneGlow{0%,100%{transform:scale(.7);opacity:.55}50%{transform:scale(1.4);opacity:1}}@keyframes arkDotA{to{transform:translate(38px,22px)}}@keyframes arkDotB{50%{transform:translate(-32px,-27px)}100%{transform:translate(0)}}@keyframes arkDotC{50%{transform:translate(38px,-20px)}100%{transform:translate(0)}}@keyframes arkSceneSweep{0%{left:-45%;opacity:0}20%{opacity:1}75%{opacity:1}100%{left:125%;opacity:0}}@media(max-width:760px){.discount-dashboard-art{display:none!important}}
 
 
-/* APPOINTMENT + RECOVERY: exact outer card geometry of Main Controls reference. */
+/* APPOINTMENT + RECOVERY: width only — align outer cards exactly with Main Controls. */
 #appointmentsPanel,
 #recoveryPanel{
-  width:calc(100% - 48px) !important;
+  width:100% !important;
   max-width:none !important;
-  margin-left:24px !important;
-  margin-right:24px !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
   box-sizing:border-box !important;
 }
 #appointmentsPanel > .admin-section-card,
@@ -1331,20 +1331,8 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 #recoveryPanel > .admin-section-card > button.section-toggle{
   display:flex !important;
   width:100% !important;
-  height:65px !important;
-  min-height:65px !important;
-  margin:0 !important;
   box-sizing:border-box !important;
-  padding:14px 20px !important;
 }
 #appointmentsPanel > .admin-section-card + .admin-section-card{
   margin-top:0 !important;
-}
-@media(max-width:760px){
-  #appointmentsPanel,
-  #recoveryPanel{
-    width:calc(100% - 24px) !important;
-    margin-left:12px !important;
-    margin-right:12px !important;
-  }
 }
