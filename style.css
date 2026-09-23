@@ -1327,3 +1327,18 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     margin-right:12px !important;
   }
 }
+
+/* MOBILE HERO — KEEP DESKTOP LOCKED, MOVE BUDDHA BELOW TEXT */
+@media(max-width:760px){
+  body:not(.admin-body) .hero{
+    min-height:640px !important;
+    aspect-ratio:auto !important;
+    padding:52px 5% 250px !important;
+    background-position:center bottom !important;
+    background-size:100% auto !important;
+    background-repeat:no-repeat !important;
+    background-color:#061f16 !important;
+  }
+  body:not(.admin-body) .hero-content{z-index:2 !important;}
+  body:not(.admin-body) .hero:after{display:none !important;}
+}
