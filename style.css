@@ -1328,17 +1328,30 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   }
 }
 
-/* MOBILE HERO — KEEP DESKTOP LOCKED, MOVE BUDDHA BELOW TEXT */
+/* MOBILE HERO — KEEP INSIDE HERO, DESKTOP LOCKED */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
     min-height:640px !important;
     aspect-ratio:auto !important;
-    padding:52px 5% 250px !important;
-    background-position:center bottom !important;
-    background-size:100% auto !important;
+    padding:52px 5% !important;
+    background-position:center center !important;
+    background-size:100% 100% !important;
     background-repeat:no-repeat !important;
     background-color:#061f16 !important;
+    box-sizing:border-box !important;
   }
-  body:not(.admin-body) .hero-content{z-index:2 !important;}
-  body:not(.admin-body) .hero:after{display:none !important;}
+  body:not(.admin-body) .hero-content{
+    position:relative !important;
+    z-index:2 !important;
+    max-width:58% !important;
+  }
+  body:not(.admin-body) .hero:after{
+    display:block !important;
+    content:"" !important;
+    position:absolute !important;
+    inset:0 !important;
+    z-index:1 !important;
+    background:linear-gradient(90deg,rgba(6,31,22,.92) 0%,rgba(6,31,22,.68) 38%,rgba(6,31,22,.08) 72%,transparent 100%) !important;
+    pointer-events:none !important;
+  }
 }
