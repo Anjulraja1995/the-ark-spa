@@ -1323,11 +1323,11 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 #recoveryPanel > .admin-section-card > button.section-toggle{
   display:flex !important;
   width:100% !important;
-  height:65px !important;
-  min-height:65px !important;
+  height:56px !important;
+  min-height:56px !important;
   margin:0 !important;
   box-sizing:border-box !important;
-  padding:14px 20px !important;
+  padding:8px 20px !important;
 }
 #appointmentsPanel > .admin-section-card + .admin-section-card{
   margin-top:0 !important;
