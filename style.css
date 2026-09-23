@@ -1334,3 +1334,11 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     background:#061f16 url('assets/file_00000000ea10820ebfc1debc0d55e022.png') right center/100% auto no-repeat !important;
   }
 }
+
+
+/* MOBILE HERO — FINAL IMAGE FIT ONLY */
+@media(max-width:760px){
+  body:not(.admin-body) .hero{
+    background:#061f16 url('assets/file_00000000ea10820ebfc1debc0d55e022.png') center center/100% 100% no-repeat !important;
+  }
+}
