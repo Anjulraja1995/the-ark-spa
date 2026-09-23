@@ -1339,6 +1339,6 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 /* MOBILE HERO — FINAL IMAGE FIT ONLY */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
-    background:#061f16 url('assets/file_00000000ea10820ebfc1debc0d55e022.png?v=ark-mobile-proportion-final') 110% center/auto 100% no-repeat !important;
+    background:#061f16 url('assets/file_00000000ea10820ebfc1debc0d55e022.png?v=ark-mobile-original') right center/auto auto no-repeat !important;
   }
 }
