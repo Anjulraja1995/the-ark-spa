@@ -1331,6 +1331,6 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 /* MOBILE HERO — IMAGE POSITION ONLY; ALL TEXT/CONTENT UNCHANGED */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
-    background:#061f16 url('assets/file_00000000ea10820ebfc1debc0d55e022.png') right center/96% auto no-repeat !important;
+    background:#061f16 url('assets/file_00000000ea10820ebfc1debc0d55e022.png') right center/100% auto no-repeat !important;
   }
 }
