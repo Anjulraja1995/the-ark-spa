@@ -99,14 +99,27 @@
 #appointmentsPanel > .admin-section-card>.admin-section-content,#recoveryPanel > .admin-section-card>.admin-section-content{background:transparent!important}
 @media(max-width:760px){#appointmentsPanel > .admin-section-card::before,#recoveryPanel > .admin-section-card::before{transform:perspective(700px) rotateX(52deg) scale(1.8) translateY(22%);opacity:.65}#appointmentsPanel > .admin-section-card::after,#recoveryPanel > .admin-section-card::after{opacity:.55}}
 <style id="admin-panel-card-spacing-restore">
-/* RESTORE ORIGINAL STACKING: no extra vertical gap between Appointment/Recovery section cards. */
-#appointmentsPanel > .admin-section-card + .admin-section-card,
-#recoveryPanel > .admin-section-card + .admin-section-card{
-  margin-top:0 !important;
-}
+/* REFERENCE LOCK: Appointment/Recovery cards use the exact same outer size and stacking as Main Controls. */
+/* Only the outer card geometry is locked here; inner controls/settings are untouched. */
 #appointmentsPanel > .admin-section-card,
 #recoveryPanel > .admin-section-card{
-  margin-bottom:0 !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:auto !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+}
+#appointmentsPanel > .admin-section-card > .section-toggle,
+#recoveryPanel > .admin-section-card > .section-toggle{
+  width:100% !important;
+  height:65px !important;
+  min-height:65px !important;
+  box-sizing:border-box !important;
+  padding:14px 20px !important;
+}
+#appointmentsPanel > .admin-section-card + .admin-section-card{
+  margin-top:0 !important;
 }
 </style></style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form></div></div>
