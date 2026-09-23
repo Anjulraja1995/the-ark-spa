@@ -98,7 +98,17 @@
 #appointmentsPanel > .admin-section-card>button.section-toggle,#recoveryPanel > .admin-section-card>button.section-toggle,#appointmentsPanel > .admin-section-card>.admin-section-content,#recoveryPanel > .admin-section-card>.admin-section-content{position:relative;z-index:3}
 #appointmentsPanel > .admin-section-card>.admin-section-content,#recoveryPanel > .admin-section-card>.admin-section-content{background:transparent!important}
 @media(max-width:760px){#appointmentsPanel > .admin-section-card::before,#recoveryPanel > .admin-section-card::before{transform:perspective(700px) rotateX(52deg) scale(1.8) translateY(22%);opacity:.65}#appointmentsPanel > .admin-section-card::after,#recoveryPanel > .admin-section-card::after{opacity:.55}}
-</style></head><body class="admin-body">
+<style id="admin-panel-card-spacing-restore">
+/* RESTORE ORIGINAL STACKING: no extra vertical gap between Appointment/Recovery section cards. */
+#appointmentsPanel > .admin-section-card + .admin-section-card,
+#recoveryPanel > .admin-section-card + .admin-section-card{
+  margin-top:0 !important;
+}
+#appointmentsPanel > .admin-section-card,
+#recoveryPanel > .admin-section-card{
+  margin-bottom:0 !important;
+}
+</style></style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form></div></div>
 <div id="dashboard" class="admin-shell hidden"><div class="admin-top"><a class="brand" href="index.html"><img id="adminLogo" class="brand-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><span><b>THE ARK</b><small>ADMIN CENTER</small></span></a><button class="btn logout" id="logoutBtn">Logout</button></div>
 <div class="admin-nav"><button class="admin-tab active" data-tab="main">Main Controls</button><button class="admin-tab" data-tab="appointments">Appointments</button><button class="admin-tab" data-tab="recovery">Recovery</button></div>
