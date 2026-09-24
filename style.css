@@ -1386,7 +1386,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   body:not(.admin-body) .hero-desc,
   body:not(.admin-body) .hero-buttons{
     position:relative !important;
-    transform:translateY(285px) !important;
+    transform:translateY(145px) !important;
   }
   body:not(.admin-body) .hero-buttons{
     max-width:100% !important;
