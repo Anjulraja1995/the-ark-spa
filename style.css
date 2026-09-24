@@ -1327,3 +1327,26 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     margin-right:12px !important;
   }
 }
+
+
+/* MOBILE HERO — SLIGHT RIGHT IMAGE SHIFT + SMALLER WELCOME CONTENT */
+@media(max-width:760px){
+  body:not(.admin-body) .hero{
+    background-position:left 18px center !important;
+  }
+  body:not(.admin-body) .hero-welcome{font-size:12px !important;}
+  body:not(.admin-body) .hero-title{font-size:44px !important;}
+  body:not(.admin-body) .hero-tagline{font-size:17px !important;}
+  body:not(.admin-body) .hero-desc{font-size:14px !important;line-height:1.55 !important;}
+  body:not(.admin-body) .hero-buttons{margin-top:18px !important;gap:10px !important;}
+  body:not(.admin-body) .hero .btn-call,
+  body:not(.admin-body) .hero .btn-whatsapp{
+    padding:10px 16px !important;
+    font-size:14px !important;
+  }
+}
+@media(max-width:430px){
+  body:not(.admin-body) .hero-title{font-size:38px !important;}
+  body:not(.admin-body) .hero-tagline{font-size:16px !important;}
+  body:not(.admin-body) .hero-desc{font-size:13px !important;}
+}
