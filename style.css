@@ -1368,7 +1368,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   }
 }
 
-/* MOBILE HERO — MATCH THE USER'S GUIDE BOXES PRECISELY */
+/* MOBILE HERO — NEW LEFT-SIDE TEXT LAYOUT; KEEP BUDDHA IMAGE UNTOUCHED */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
     position:relative !important;
@@ -1377,68 +1377,73 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 
   body:not(.admin-body) .hero-content{
     position:absolute !important;
-    inset:0 !important;
-    width:100% !important;
-    max-width:none !important;
-    transform:none !important;
-    z-index:2 !important;
+    left:4% !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    width:47% !important;
+    max-width:47% !important;
+    margin:0 !important;
+    padding:0 !important;
+    z-index:3 !important;
+    text-align:left !important;
   }
 
-  /* TOP GUIDE BOX */
   body:not(.admin-body) .hero-welcome{
-    position:absolute !important;
-    left:6% !important;
-    top:24% !important;
-    margin:0 !important;
+    position:static !important;
+    display:block !important;
+    margin:0 0 8px !important;
     transform:none !important;
+    font-size:10px !important;
+    letter-spacing:2px !important;
+    line-height:1.2 !important;
   }
 
   body:not(.admin-body) .hero-title{
-    position:absolute !important;
-    left:6% !important;
-    top:27% !important;
+    position:static !important;
     margin:0 !important;
     transform:none !important;
+    font-size:clamp(25px,8vw,34px) !important;
+    line-height:.92 !important;
+    white-space:normal !important;
   }
 
-  /* LONG LOWER GUIDE BOX */
   body:not(.admin-body) .hero-tagline{
-    position:absolute !important;
-    left:6% !important;
-    top:75% !important;
-    width:88% !important;
-    margin:0 !important;
+    position:static !important;
+    margin:12px 0 7px !important;
     transform:none !important;
+    width:auto !important;
+    font-size:11px !important;
+    line-height:1.25 !important;
   }
 
   body:not(.admin-body) .hero-desc{
-    position:absolute !important;
-    left:6% !important;
-    top:81% !important;
-    width:88% !important;
+    position:static !important;
     margin:0 !important;
     transform:none !important;
+    width:auto !important;
+    font-size:10px !important;
+    line-height:1.45 !important;
   }
 
-  /* TWO SMALL GUIDE BOXES — MOVE THE BUTTONS ONLY */
   body:not(.admin-body) .hero-buttons{
-    position:absolute !important;
-    left:6% !important;
-    top:90% !important;
+    position:static !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:7px !important;
     width:auto !important;
-    margin:0 !important;
+    margin:14px 0 0 !important;
     padding:0 !important;
     transform:none !important;
-    display:flex !important;
-    flex-wrap:nowrap !important;
-    gap:12px !important;
   }
 
-  /* Keep the original button text, typography and natural button sizes. */
   body:not(.admin-body) .hero .btn-call,
   body:not(.admin-body) .hero .btn-whatsapp{
     flex:0 0 auto !important;
-    min-width:0 !important;
+    width:auto !important;
+    max-width:100% !important;
     white-space:nowrap !important;
+    padding:7px 10px !important;
+    font-size:11px !important;
   }
 }
