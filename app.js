@@ -93,7 +93,7 @@
       footer:{...DEFAULT.footer,...(saved.footer||{})},
       menu:mergeMenu(saved.menu),
       galleryDefaults:galleryLibrary.defaults,
-      galleryLibrary:{version:1,maxImages:GALLERY_LIBRARY_MAX,images:galleryLibrary.images},
+      galleryLibrary:{version:1,maxImages:GALLERY_LIBRARY_MAX,images:galleryLibrary.images,defaults:galleryLibrary.defaults},
       gallery:galleryUrls(galleryLibrary,'gallery'),
       galleryHomePreview:galleryUrls(galleryLibrary,'homeGalleryPreview'),
       offers:(Array.isArray(saved.offers)?saved.offers:(saved.offers&&typeof saved.offers==='object'?Object.values(saved.offers).filter(Boolean):[]))
