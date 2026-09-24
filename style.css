@@ -1420,8 +1420,8 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     position:static !important;
     margin:0 !important;
     transform:none !important;
-    width:78% !important;
-    max-width:340px !important;
+    width:68% !important;
+    max-width:300px !important;
     font-size:10px !important;
     line-height:1.45 !important;
   }
