@@ -1426,23 +1426,27 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     line-height:1.45 !important;
   }
 
+  /* MOVE ONLY THE TWO BUTTONS TO THE ORIGINAL LOWER GUIDE-BOX POSITIONS */
   body:not(.admin-body) .hero-buttons{
-    position:static !important;
+    position:absolute !important;
+    left:4% !important;
+    top:90% !important;
     display:flex !important;
-    flex-direction:column !important;
-    align-items:flex-start !important;
-    gap:7px !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    gap:10px !important;
     width:auto !important;
-    margin:14px 0 0 !important;
+    margin:0 !important;
     padding:0 !important;
     transform:none !important;
   }
 
+  /* Keep button wording, typography and natural button shape unchanged. */
   body:not(.admin-body) .hero .btn-call,
   body:not(.admin-body) .hero .btn-whatsapp{
     flex:0 0 auto !important;
     width:auto !important;
-    max-width:100% !important;
+    max-width:none !important;
     white-space:nowrap !important;
     padding:7px 10px !important;
     font-size:11px !important;
