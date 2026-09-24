@@ -1420,33 +1420,28 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     position:static !important;
     margin:0 !important;
     transform:none !important;
-    width:78% !important;
-    max-width:340px !important;
+    width:auto !important;
     font-size:10px !important;
     line-height:1.45 !important;
   }
 
-  /* BUTTONS ONLY — move visually downward; do not affect any text layout */
   body:not(.admin-body) .hero-buttons{
     position:relative !important;
-    top:155px !important;
-    left:0 !important;
     display:flex !important;
-    flex-direction:row !important;
-    align-items:center !important;
-    gap:10px !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:7px !important;
     width:auto !important;
     margin:14px 0 0 !important;
     padding:0 !important;
-    transform:none !important;
+    transform:translateY(155px) !important;
   }
 
-  /* Keep button wording, typography and shape unchanged. */
   body:not(.admin-body) .hero .btn-call,
   body:not(.admin-body) .hero .btn-whatsapp{
     flex:0 0 auto !important;
     width:auto !important;
-    max-width:none !important;
+    max-width:100% !important;
     white-space:nowrap !important;
     padding:7px 10px !important;
     font-size:11px !important;
