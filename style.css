@@ -1428,7 +1428,9 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 
   /* BUTTONS ONLY — move visually downward; do not affect any text layout */
   body:not(.admin-body) .hero-buttons{
-    position:static !important;
+    position:relative !important;
+    top:155px !important;
+    left:0 !important;
     display:flex !important;
     flex-direction:row !important;
     align-items:center !important;
@@ -1436,7 +1438,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     width:auto !important;
     margin:14px 0 0 !important;
     padding:0 !important;
-    transform:translateY(155px) !important;
+    transform:none !important;
   }
 
   /* Keep button wording, typography and shape unchanged. */
