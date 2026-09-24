@@ -1344,7 +1344,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     width:100% !important;
     height:100% !important;
     background:#061f16 url('assets/file_00000000ea10820ebfc1debc0d55e022.png?v=ark-mobile-move') center center/100% 100% no-repeat !important;
-    transform:translateX(15px) !important;
+    transform:translateX(0) !important;
     z-index:0 !important;
     pointer-events:none !important;
   }
