@@ -1368,24 +1368,24 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   }
 }
 
-/* MOBILE HERO — SEPARATE THE TWO ANNOTATED TEXT GROUPS */
+/* MOBILE HERO — SET THE TWO TEXT GROUPS TO THE ANNOTATED TARGETS */
 @media(max-width:760px){
   body:not(.admin-body) .hero-content{
-    transform:translateY(-100px) !important;
+    transform:none !important;
   }
 
-  /* UPPER GROUP: Welcome + The Ark + Spa & Salon — move upward only */
+  /* UPPER GROUP: only a small upward adjustment */
   body:not(.admin-body) .hero-welcome,
   body:not(.admin-body) .hero-title{
     position:relative !important;
-    transform:translateY(-120px) !important;
+    transform:translateY(-55px) !important;
   }
 
-  /* LOWER GROUP: tagline + description + buttons — move downward only */
+  /* LOWER GROUP: move the complete lower text group down to the arrow endpoint */
   body:not(.admin-body) .hero-tagline,
   body:not(.admin-body) .hero-desc,
   body:not(.admin-body) .hero-buttons{
     position:relative !important;
-    transform:translateY(190px) !important;
+    transform:translateY(285px) !important;
   }
 }
