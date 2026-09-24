@@ -52,9 +52,37 @@
       const s=byName.get(d.name); return s?{...d,rate:(s.rate===undefined||s.rate===null||String(s.rate).trim()==='')?d.rate:normalizeRateString(s.rate),duration:s.duration??d.duration,description:d.description}:d;
     });
   }
+  const GALLERY_LIBRARY_MAX=20;
+  const GALLERY_PLACEMENTS=[
+    {id:'gallery',label:'Gallery'},
+    {id:'homeGalleryPreview',label:'Home Gallery Preview'}
+  ];
+  function galleryDefaultsFrom(saved){
+    if(Array.isArray(saved.galleryDefaults)&&saved.galleryDefaults.length)return saved.galleryDefaults.filter(Boolean);
+    if(Array.isArray(saved.gallery)&&saved.gallery.length)return saved.gallery.filter(Boolean);
+    return JSON.parse(JSON.stringify(DEFAULT.gallery));
+  }
+  function normalizeGalleryLibrary(saved){
+    const defaults=galleryDefaultsFrom(saved);
+    const raw=saved.galleryLibrary&&Array.isArray(saved.galleryLibrary.images)?saved.galleryLibrary.images:[];
+    const seen=new Set();
+    const images=raw.filter(x=>x&&x.url).map((x,i)=>{
+      const id=String(x.id||('gallery-'+i+'-'+String(x.url).slice(-12)));
+      if(seen.has(id))return null; seen.add(id);
+      const placements=Array.isArray(x.placements)?x.placements.filter(p=>GALLERY_PLACEMENTS.some(v=>v.id===p)):[];
+      return {id,url:String(x.url),name:String(x.name||('Image '+(i+1))),placements};
+    }).filter(Boolean).slice(0,GALLERY_LIBRARY_MAX);
+    return {version:1,maxImages:GALLERY_LIBRARY_MAX,images,defaults};
+  }
+  function galleryUrls(lib,placement){
+    const defaults=Array.isArray(lib.defaults)?lib.defaults.filter(Boolean):JSON.parse(JSON.stringify(DEFAULT.gallery));
+    const custom=(lib.images||[]).filter(x=>Array.isArray(x.placements)&&x.placements.includes(placement)).map(x=>x.url).filter(Boolean);
+    return [...defaults,...custom];
+  }
   function merge(saved){
     saved=saved||{};
     const customLogo=saved.brand&&saved.brand.logoUrl?saved.brand.logoUrl:'';
+    const galleryLibrary=normalizeGalleryLibrary(saved);
     return {
       ...DEFAULT,...saved,
       phone:/^\d{10}$/.test(String(saved.phone||''))?String(saved.phone):DEFAULT.phone, whatsapp:/^\d{10}$/.test(String(saved.whatsapp||''))?String(saved.whatsapp):(/^\d{10}$/.test(String(saved.phone||''))?String(saved.phone):DEFAULT.whatsapp),
@@ -64,7 +92,10 @@
       social:{...DEFAULT.social,...(saved.social||{})},
       footer:{...DEFAULT.footer,...(saved.footer||{})},
       menu:mergeMenu(saved.menu),
-      gallery:Array.isArray(saved.gallery)?saved.gallery:JSON.parse(JSON.stringify(DEFAULT.gallery)),
+      galleryDefaults:galleryLibrary.defaults,
+      galleryLibrary:{version:1,maxImages:GALLERY_LIBRARY_MAX,images:galleryLibrary.images},
+      gallery:galleryUrls(galleryLibrary,'gallery'),
+      galleryHomePreview:galleryUrls(galleryLibrary,'homeGalleryPreview'),
       offers:(Array.isArray(saved.offers)?saved.offers:(saved.offers&&typeof saved.offers==='object'?Object.values(saved.offers).filter(Boolean):[]))
     };
   }
