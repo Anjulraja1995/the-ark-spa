@@ -1359,3 +1359,11 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   body:not(.admin-body) .hero-tagline{font-size:14px !important;}
   body:not(.admin-body) .hero-desc{font-size:12px !important;}
 }
+
+
+/* MOBILE HERO — MOVE ONLY THE COMPLETE WELCOME TEXT BLOCK UP */
+@media(max-width:760px){
+  body:not(.admin-body) .hero-content{
+    transform:translateY(-50px) !important;
+  }
+}
