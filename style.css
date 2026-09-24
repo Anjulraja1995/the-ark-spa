@@ -1332,7 +1332,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 /* MOBILE HERO — SLIGHT RIGHT IMAGE SHIFT + SMALLER WELCOME CONTENT */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
-    background-position:82% center !important;
+    background-position:86% center !important;
     background-size:auto 100% !important;
   }
   body:not(.admin-body) .hero-welcome{font-size:12px !important;}
