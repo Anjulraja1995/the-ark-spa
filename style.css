@@ -1332,8 +1332,16 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
 /* MOBILE HERO — SLIGHT RIGHT IMAGE SHIFT + SMALLER WELCOME CONTENT */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
-    background-position:78% center !important;
+    background-position:90% center !important;
     background-size:auto 100% !important;
+    background-blend-mode:normal !important;
+    filter:none !important;
+  }
+  body:not(.admin-body) .hero::before,
+  body:not(.admin-body) .hero::after{
+    display:none !important;
+    background:none !important;
+    content:none !important;
   }
   body:not(.admin-body) .hero-welcome{font-size:12px !important;}
   body:not(.admin-body) .hero-title{font-size:36px !important;}
