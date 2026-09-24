@@ -1368,7 +1368,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   }
 }
 
-/* MOBILE HERO — MATCH THE USER'S GUIDE BOXES */
+/* MOBILE HERO — MATCH THE USER'S GUIDE BOXES PRECISELY */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
     position:relative !important;
@@ -1384,7 +1384,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     z-index:2 !important;
   }
 
-  /* TOP BOX: WELCOME TO / THE ARK / SPA & SALON */
+  /* TOP GUIDE BOX */
   body:not(.admin-body) .hero-welcome{
     position:absolute !important;
     left:6% !important;
@@ -1396,12 +1396,12 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   body:not(.admin-body) .hero-title{
     position:absolute !important;
     left:6% !important;
-    top:29% !important;
+    top:27% !important;
     margin:0 !important;
     transform:none !important;
   }
 
-  /* LONG LOWER BOX: tagline + full description */
+  /* LONG LOWER GUIDE BOX */
   body:not(.admin-body) .hero-tagline{
     position:absolute !important;
     left:6% !important;
@@ -1420,26 +1420,25 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     transform:none !important;
   }
 
-  /* TWO SMALL BOXES: Contact + WhatsApp */
+  /* TWO SMALL GUIDE BOXES — MOVE THE BUTTONS ONLY */
   body:not(.admin-body) .hero-buttons{
     position:absolute !important;
-    left:7% !important;
+    left:6% !important;
     top:90% !important;
-    width:66% !important;
+    width:auto !important;
     margin:0 !important;
     padding:0 !important;
     transform:none !important;
     display:flex !important;
     flex-wrap:nowrap !important;
-    gap:10px !important;
+    gap:12px !important;
   }
 
+  /* Keep the original button text, typography and natural button sizes. */
   body:not(.admin-body) .hero .btn-call,
   body:not(.admin-body) .hero .btn-whatsapp{
-    flex:1 1 0 !important;
+    flex:0 0 auto !important;
     min-width:0 !important;
     white-space:nowrap !important;
-    padding:9px 8px !important;
-    font-size:13px !important;
   }
 }
