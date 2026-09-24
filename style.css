@@ -1368,31 +1368,30 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   }
 }
 
-/* MOBILE HERO — SET THE TWO TEXT GROUPS TO THE ANNOTATED TARGETS */
+/* MOBILE HERO — PRECISE GUIDE-BOX ALIGNMENT */
 @media(max-width:760px){
-  body:not(.admin-body) .hero-content{
-    transform:none !important;
-  }
-
-  /* UPPER GROUP: only a small upward adjustment */
+  /* Top guide box: WELCOME TO + THE ARK + SPA & SALON */
   body:not(.admin-body) .hero-welcome,
   body:not(.admin-body) .hero-title{
     position:relative !important;
     transform:translateY(-138px) !important;
   }
 
-  /* LOWER GROUP: move down to the arrow endpoint while keeping buttons inside the hero */
+  /* Long lower guide box: tagline + description */
   body:not(.admin-body) .hero-tagline,
-  body:not(.admin-body) .hero-desc,
-  body:not(.admin-body) .hero-buttons{
+  body:not(.admin-body) .hero-desc{
     position:relative !important;
     transform:translateY(438px) !important;
   }
+
+  /* Two small guide boxes below: the two hero buttons */
   body:not(.admin-body) .hero-buttons{
+    position:relative !important;
+    transform:translateY(446px) !important;
     max-width:100% !important;
     padding-bottom:4px !important;
-    transform:translateY(446px) !important;
   }
+
   body:not(.admin-body) .hero .btn-call,
   body:not(.admin-body) .hero .btn-whatsapp{
     flex:0 0 auto !important;
