@@ -1378,7 +1378,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   body:not(.admin-body) .hero-welcome,
   body:not(.admin-body) .hero-title{
     position:relative !important;
-    transform:translateY(-203px) !important;
+    transform:translateY(-138px) !important;
   }
 
   /* LOWER GROUP: move down to the arrow endpoint while keeping buttons inside the hero */
