@@ -1378,7 +1378,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   body:not(.admin-body) .hero-welcome,
   body:not(.admin-body) .hero-title{
     position:relative !important;
-    transform:translateY(-55px) !important;
+    transform:translateY(-203px) !important;
   }
 
   /* LOWER GROUP: move down to the arrow endpoint while keeping buttons inside the hero */
@@ -1386,11 +1386,12 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   body:not(.admin-body) .hero-desc,
   body:not(.admin-body) .hero-buttons{
     position:relative !important;
-    transform:translateY(140px) !important;
+    transform:translateY(438px) !important;
   }
   body:not(.admin-body) .hero-buttons{
     max-width:100% !important;
     padding-bottom:4px !important;
+    transform:translateY(446px) !important;
   }
   body:not(.admin-body) .hero .btn-call,
   body:not(.admin-body) .hero .btn-whatsapp{
