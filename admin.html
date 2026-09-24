@@ -484,4 +484,34 @@ try{bind()}catch(error){console.error("Admin binding error:",error)}auth.setPers
   },true);
   isolate();
 })();
-</script></body></html>
+<script id="admin-login-guard">
+(function(){
+  const form=document.getElementById('loginForm');
+  const email=document.getElementById('email');
+  const password=document.getElementById('password');
+  const msg=document.getElementById('loginMsg');
+  const button=form&&form.querySelector('button[type="submit"]');
+  if(!form||!email||!password||!window.auth)return;
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if(msg){msg.classList.add('hidden');msg.textContent='';}
+    const emailValue=email.value.trim();
+    const passwordValue=password.value;
+    if(!emailValue||!passwordValue)return;
+    if(button){button.disabled=true;button.dataset.loginText=button.textContent;button.textContent='Signing in…';}
+    try{
+      await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+      await auth.signInWithEmailAndPassword(emailValue,passwordValue);
+    }catch(err){
+      console.error('Admin login failed:',err);
+      if(msg){
+        msg.classList.remove('hidden');
+        msg.textContent=err&&err.message?err.message:'Login failed. Please check the Admin Email and Password.';
+      }
+    }finally{
+      if(button){button.disabled=false;button.textContent=button.dataset.loginText||'Login';}
+    }
+  },true);
+})();
+</script></script></body></html>
