@@ -1368,7 +1368,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   }
 }
 
-/* MOBILE HERO — PRECISE MOBILE PLACEMENT */
+/* MOBILE HERO — MATCH THE USER'S GUIDE BOXES */
 @media(max-width:760px){
   body:not(.admin-body) .hero{
     position:relative !important;
@@ -1378,60 +1378,60 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
   body:not(.admin-body) .hero-content{
     position:absolute !important;
     inset:0 !important;
-    max-width:none !important;
     width:100% !important;
+    max-width:none !important;
     transform:none !important;
     z-index:2 !important;
   }
 
-  /* Top guide box: WELCOME TO / THE ARK / SPA & SALON */
+  /* TOP BOX: WELCOME TO / THE ARK / SPA & SALON */
   body:not(.admin-body) .hero-welcome{
     position:absolute !important;
     left:6% !important;
-    top:350px !important;
-    transform:none !important;
+    top:24% !important;
     margin:0 !important;
+    transform:none !important;
   }
 
   body:not(.admin-body) .hero-title{
     position:absolute !important;
     left:6% !important;
-    top:390px !important;
-    transform:none !important;
+    top:29% !important;
     margin:0 !important;
+    transform:none !important;
   }
 
-  /* Long lower guide box: tagline + description */
+  /* LONG LOWER BOX: tagline + full description */
   body:not(.admin-body) .hero-tagline{
     position:absolute !important;
     left:6% !important;
-    top:565px !important;
+    top:75% !important;
     width:88% !important;
-    transform:none !important;
     margin:0 !important;
+    transform:none !important;
   }
 
   body:not(.admin-body) .hero-desc{
     position:absolute !important;
     left:6% !important;
-    top:625px !important;
+    top:81% !important;
     width:88% !important;
-    transform:none !important;
     margin:0 !important;
+    transform:none !important;
   }
 
-  /* Two small guide boxes below */
+  /* TWO SMALL BOXES: Contact + WhatsApp */
   body:not(.admin-body) .hero-buttons{
     position:absolute !important;
-    left:6% !important;
-    top:755px !important;
-    width:88% !important;
-    transform:none !important;
+    left:7% !important;
+    top:90% !important;
+    width:66% !important;
     margin:0 !important;
-    max-width:none !important;
     padding:0 !important;
-    gap:9px !important;
+    transform:none !important;
+    display:flex !important;
     flex-wrap:nowrap !important;
+    gap:10px !important;
   }
 
   body:not(.admin-body) .hero .btn-call,
@@ -1439,7 +1439,7 @@ body:not(.admin-body) .offers-strip .offer-mini .offer-btn{
     flex:1 1 0 !important;
     min-width:0 !important;
     white-space:nowrap !important;
-    padding:9px 10px !important;
+    padding:9px 8px !important;
     font-size:13px !important;
   }
 }
