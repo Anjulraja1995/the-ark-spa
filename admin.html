@@ -13,12 +13,12 @@
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-actions select:disabled{opacity:.45;cursor:not-allowed;filter:saturate(.45)}
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-defaults-head,#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-custom-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 0 10px;flex-wrap:wrap}
-#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-default-grid,#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-custom-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-default-grid,#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-custom-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-default-card{cursor:default;opacity:.92}
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-protected{position:absolute;top:9px;right:9px;padding:5px 8px;border-radius:999px;background:rgba(7,63,45,.9);color:#fff;font-size:11px;font-weight:800}
-@media(max-width:760px){#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-default-grid,#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-custom-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+@media(max-width:760px){#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-default-grid,#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-custom-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-card{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--paper);overflow:hidden;box-shadow:0 8px 20px rgba(7,63,45,.07);cursor:pointer;transition:.18s}
-#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-card img{width:100%;height:145px;object-fit:cover;display:block}
+#mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-card img{width:100%;height:180px;object-fit:cover;object-position:center;display:block}
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-card.selected{border:2px solid var(--gold);box-shadow:0 0 0 3px rgba(201,154,58,.18)}
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-card .gallery-check{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);border:1px solid var(--line);color:var(--green);font-weight:900}
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-card:not(.selected) .gallery-check{opacity:.35}
@@ -42,7 +42,7 @@
 #galleryLocationModal .gallery-location-thumb button{position:absolute;right:6px;top:6px;width:30px;height:30px;border-radius:50%;border:1px solid rgba(165,44,53,.35);background:#fff;color:var(--danger);font-size:18px;font-weight:900;cursor:pointer}
 @media(max-width:760px){
   #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-grid{grid-template-columns:repeat(2,1fr)}
-  #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-card img{height:125px}
+  #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-admin-card img{height:145px}
   #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-actions{display:grid;grid-template-columns:1fr 1fr}
   #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-actions select{min-width:0;grid-column:1/-1;width:100%}
   #galleryLocationModal .gallery-location-images{grid-template-columns:repeat(2,1fr)}
