@@ -256,7 +256,7 @@ async function uploadGalleryFileWithTimeout(ref,file,onProgress){
   return await new Promise((resolve,reject)=>{
     let settled=false;
     const finish=(fn,value)=>{if(settled)return;settled=true;clearTimeout(timer);fn(value)};
-    const timer=setTimeout(()=>{try{task&&task.cancel()}catch(e){}finish(reject,new Error('Upload timed out. Please check your connection and try again.'))},30000);
+    const timer=setTimeout(()=>{try{task&&task.cancel()}catch(e){}finish(reject,new Error('Upload timed out after 120 seconds. Firebase Storage did not complete the upload.'))},120000);
     let task;
     try{
       task=ref.put(file);
@@ -296,7 +296,7 @@ async function handleUploadGallery(){
     galleryShowMsg('✓ '+fs.length+' image(s) added to the Library. Select image(s) to choose where to use them.');
   }catch(e){
     for(const ref of uploadedRefs){try{await ref.delete()}catch(cleanupError){console.warn('Gallery upload rollback cleanup failed:',cleanupError)}}
-    galleryShowMsg('Upload failed: '+(e&&e.message?e.message:String(e)),'error');
+    galleryShowMsg('Upload failed: '+(e&&e.code?e.code+': ':'')+(e&&e.message?e.message:String(e)),'error');
   }
 }
 function galleryStorageRefForImage(image){if(!window.storage||!image)return null;try{if(image.storagePath&&String(image.storagePath).startsWith('site-media/gallery/'))return storage.ref().child(String(image.storagePath));if(image.url){const ref=storage.refFromURL(image.url);if(ref&&String(ref.fullPath||'').startsWith('site-media/gallery/'))return ref}}catch(e){console.warn('Gallery Storage reference unavailable:',e)}return null}
