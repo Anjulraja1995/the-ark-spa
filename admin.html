@@ -239,7 +239,7 @@ async function saveRate(){const x=arkData.menu.find(m=>m.name===currentRateName)
 let gallerySelectedIds=new Set(),gallerySelectedPlacement='',galleryViewingPlacement='',galleryRemoveTarget='';
 const GALLERY_MAX=20;
 const GALLERY_PLACEMENT_OPTIONS=[{id:'gallery',label:'Gallery'},{id:'homeGalleryPreview',label:'Home Gallery Preview'}];
-function galleryLibrary(){const g=arkData.galleryLibrary&&Array.isArray(arkData.galleryLibrary.images)?arkData.galleryLibrary:{images:[]};return {images:g.images||[],max:Number(g.maxImages||GALLERY_MAX)}}
+function galleryLibrary(){const g=arkData.galleryLibrary&&typeof arkData.galleryLibrary==='object'?arkData.galleryLibrary:{images:[]};const defaults=Array.isArray(g.defaults)&&g.defaults.length?g.defaults:(Array.isArray(arkData.galleryDefaults)&&arkData.galleryDefaults.length?arkData.galleryDefaults:(Array.isArray(arkData.gallery)&&arkData.gallery.length?arkData.gallery:[]));return {images:Array.isArray(g.images)?g.images:[],defaults,max:Number(g.maxImages||GALLERY_MAX)}}
 function galleryPlacementLabel(id){return (GALLERY_PLACEMENT_OPTIONS.find(x=>x.id===id)||{}).label||id}
 function gallerySelectedImages(){const ids=gallerySelectedIds;return galleryLibrary().images.filter(x=>ids.has(x.id))}
 function galleryHasPlacement(){return gallerySelectedImages().some(x=>Array.isArray(x.placements)&&x.placements.length)}
