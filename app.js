@@ -2,7 +2,7 @@
   const DEFAULT={
     phone:'9584885121', whatsapp:'9584885121', address:'Shop no. 30, 2nd Floor, Malhar Mall, Vijay Nagar, Indore',
     bookingMode:'both', bookingEnabled:true,
-    brand:{name:'The Ark Spa & Salon',tagline:'Reducing Stress · Increasing Relaxation',logoUrl:'assets/ark-logo-reference.png',heroImage:'assets/ark-buddha-reference.png'},
+    brand:{name:'The Ark Spa & Salon',tagline:'Reducing Stress · Increasing Relaxation',logoUrl:'assets/ark-logo-reference.png',heroImage:'assets/file_00000000ea10820ebfc1debc0d55e022.png?v=hero-exact-20260924-3'},
     hero:{imageUrl:'',customImage:false,desktop:{x:50,y:50,zoom:100,fit:'default'},mobile:{x:72,y:50,zoom:100,fit:'default'},elements:{welcome:{desktop:{x:0,y:0},mobile:{x:0,y:0}},title:{desktop:{x:0,y:0},mobile:{x:0,y:0}},tagline:{desktop:{x:0,y:0},mobile:{x:0,y:0}},desc:{desktop:{x:0,y:0},mobile:{x:0,y:0}},buttons:{desktop:{x:0,y:0},mobile:{x:0,y:155}}}},
     social:{instagram:'',facebook:'',youtube:'',x:'',whatsapp:''},
     footer:{about:'Reducing Stress · Increasing Relaxation',copyright:'© 2026 The Ark Spa & Salon. All Rights Reserved.'},
@@ -179,8 +179,13 @@
       const isMobile=window.matchMedia('(max-width:760px)').matches;
       const cfg=isMobile?(h.mobile||ARK_DEFAULT.hero.mobile):(h.desktop||ARK_DEFAULT.hero.desktop);
       const zoom=Number(cfg.zoom||100);
-      el.style.setProperty('background-size',h.customImage?'auto '+zoom+'%':(isMobile?'auto 100%':'100% 100%'),'important');
-      el.style.setProperty('background-position',Number(cfg.x||50)+'% '+Number(cfg.y||50)+'%','important');
+      if(h.customImage){
+        el.style.setProperty('background-size','auto '+zoom+'%','important');
+        el.style.setProperty('background-position',Number(cfg.x||50)+'% '+Number(cfg.y||50)+'%','important');
+      }else{
+        el.style.removeProperty('background-size');
+        el.style.removeProperty('background-position');
+      }
       const els=h.elements||ARK_DEFAULT.hero.elements;
       ['welcome','title','tagline','desc','buttons'].forEach(k=>{
         const node=el.querySelector('.hero-'+k); if(!node)return;
