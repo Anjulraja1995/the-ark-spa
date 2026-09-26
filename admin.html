@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css?v=admin-size-fix-20260923-v6"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script><script src="firebase-config.js"></script><script src="app.js" defer></script><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — The Ark Spa & Salon</title><link rel="stylesheet" href="style.css?v=admin-size-fix-20260923-v6"><link rel="preload" as="image" href="assets/ark-logo-reference.png"><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script><script src="firebase-config.js"></script><script src="app.js"></script><style>
 @media (max-width:760px){.admin-login{min-height:100svh;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}.admin-login.keyboard-open{align-items:flex-start;padding-top:20px;overflow:auto}.admin-login .login-card{width:min(430px,100%);margin:0;transform:translateY(0);transition:transform .18s ease}.admin-login.keyboard-open .login-card{transform:translateY(var(--keyboard-shift,0px))}}
 </style><style id="gallery-library-ui">
 #mainPanel .admin-section-card:has(#galleryAdmin) .gallery-library-head{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}
@@ -232,34 +232,6 @@
 #heroAdjustModal .hero-adjust-instruction{color:var(--green);font-size:13px;font-weight:700}
 @media(max-width:760px){#heroAdjustModal{padding:8px}#heroAdjustModal .hero-adjust-card{max-height:98vh;padding:10px;border-radius:18px}#heroAdjustModal .hero-adjust-head h3{font-size:19px}#heroAdjustModal .hero-adjust-stage-wrap{padding:6px}#heroAdjustModal .hero-adjust-foot{align-items:stretch}#heroAdjustModal .hero-adjust-instruction{width:100%;font-size:12px}}</style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form>
-<script id="login-submit-fallback">
-(function(){
-  const form=document.getElementById('loginForm');
-  if(!form||form.dataset.loginBound==='1')return;
-  const email=document.getElementById('email');
-  const password=document.getElementById('password');
-  const msg=document.getElementById('loginMsg');
-  if(!email||!password)return;
-  form.dataset.loginBound='1';
-  form.addEventListener('submit',async function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    if(msg){msg.classList.add('hidden');msg.textContent='';}
-    const auth=window.auth;
-    if(!auth){
-      if(msg){msg.textContent='Admin login service is not available. Please refresh the page.';msg.classList.remove('hidden');}
-      return;
-    }
-    try{
-      await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-      await auth.signInWithEmailAndPassword(email.value.trim(),password.value);
-    }catch(err){
-      if(msg){msg.textContent=err&&err.message?err.message:'Login failed. Please try again.';msg.classList.remove('hidden');}
-      console.error('Admin login failed:',err);
-    }
-  });
-})();
-</script>
 </div></div>
 <div id="dashboard" class="admin-shell hidden"><div class="admin-top"><a class="brand" href="index.html"><img id="adminLogo" class="brand-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><span><b>THE ARK</b><small>ADMIN CENTER</small></span></a><button class="btn logout" id="logoutBtn">Logout</button></div>
 <div class="admin-nav"><button class="admin-tab active" data-tab="main">Main Controls</button><button class="admin-tab" data-tab="appointments">Appointments</button><button class="admin-tab" data-tab="recovery">Recovery</button></div>
