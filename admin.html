@@ -675,34 +675,46 @@ if(!window.auth){
   loginMsg.textContent='Admin login service is not available. Please refresh the page.';
   loginMsg.classList.remove('hidden');
 }else{
+  // Wait for Firebase Auth to finish restoring persisted state before deciding
+  // whether the admin is logged out. This prevents a refresh-time null state
+  // from briefly/incorrectly sending an authenticated admin back to Login.
   (async function(){
-    try{await window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)}catch(e){console.error('Admin auth persistence setup failed:',e)}
+    try{
+      await window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    }catch(e){
+      console.error('Admin auth LOCAL persistence setup failed:',e);
+    }
+    try{
+      if(typeof window.auth.authStateReady==='function') await window.auth.authStateReady();
+    }catch(e){
+      console.error('Admin auth state initialization failed:',e);
+    }
     window.auth.onAuthStateChanged(async user=>{
-    if(user){
-      if(window.__arkLoginFlowActive)return;
-      loginScreen.classList.add('hidden');
-      dashboard.classList.add('hidden');
-      resetAdminView();
-      try{
-        await startDashboard();
-        dashboard.classList.remove('hidden');
-      }catch(e){
-        console.error('Admin dashboard load failed:',e);
+      if(user){
+        if(window.__arkLoginFlowActive)return;
+        loginScreen.classList.add('hidden');
+        dashboard.classList.add('hidden');
+        resetAdminView();
+        try{
+          await startDashboard();
+          dashboard.classList.remove('hidden');
+        }catch(e){
+          console.error('Admin dashboard load failed:',e);
+          dashboard.classList.add('hidden');
+          loginScreen.classList.remove('hidden');
+          loginMsg.textContent='Admin data could not be loaded. Please refresh and try again.';
+          loginMsg.classList.remove('hidden');
+        }
+      }else{
         dashboard.classList.add('hidden');
         loginScreen.classList.remove('hidden');
-        loginMsg.textContent='Admin data could not be loaded. Please refresh and try again.';
-        loginMsg.classList.remove('hidden');
+        resetAdminView();
+        loginScreen.scrollTop=0;
+        try{
+          const s=await db.ref('siteContent/brand/logoUrl').once('value');
+          loginLogo.src=s.val()||ARK_DEFAULT.brand.logoUrl;
+        }catch(e){loginLogo.src=ARK_DEFAULT.brand.logoUrl}
       }
-    }else{
-      dashboard.classList.add('hidden');
-      loginScreen.classList.remove('hidden');
-      resetAdminView();
-      loginScreen.scrollTop=0;
-      try{
-        const s=await db.ref('siteContent/brand/logoUrl').once('value');
-        loginLogo.src=s.val()||ARK_DEFAULT.brand.logoUrl;
-      }catch(e){loginLogo.src=ARK_DEFAULT.brand.logoUrl}
-    }
     });
   })();
 }</script><script>
