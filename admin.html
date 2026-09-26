@@ -643,6 +643,18 @@ function resetAdminView(){document.querySelectorAll('.admin-section-card.open').
   }
 })();
 try{bind()}catch(error){console.error("Admin binding error:",error)}
+(function bindHeroDirectControlsSafely(){
+  function byId(id){return document.getElementById(id)}
+  const modeImage=byId('heroImageMode'),modeText=byId('heroTextMode'),close=byId('heroAdjustClose'),done=byId('heroAdjustDone'),modal=byId('heroAdjustModal'),preview=byId('heroPreviewTapArea'),desktop=byId('heroDesktopTab'),mobile=byId('heroMobileTab');
+  if(modeImage)modeImage.onclick=function(e){e.preventDefault();e.stopPropagation();heroModalSetMode('image')};
+  if(modeText)modeText.onclick=function(e){e.preventDefault();e.stopPropagation();heroModalSetMode('text')};
+  if(close)close.onclick=function(e){e.preventDefault();e.stopPropagation();heroCloseAdjust()};
+  if(done)done.onclick=function(e){e.preventDefault();e.stopPropagation();heroCloseAdjust()};
+  if(modal)modal.onclick=function(e){if(e.target===modal)heroCloseAdjust()};
+  if(preview){preview.onclick=function(e){if(e.target.closest('a'))e.preventDefault();heroOpenAdjust()};preview.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();heroOpenAdjust()}}}
+  if(desktop)desktop.onclick=function(e){e.preventDefault();heroEditorDevice='desktop';desktop.classList.add('active');if(mobile)mobile.classList.remove('active');heroRenderEditor()};
+  if(mobile)mobile.onclick=function(e){e.preventDefault();heroEditorDevice='mobile';mobile.classList.add('active');if(desktop)desktop.classList.remove('active');heroRenderEditor()};
+})();
 loginScreen.classList.remove('hidden');
 dashboard.classList.add('hidden');
 if(!window.auth){
