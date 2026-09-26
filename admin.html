@@ -249,10 +249,32 @@
       if(!email.value.trim()||!password.value){if(msg){msg.textContent='Please enter Admin Email and Password.';msg.classList.remove('hidden');}return;}
       button.disabled=true;
       button.textContent='Logging in...';
-      await auth.signInWithEmailAndPassword(email.value.trim(),password.value);
+      window.__arkLoginFlowActive=true;
+      var loginPromise=auth.signInWithEmailAndPassword(email.value.trim(),password.value);
+      var timeoutPromise=new Promise(function(_,reject){setTimeout(function(){reject(new Error('Login request timed out. Please try again.'));},15000)});
+      var credential=await Promise.race([loginPromise,timeoutPromise]);
+      if(!credential||!credential.user)throw new Error('Login did not return an authenticated user.');
+      loginScreen.classList.add('hidden');
+      dashboard.classList.add('hidden');
+      resetAdminView();
+      try{
+        await startDashboard();
+        dashboard.classList.remove('hidden');
+      }catch(loadErr){
+        loginScreen.classList.remove('hidden');
+        var loadMsg=loadErr&&loadErr.message?loadErr.message:'Admin dashboard could not be loaded.';
+        if(msg){msg.textContent='Login succeeded, but the admin panel could not load: '+loadMsg;msg.classList.remove('hidden');}
+        console.error('Admin dashboard load failed after login:',loadErr);
+      }
     }catch(err){
-      if(msg){msg.textContent=err&&err.message?err.message:'Login failed. Please try again.';msg.classList.remove('hidden');}
+      if(msg){
+        var code=err&&err.code?String(err.code)+' — ':'';
+        msg.textContent=code+(err&&err.message?err.message:'Login failed. Please try again.');
+        msg.classList.remove('hidden');
+      }
       console.error('Admin login failed:',err);
+    }finally{
+      window.__arkLoginFlowActive=false;
       button.disabled=false;
       button.textContent='Login';
     }
@@ -630,6 +652,7 @@ if(!window.auth){
   window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});
   window.auth.onAuthStateChanged(async user=>{
     if(user){
+      if(window.__arkLoginFlowActive)return;
       loginScreen.classList.add('hidden');
       dashboard.classList.add('hidden');
       resetAdminView();
