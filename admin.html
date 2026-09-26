@@ -597,7 +597,7 @@ if(!window.auth){
   loginMsg.textContent='Admin login service is not available. Please refresh the page.';
   loginMsg.classList.remove('hidden');
 }else{
-  window.window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});
+  window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});
   window.auth.onAuthStateChanged(async user=>{
     if(user){
       loginScreen.classList.add('hidden');
