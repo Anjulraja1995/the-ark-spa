@@ -3,6 +3,7 @@
     phone:'9584885121', whatsapp:'9584885121', address:'Shop no. 30, 2nd Floor, Malhar Mall, Vijay Nagar, Indore',
     bookingMode:'both', bookingEnabled:true,
     brand:{name:'The Ark Spa & Salon',tagline:'Reducing Stress · Increasing Relaxation',logoUrl:'assets/ark-logo-reference.png',heroImage:'assets/ark-buddha-reference.png'},
+    hero:{imageUrl:'',customImage:false,desktop:{x:50,y:50,zoom:100,fit:'default'},mobile:{x:72,y:50,zoom:100,fit:'default'},elements:{welcome:{desktop:{x:0,y:0},mobile:{x:0,y:0}},title:{desktop:{x:0,y:0},mobile:{x:0,y:0}},tagline:{desktop:{x:0,y:0},mobile:{x:0,y:0}},desc:{desktop:{x:0,y:0},mobile:{x:0,y:0}},buttons:{desktop:{x:0,y:0},mobile:{x:0,y:155}}}},
     social:{instagram:'',facebook:'',youtube:'',x:'',whatsapp:''},
     footer:{about:'Reducing Stress · Increasing Relaxation',copyright:'© 2026 The Ark Spa & Salon. All Rights Reserved.'},
     menu:[
@@ -89,6 +90,7 @@
       address:saved.address||DEFAULT.address,
       bookingMode:['both','whatsapp','website','none'].includes(saved.bookingMode)?saved.bookingMode:DEFAULT.bookingMode,
       brand:{...DEFAULT.brand,logoUrl:customLogo||DEFAULT.brand.logoUrl},
+      hero:(()=>{const h=saved.hero&&typeof saved.hero==='object'?saved.hero:{};const d=h.desktop&&typeof h.desktop==='object'?h.desktop:{};const m=h.mobile&&typeof h.mobile==='object'?h.mobile:{};const e=h.elements&&typeof h.elements==='object'?h.elements:{};const base=JSON.parse(JSON.stringify(DEFAULT.hero));const pick=(src,key,fallback)=>Number.isFinite(Number(src&&src[key]))?Number(src[key]):fallback;const el={};Object.keys(base.elements).forEach(k=>{el[k]={desktop:{x:pick(e[k]&&e[k].desktop,'x',base.elements[k].desktop.x),y:pick(e[k]&&e[k].desktop,'y',base.elements[k].desktop.y)},mobile:{x:pick(e[k]&&e[k].mobile,'x',base.elements[k].mobile.x),y:pick(e[k]&&e[k].mobile,'y',base.elements[k].mobile.y)}}});return {imageUrl:String(h.imageUrl||''),customImage:!!h.customImage,desktop:{x:pick(d,'x',base.desktop.x),y:pick(d,'y',base.desktop.y),zoom:Math.max(100,Math.min(180,pick(d,'zoom',base.desktop.zoom))),fit:h.customImage?'cover':'default'},mobile:{x:pick(m,'x',base.mobile.x),y:pick(m,'y',base.mobile.y),zoom:Math.max(100,Math.min(180,pick(m,'zoom',base.mobile.zoom))),fit:h.customImage?'cover':'default'},elements:el};})(),
       social:{...DEFAULT.social,...(saved.social||{})},
       footer:{...DEFAULT.footer,...(saved.footer||{})},
       menu:mergeMenu(saved.menu),
@@ -169,6 +171,26 @@
     const keys=['instagram','facebook','youtube','x'];
     container.innerHTML=keys.map(k=>{const href=arkData.social&&arkData.social[k]?String(arkData.social[k]).trim():'';const valid=href&&validateSocialUrl(k,href);const icon=socialIcon(k);if(valid)return '<span class="social-icon social-'+k+'" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+'">'+icon+'<a class="social-link" href="'+escapeAttr(href)+'" target="_blank" rel="noopener" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+'"></a></span>';return '<span class="social-icon social-'+k+' social-inactive" aria-disabled="true" aria-label="'+socialLabel(k)+'" title="'+socialLabel(k)+' — link not added yet">'+icon+'</span>'}).join('');
   };
+  window.renderHero=function(){
+    const h=arkData.hero||ARK_DEFAULT.hero;
+    const url=h.customImage&&h.imageUrl?h.imageUrl:ARK_DEFAULT.brand.heroImage;
+    document.querySelectorAll('.hero').forEach(el=>{
+      el.style.setProperty('background-image','url("'+String(url).replace(/"/g,'\\\"')+'")','important');
+      const isMobile=window.matchMedia('(max-width:760px)').matches;
+      const cfg=isMobile?(h.mobile||ARK_DEFAULT.hero.mobile):(h.desktop||ARK_DEFAULT.hero.desktop);
+      const zoom=Number(cfg.zoom||100);
+      el.style.setProperty('background-size',h.customImage?'auto '+zoom+'%':(isMobile?'auto 100%':'100% 100%'),'important');
+      el.style.setProperty('background-position',Number(cfg.x||50)+'% '+Number(cfg.y||50)+'%','important');
+      const els=h.elements||ARK_DEFAULT.hero.elements;
+      ['welcome','title','tagline','desc','buttons'].forEach(k=>{
+        const node=el.querySelector('.hero-'+k); if(!node)return;
+        const p=(els[k]&&els[k][isMobile?'mobile':'desktop'])||{x:0,y:0};
+        node.style.setProperty('--ark-hero-x',Number(p.x||0)+'px');
+        node.style.setProperty('--ark-hero-y',Number(p.y||0)+'px');
+      });
+    });
+  };
+  window.addEventListener('resize',()=>{try{renderHero()}catch(e){}});
   window.renderBrand=function(){
     const fallback=DEFAULT.brand.logoUrl;
     const candidate=String((arkData.brand&&arkData.brand.logoUrl)||fallback).trim()||fallback;
@@ -186,6 +208,7 @@
   let siteContentListener=null;
   window.applyArkSiteData=function(){
     renderBrand();
+    try{renderHero();}catch(e){console.warn('Hero refresh skipped:',e)}
     document.querySelectorAll('[data-phone]').forEach(e=>e.textContent=arkData.phone);
     document.querySelectorAll('[data-address]').forEach(e=>e.textContent=arkData.address);
     document.querySelectorAll('[data-footer-about]').forEach(e=>e.textContent=arkData.footer.about);
