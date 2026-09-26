@@ -265,6 +265,7 @@
       button.textContent='Logging in...';
       window.__arkLoginFlowActive=true;
       await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+      try{await auth.authStateReady();}catch(e){console.warn('Admin auth initialization before login:',e)}
       var loginPromise=auth.signInWithEmailAndPassword(email.value.trim(),password.value);
       var timeoutPromise=new Promise(function(_,reject){setTimeout(function(){reject(new Error('Login request timed out. Please try again.'));},15000)});
       var credential=await Promise.race([loginPromise,timeoutPromise]);
