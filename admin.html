@@ -176,35 +176,31 @@
 #appointmentsPanel > .admin-section-card>.admin-section-content,#recoveryPanel > .admin-section-card>.admin-section-content{background:transparent!important}
 @media(max-width:760px){#appointmentsPanel > .admin-section-card::before,#recoveryPanel > .admin-section-card::before{transform:perspective(700px) rotateX(52deg) scale(1.8) translateY(22%);opacity:.65}#appointmentsPanel > .admin-section-card::after,#recoveryPanel > .admin-section-card::after{opacity:.55}}
 </style><style id="hero-editor-ui">
+#heroEditor.open .admin-section-content{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;overflow:visible!important}
 #heroEditor .hero-editor-grid{display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,1.2fr);gap:18px}
-#heroEditor .hero-preview-wrap{border:1px solid var(--line);border-radius:18px;background:#f4efe3;padding:10px;overflow:hidden}
-#heroEditor .hero-preview-frame{position:relative;width:100%;aspect-ratio:1672/941;border-radius:14px;overflow:hidden;background:#061f16}
-#heroEditor .hero-preview-frame .hero{touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+#heroEditor .hero-preview-wrap{display:block!important;visibility:visible!important;border:1px solid var(--line);border-radius:18px;background:#f4efe3;padding:10px;overflow:hidden}
+#heroEditor .hero-preview-frame{display:block!important;visibility:visible!important;position:relative;width:100%;aspect-ratio:1672/941;min-height:260px;border-radius:14px;overflow:hidden;background:#061f16}
+#heroEditor .hero-preview-frame .hero{display:flex!important;visibility:visible!important;position:relative!important;width:100%!important;height:100%!important;min-height:0!important;box-sizing:border-box;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
 #heroEditor .hero-preview-frame .hero:active{cursor:grabbing}
-#heroEditor .hero-direct-help{padding:12px 14px;border:1px dashed var(--gold);border-radius:14px;background:#fffaf0;color:var(--green);font-size:13px;line-height:1.5}
+#heroEditor .hero-direct-help{display:block;padding:12px 14px;border:1px dashed var(--gold);border-radius:14px;background:#fffaf0;color:var(--green);font-size:13px;line-height:1.5}
 #heroEditor .hero-preview-frame.mobile{width:min(390px,100%);margin:auto;aspect-ratio:390/844}
-#heroEditor .hero-preview-frame .hero{height:100%;min-height:0;aspect-ratio:auto;padding:40px 6%}
+#heroEditor .hero-preview-frame .hero{padding:40px 6%}
 #heroEditor .hero-preview-frame.mobile .hero{padding:52px 5%;background-size:auto 100%!important;background-position:72% 50%!important}
 #heroEditor .hero-preview-frame .hero-content{max-width:600px}
 #heroEditor .hero-preview-frame .hero-welcome,#heroEditor .hero-preview-frame .hero-title,#heroEditor .hero-preview-frame .hero-tagline,#heroEditor .hero-preview-frame .hero-desc,#heroEditor .hero-preview-frame .hero-buttons{position:relative!important;transform:translate(var(--ark-hero-x,0px),var(--ark-hero-y,0px)) scale(var(--ark-hero-scale,1))!important}
-#heroEditor .hero-preview-frame.mobile .hero-content{transform:translateY(-50%)!important}
-#heroEditor .hero-preview-frame.mobile .hero-buttons{transform:translate(var(--ark-hero-x,0px),calc(155px + var(--ark-hero-y,0px))) scale(var(--ark-hero-scale,1))!important}
-#heroEditor .hero-preview-frame.mobile .hero-content{position:absolute!important;left:4%!important;top:50%!important;transform:translateY(-50%)!important;width:47%!important;max-width:47%!important;margin:0!important;padding:0!important}
+#heroEditor .hero-preview-frame.mobile .hero-content{position:absolute!important;left:4%!important;top:50%!important;width:47%!important;max-width:47%!important;margin:0!important;padding:0!important;transform:translateY(-50%)!important}
 #heroEditor .hero-preview-frame.mobile .hero-welcome{font-size:10px!important;letter-spacing:2px!important;margin:0 0 8px!important}
 #heroEditor .hero-preview-frame.mobile .hero-title{font-size:clamp(25px,8vw,34px)!important;margin:0!important;line-height:.92!important}
 #heroEditor .hero-preview-frame.mobile .hero-tagline{font-size:11px!important;line-height:1.25!important;margin:12px 0 7px!important}
 #heroEditor .hero-preview-frame.mobile .hero-desc{font-size:10px!important;line-height:1.45!important;width:68%!important;margin:0!important}
 #heroEditor .hero-preview-frame.mobile .hero-buttons{flex-direction:column!important;align-items:flex-start!important;gap:7px!important;margin:14px 0 0!important}
 #heroEditor .hero-preview-frame.mobile .hero .btn-call,#heroEditor .hero-preview-frame.mobile .hero .btn-whatsapp{padding:7px 10px!important;font-size:11px!important}
-#heroEditor .hero-control-card{border:1px solid var(--line);border-radius:15px;background:#fff;padding:14px;margin-top:12px}
+#heroEditor .hero-control-card{display:block;border:1px solid var(--line);border-radius:15px;background:#fff;padding:14px;margin-top:12px}
 #heroEditor .hero-control-card h3{margin:0 0 10px;color:var(--green);font:700 17px Georgia,serif}
-#heroEditor .hero-range{display:grid;grid-template-columns:100px 1fr 48px;gap:8px;align-items:center;margin:8px 0}
-#heroEditor .hero-range label{font-size:12px;font-weight:800;color:var(--green)}
-#heroEditor input[type=range]{width:100%;accent-color:var(--green)}
-#heroEditor .hero-val{font-size:11px;text-align:right;color:var(--muted)}
 #heroEditor .hero-editor-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 #heroEditor .hero-editor-tabs button.active{background:var(--green);color:#fff;border-color:var(--gold)}
-.hero-dim-ok{color:var(--green);font-weight:800}.hero-dim-bad{color:#9a2c35;font-weight:800}
+#heroEditor .hero-dim-ok{color:var(--green);font-weight:800}
+#heroEditor .hero-dim-bad{color:#9a2c35;font-weight:800}
 @media(max-width:900px){#heroEditor .hero-editor-grid{grid-template-columns:1fr}}
 </style></head><body class="admin-body">
 <div id="loginScreen" class="admin-login hidden"><div class="login-card"><img id="loginLogo" class="login-logo" src="assets/ark-logo-reference.png" alt="The Ark Spa & Salon"><h1>Admin Login</h1><p>Secure access to The Ark Spa & Salon control panel</p><form id="loginForm" class="form"><input id="email" type="email" placeholder="Admin Email" required><input id="password" type="password" placeholder="Password" required><button class="btn primary" type="submit">Login</button><div id="loginMsg" class="status hidden"></div></form></div></div>
