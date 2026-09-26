@@ -175,6 +175,7 @@
     const h=arkData.hero||ARK_DEFAULT.hero;
     const url=h.customImage&&h.imageUrl?h.imageUrl:ARK_DEFAULT.brand.heroImage;
     document.querySelectorAll('.hero').forEach(el=>{
+      el.setAttribute('data-ark-custom',h.customImage&&h.imageUrl?'1':'0');
       el.style.setProperty('background-image','url("'+String(url).replace(/"/g,'\\\"')+'")','important');
       const isMobile=window.matchMedia('(max-width:760px)').matches;
       const cfg=isMobile?(h.mobile||ARK_DEFAULT.hero.mobile):(h.desktop||ARK_DEFAULT.hero.desktop);
