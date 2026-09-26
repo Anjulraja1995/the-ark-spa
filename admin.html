@@ -248,8 +248,7 @@
       if(!auth)throw new Error('Admin login service is not available. Please refresh the page.');
       button.disabled=true;
       button.textContent='Logging in...';
-      auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        .then(function(){return auth.signInWithEmailAndPassword(email.value.trim(),password.value);})
+      auth.signInWithEmailAndPassword(email.value.trim(),password.value)
         .catch(function(err){
           if(msg){msg.textContent=err&&err.message?err.message:'Login failed. Please try again.';msg.classList.remove('hidden');}
           console.error('Admin login failed:',err);
