@@ -90,7 +90,7 @@
       address:saved.address||DEFAULT.address,
       bookingMode:['both','whatsapp','website','none'].includes(saved.bookingMode)?saved.bookingMode:DEFAULT.bookingMode,
       brand:{...DEFAULT.brand,logoUrl:customLogo||DEFAULT.brand.logoUrl},
-      hero:(()=>{const h=saved.hero&&typeof saved.hero==='object'?saved.hero:{};const d=h.desktop&&typeof h.desktop==='object'?h.desktop:{};const m=h.mobile&&typeof h.mobile==='object'?h.mobile:{};const e=h.elements&&typeof h.elements==='object'?h.elements:{};const base=JSON.parse(JSON.stringify(DEFAULT.hero));const pick=(src,key,fallback)=>Number.isFinite(Number(src&&src[key]))?Number(src[key]):fallback;const el={};Object.keys(base.elements).forEach(k=>{el[k]={desktop:{x:pick(e[k]&&e[k].desktop,'x',base.elements[k].desktop.x),y:pick(e[k]&&e[k].desktop,'y',base.elements[k].desktop.y)},mobile:{x:pick(e[k]&&e[k].mobile,'x',base.elements[k].mobile.x),y:pick(e[k]&&e[k].mobile,'y',base.elements[k].mobile.y)}}});return {imageUrl:String(h.imageUrl||''),customImage:!!h.customImage,desktop:{x:pick(d,'x',base.desktop.x),y:pick(d,'y',base.desktop.y),zoom:Math.max(100,Math.min(180,pick(d,'zoom',base.desktop.zoom))),fit:h.customImage?'cover':'default'},mobile:{x:pick(m,'x',base.mobile.x),y:pick(m,'y',base.mobile.y),zoom:Math.max(100,Math.min(180,pick(m,'zoom',base.mobile.zoom))),fit:h.customImage?'cover':'default'},elements:el};})(),
+      hero:(()=>{const h=saved.hero&&typeof saved.hero==='object'?saved.hero:{};const d=h.desktop&&typeof h.desktop==='object'?h.desktop:{};const m=h.mobile&&typeof h.mobile==='object'?h.mobile:{};const e=h.elements&&typeof h.elements==='object'?h.elements:{};const base=JSON.parse(JSON.stringify(DEFAULT.hero));const pick=(src,key,fallback)=>Number.isFinite(Number(src&&src[key]))?Number(src[key]):fallback;const el={};Object.keys(base.elements).forEach(k=>{el[k]={desktop:{x:pick(e[k]&&e[k].desktop,'x',base.elements[k].desktop.x),y:pick(e[k]&&e[k].desktop,'y',base.elements[k].desktop.y),scale:Math.max(.55,Math.min(1.8,pick(e[k]&&e[k].desktop,'scale',1)))},mobile:{x:pick(e[k]&&e[k].mobile,'x',base.elements[k].mobile.x),y:pick(e[k]&&e[k].mobile,'y',base.elements[k].mobile.y),scale:Math.max(.55,Math.min(1.8,pick(e[k]&&e[k].mobile,'scale',1)))}}});return {imageUrl:String(h.imageUrl||''),customImage:!!h.customImage,desktop:{x:pick(d,'x',base.desktop.x),y:pick(d,'y',base.desktop.y),zoom:Math.max(100,Math.min(180,pick(d,'zoom',base.desktop.zoom))),fit:h.customImage?'cover':'default'},mobile:{x:pick(m,'x',base.mobile.x),y:pick(m,'y',base.mobile.y),zoom:Math.max(100,Math.min(180,pick(m,'zoom',base.mobile.zoom))),fit:h.customImage?'cover':'default'},elements:el};})(),
       social:{...DEFAULT.social,...(saved.social||{})},
       footer:{...DEFAULT.footer,...(saved.footer||{})},
       menu:mergeMenu(saved.menu),
@@ -193,6 +193,7 @@
         const p=(els[k]&&els[k][isMobile?'mobile':'desktop'])||{x:0,y:0};
         node.style.setProperty('--ark-hero-x',Number(p.x||0)+'px');
         node.style.setProperty('--ark-hero-y',Number(p.y||0)+'px');
+        node.style.setProperty('--ark-hero-scale',Number(p.scale||1));
       });
     });
   };
