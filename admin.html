@@ -669,27 +669,20 @@ try{bind()}catch(error){console.error("Admin binding error:",error)}
   if(desktop)desktop.onclick=function(e){e.preventDefault();heroEditorDevice='desktop';desktop.classList.add('active');if(mobile)mobile.classList.remove('active');heroRenderEditor()};
   if(mobile)mobile.onclick=function(e){e.preventDefault();heroEditorDevice='mobile';mobile.classList.add('active');if(desktop)desktop.classList.remove('active');heroRenderEditor()};
 })();
-loginScreen.classList.remove('hidden');
+loginScreen.classList.add('hidden');
 dashboard.classList.add('hidden');
 if(!window.auth){
+  loginScreen.classList.remove('hidden');
   loginMsg.textContent='Admin login service is not available. Please refresh the page.';
   loginMsg.classList.remove('hidden');
 }else{
-  // Wait for Firebase Auth to finish restoring persisted state before deciding
-  // whether the admin is logged out. This prevents a refresh-time null state
-  // from briefly/incorrectly sending an authenticated admin back to Login.
   (async function(){
-    try{
-      await window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    }catch(e){
-      console.error('Admin auth LOCAL persistence setup failed:',e);
-    }
     try{
       if(typeof window.auth.authStateReady==='function') await window.auth.authStateReady();
     }catch(e){
       console.error('Admin auth state initialization failed:',e);
     }
-    window.auth.onAuthStateChanged(async user=>{
+    const renderAuthState=async user=>{
       if(user){
         if(window.__arkLoginFlowActive)return;
         loginScreen.classList.add('hidden');
@@ -715,7 +708,9 @@ if(!window.auth){
           loginLogo.src=s.val()||ARK_DEFAULT.brand.logoUrl;
         }catch(e){loginLogo.src=ARK_DEFAULT.brand.logoUrl}
       }
-    });
+    };
+    window.auth.onAuthStateChanged(renderAuthState);
+    await renderAuthState(window.auth.currentUser);
   })();
 }</script><script>
 (function(){
