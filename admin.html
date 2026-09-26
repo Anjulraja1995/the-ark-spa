@@ -264,6 +264,7 @@
       button.disabled=true;
       button.textContent='Logging in...';
       window.__arkLoginFlowActive=true;
+      await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
       var loginPromise=auth.signInWithEmailAndPassword(email.value.trim(),password.value);
       var timeoutPromise=new Promise(function(_,reject){setTimeout(function(){reject(new Error('Login request timed out. Please try again.'));},15000)});
       var credential=await Promise.race([loginPromise,timeoutPromise]);
@@ -674,8 +675,9 @@ if(!window.auth){
   loginMsg.textContent='Admin login service is not available. Please refresh the page.';
   loginMsg.classList.remove('hidden');
 }else{
-  window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});
-  window.auth.onAuthStateChanged(async user=>{
+  (async function(){
+    try{await window.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)}catch(e){console.error('Admin auth persistence setup failed:',e)}
+    window.auth.onAuthStateChanged(async user=>{
     if(user){
       if(window.__arkLoginFlowActive)return;
       loginScreen.classList.add('hidden');
@@ -701,7 +703,8 @@ if(!window.auth){
         loginLogo.src=s.val()||ARK_DEFAULT.brand.logoUrl;
       }catch(e){loginLogo.src=ARK_DEFAULT.brand.logoUrl}
     }
-  });
+    });
+  })();
 }</script><script>
 (function(){
   const login=document.getElementById('loginScreen'),card=login&&login.querySelector('.login-card'),fields=[document.getElementById('email'),document.getElementById('password')];
